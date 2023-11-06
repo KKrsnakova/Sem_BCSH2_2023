@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--Window Border-->
+    <Color x:Key="borderColor1">#54C2CC</Color>
+    <Color x:Key="borderColor2">#20525C</Color>
+    <Color x:Key="borderColor3">#DFE667</Color>
+    
+    
+    <!--Window Background-->
+    <Color x:Key="bgColor1">#16BAFF</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>
+    <SolidColorBrush x:Key="bgAddColor" Color="#278BEF"/>
+    
+    <!--Text-->
+    <SolidColorBrush x:Key="textColor1" Color="#FFFFFF"/>
+
+    <!--Menu colors text-->
+    <SolidColorBrush x:Key="titColor1" Color="#E0E1F1"/>
+    <SolidColorBrush x:Key="titColor2" Color="#D5CFF5"/>
+    <SolidColorBrush x:Key="titColor3" Color="#BCBEE0"/>
+    <SolidColorBrush x:Key="HoverTextColor1" Color="#9497CD"/>
+    <SolidColorBrush x:Key="HoverTextColor2" Color="#7C80C2"/>
+    <SolidColorBrush x:Key="HoverTextColor3" Color="#7376BD"/>
+    
+    <!--Hover-->
+    <SolidColorBrush x:Key="panelColor" Color="#200F53"/>
+    <SolidColorBrush x:Key="hoverOverColor" Color="#281269"/>
+    <SolidColorBrush x:Key="hoverActiveColor" Color="#2B1372"/>
+
+    <!--Color Palette Menu-->
+    <SolidColorBrush x:Key="color1" Color="#E285DE"/>
+    <SolidColorBrush x:Key="color2" Color="#784DFD"/>
+    <SolidColorBrush x:Key="color3" Color="#4ADAEC"/>
+    <SolidColorBrush x:Key="color4" Color="#FB539B"/>
+    <SolidColorBrush x:Key="color5" Color="#7E82FC"/>
+    <SolidColorBrush x:Key="color6" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color7" Color="#EF6C96"/>
+    <SolidColorBrush x:Key="color8" Color="#78A3FC"/>
+    <SolidColorBrush x:Key="color9" Color="#07F3C0"/>
+    <SolidColorBrush x:Key="color10" Color="#FBA1AA"/>
+    
+    <!--NavButtonst--> 
+    <!--close-->
+    <SolidColorBrush x:Key="btnCloseColor1" Color="#E285DE"/>
+    <SolidColorBrush x:Key="btnCloseColor2" Color="#DA34AE"/>
+    <!--Minimalize-->
+    <SolidColorBrush x:Key="btnMinimalColor1" Color="#28AEED"/>
+    <SolidColorBrush x:Key="btnMinimalColor2" Color="#278BEF"/>
+
+</ResourceDictionary>

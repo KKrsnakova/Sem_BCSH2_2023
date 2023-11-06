@@ -1,0 +1,260 @@
+﻿<Window x:Class="Sem_BCSH2_2023.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+        xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        mc:Ignorable="d"
+        Title="MainView" Height="600" Width="1024"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type viewmodel:HomeViewModel}">
+            <local:HomeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:FlowerViewModel}">
+            <local:FlowersView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
+            <local:CustomersView/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Border CornerRadius="10"
+            BorderThickness="1">
+
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource borderColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource borderColor2}" Offset="0.75"/>
+                <GradientStop Color="{StaticResource borderColor3}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Menu-->
+            <Border CornerRadius="10,0,0,10"
+                    Grid.Column="0" Margin="-2,0,2,0"
+                     Background="#200F53">
+                
+
+                <StackPanel>
+                    <!--logo-->
+                    <StackPanel Orientation="Horizontal"
+                                Height="40"
+                                Margin="20,25,0,40">
+                        <Image Source="/Resources/ic.png" Height="40"/>
+
+                    </StackPanel>
+                    <!--Chooses-->
+                    <RadioButton Style="{StaticResource btnMenu}"
+                                 Tag="{StaticResource color1}"
+                                 Command="{Binding ShowHomeViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Home" Style="{StaticResource menuIcons}"/>
+                            <TextBlock Text="Přehled" Style="{StaticResource menuText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+
+                    <RadioButton Style="{StaticResource btnMenu}"
+                                 Tag="{StaticResource color2}"
+                                 Command="{Binding ShowFlowerViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Sun" Style="{StaticResource menuIcons}"/>
+                            <TextBlock Text="Květiny" Style="{StaticResource menuText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource btnMenu}"
+                                 Tag="{StaticResource color3}"
+                                 >
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Tree" Style="{StaticResource menuIcons}"/>
+                            <TextBlock Text="Zboží" Style="{StaticResource menuText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource btnMenu}"
+                                 Tag="{StaticResource color4}"
+                                 Command="{Binding ShowCustomersViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="PeopleGroup" Style="{StaticResource menuIcons}"/>
+                            <TextBlock Text="Zákazníci" Style="{StaticResource menuText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource btnMenu}"
+                                 Tag="{StaticResource color5}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="ShoppingBasket" Style="{StaticResource menuIcons}"/>
+                            <TextBlock Text="Objednavky" Style="{StaticResource menuText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                </StackPanel>
+
+            </Border>
+
+            <!--Main Window-->
+            <Border CornerRadius="0,10,10,0"
+                    Grid.Column="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                        <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!--Nav-->
+                        <RowDefinition Height="25"/>
+                        <!--Header-->
+                        <RowDefinition Height="35"/>
+                        <!--Content-->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Nav-->
+                    <StackPanel x:Name="navBar"
+                                Grid.Row="0"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Background="Transparent"
+                                Margin="0,0,5,0"
+                                MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+                                MouseEnter="NavBar_MouseEnter">
+
+                        <Button x:Name="btnClose"
+                                Style="{StaticResource navBtn}"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="12"
+                            Cursor="Hand"
+                            Click="BtnClose_Click"
+                                >
+                            <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
+                        </Button>
+
+                        <Button x:Name="btnMaximal"
+                                Style="{StaticResource navBtn}"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="16"
+                            Cursor="Hand"
+                            Click="BtnMaximal_Click">
+                            <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                        </Button>
+
+                        <Button x:Name="btnLof"
+                                Style="{StaticResource navBtn}"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="16"
+                            Cursor="Hand"
+                            Click="BtnMinimal_Click">
+                            <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                        </Button>
+                    </StackPanel>
+
+                    <!--Header-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <fa:IconImage Icon="{Binding Icon}"
+                                          Height="20"
+                                          Width="20"
+                                          Foreground="{StaticResource textColor1}"
+                                          Margin="35,0,10,0"/>
+                            <TextBlock Text="{Binding Description}"
+                                       Foreground="{StaticResource textColor1}"
+                                       FontSize="16"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <!--User-->
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0">
+
+                            <Button x:Name="btnLogOut"
+                                    Style="{StaticResource btnLogOut}"
+                                    BorderThickness="0"
+                                    Foreground="White"
+                                    Cursor="Hand"
+                                    Click="BtnLogOut_Click">
+                                    <fa:IconImage Icon="SignOut"
+                                              Foreground="{StaticResource textColor1}"
+                                    />
+                            </Button>
+
+                            <TextBlock Text="Uživatelské jméno"
+                                       Foreground="{StaticResource textColor1}"
+                                       FontSize="16"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center">
+                            </TextBlock>
+
+                            
+                               <Button x:Name="btnSaveData"
+                                      Style="{StaticResource btnLogOut}"
+                                      BorderThickness="0"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Click="BtnSaveData_Click"
+                                    >
+                                <fa:IconImage Icon="Save"
+                                              Foreground="{StaticResource textColor1}"/>
+                            </Button> 
+                            
+
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Content-->
+                    <ContentControl Content="{Binding CurrentChildView}"
+                                    Grid.Row="2"
+                                    Margin="25"/>
+
+
+                </Grid>
+
+
+            </Border>
+
+        </Grid>
+
+    </Border>
+</Window>

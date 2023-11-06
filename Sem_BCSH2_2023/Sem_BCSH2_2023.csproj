@@ -7,4 +7,23 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="person.svg" />
+    <None Remove="Resources\bg1.png" />
+    <None Remove="Resources\bg2.png" />
+    <None Remove="Resources\ic.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
+    <PackageReference Include="LiteDB" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\bg1.png" />
+    <Resource Include="Resources\bg2.png" />
+    <Resource Include="Resources\ic.png" />
+  </ItemGroup>
+
 </Project>
