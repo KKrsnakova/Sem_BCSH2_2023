@@ -14,9 +14,9 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public CustomerViewModel()
         {
-            customersList.Add(new Customer(1, "adam", "novák", "adresa 123", "city", 789456123, "asdasd@xd.cz"));
-            customersList.Add(new Customer(2, "das", "sssss", "adresa 1883", "city", 155456789, "asdasd@xd.cz"));
-            customersList.Add(new Customer(3, "jan", "novák", "asd 123", "ssss", 123456789, "asdasd@xd.cz"));
+            //customersList.Add(new Customer(1, "adam", "novák", "adresa 123", "city", 789456123, "asdasd@xd.cz"));
+            //customersList.Add(new Customer(2, "das", "sssss", "adresa 1883", "city", 155456789, "asdasd@xd.cz"));
+            //customersList.Add(new Customer(3, "jan", "novák", "asd 123", "ssss", 123456789, "asdasd@xd.cz"));
         }
     }
 }

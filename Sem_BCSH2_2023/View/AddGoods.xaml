@@ -6,38 +6,38 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
         xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel"
         mc:Ignorable="d"
-        Title="AddGoods" Height="500" Width="350"
+        Title="AddGoods" Height="500" Width="400"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True">
-    
+
 
     <Grid Background="{StaticResource bgAddColor}">
         <Grid.RowDefinitions>
             <!--Nav-->
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
-         
+
         </Grid.RowDefinitions>
 
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="70"/>
         </Grid.ColumnDefinitions>
 
 
         <StackPanel x:Name="navBar"
                                 Grid.Row="0"
-                    Grid.Column="2"
+                                Grid.Column="2"
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
                                 Margin="0,0,5,0"
-                                MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
-                                MouseEnter="NavBar_MouseEnter">
+                                MouseLeftButtonDown="navBar_MouseLeftButtonDown"
+                                MouseEnter="navBar_MouseEnter">
 
             <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
@@ -45,7 +45,7 @@
                             Foreground="White"
                             FontSize="12"
                             Cursor="Hand"
-                            Click="BtnClose_Click"
+                            Click="btnClose_Click"
                                 >
                 <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
             </Button>
@@ -56,17 +56,17 @@
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
-                            Click="BtnMaximal_Click">
+                            Click="btnMaximal_Click">
                 <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
             </Button>
 
-            <Button x:Name="btnLof"
+            <Button x:Name="btnMinimal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
-                            Click="BtnMinimal_Click">
+                            Click="btnMinimal_Click">
                 <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
             </Button>
         </StackPanel>

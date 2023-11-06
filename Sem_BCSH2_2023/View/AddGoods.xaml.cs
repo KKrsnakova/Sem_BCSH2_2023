@@ -35,5 +35,37 @@ namespace Sem_BCSH2_2023.ViewModel
              description: tbDesc.Text ));
             this.Close();
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+           this.Close();
+        }
+
+        private void btnMaximal_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+            else this.WindowState = WindowState.Normal;
+        }
+
+
+        private void btnMinimal_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void navBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+     
+
+        private void navBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+        }
     }
 }
