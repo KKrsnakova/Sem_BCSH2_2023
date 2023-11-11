@@ -7,13 +7,22 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
-    public abstract class BaseViewModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        
-        public void OnPropertyChanged(string propName)
+   public abstract class BaseViewModel : INotifyPropertyChanged
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            protected virtual void SetProperty<T>(ref T field, T value, string propertyName)
+            {
+                if (!EqualityComparer<T>.Default.Equals(field, value))
+                {
+                    field = value;
+                    OnPropertyChanged(propertyName);
+                }
+            }
+
+            public void OnPropertyChanged(string propName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            }
         }
     }
-}

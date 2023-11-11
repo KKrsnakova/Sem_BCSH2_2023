@@ -24,6 +24,7 @@ namespace Sem_BCSH2_2023.View
     {
         public FlowersMng FlowersMng { get; set; }
         public CustomerMng CustomerMng { get; set; }
+        public OtherItemsMng OtherItemsMng { get; set; }
 
         public MainView()
         {
@@ -31,10 +32,12 @@ namespace Sem_BCSH2_2023.View
             InitializeComponent();
             FlowersMng = new FlowersMng(repo);
             CustomerMng = new CustomerMng(repo);
+            OtherItemsMng = new OtherItemsMng(repo);
 
-            FlowerViewModel.flowers = FlowersMng.GetAllFlowers();
-            CustomerViewModel.customersList = CustomerMng.GetAllCustomers();
-            
+            FlowerViewModel.FlowersList = FlowersMng.GetAllFlowers();
+            CustomerViewModel.CustomersList = CustomerMng.GetAllCustomers();
+            OtherItemsViewModel.OtherItemsList = OtherItemsMng.GetAllOtherItems();
+
 
         }
 
@@ -60,10 +63,11 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnMaximal_Click(object sender, RoutedEventArgs e)
         {
-            if(this.WindowState == WindowState.Normal)
+            if (this.WindowState == WindowState.Normal)
             {
                 this.WindowState = WindowState.Maximized;
-            }else this.WindowState=WindowState.Normal;
+            }
+            else this.WindowState = WindowState.Normal;
         }
 
 
@@ -76,12 +80,15 @@ namespace Sem_BCSH2_2023.View
         private void BtnSaveData_Click(object sender, RoutedEventArgs e)
         {
             FlowersMng.RemoveAllFlowers();
-            FlowersMng.AddAllFlowers(FlowerViewModel.flowers);
+            FlowersMng.AddAllFlowers(FlowerViewModel.FlowersList);
 
             CustomerMng.RemoveAllCustomers();
-            CustomerMng.AddAllCustomers(CustomerViewModel.customersList);
+            CustomerMng.AddAllCustomers(CustomerViewModel.CustomersList);
 
-            MessageBox.Show("Uloženo", "Uloženo do DB", MessageBoxButton.OK);
+            OtherItemsMng.RemoveAllOtherItems();
+            OtherItemsMng.AddAllOtherIrems(OtherItemsViewModel.OtherItemsList);
+
+            MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
 

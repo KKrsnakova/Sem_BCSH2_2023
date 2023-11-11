@@ -69,6 +69,7 @@
                             Click="btnMinimal_Click">
                 <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
             </Button>
+
         </StackPanel>
 
 
@@ -76,7 +77,8 @@
                     Grid.Row="1"
                     Orientation="Vertical"
                     Margin="0,35,0,0">
-            <TextBlock  Text="Přidat novou rostlinu"
+            <TextBlock  x:Name="windowName"
+                        Text="Přidat novou rostlinu"
                         Foreground="{StaticResource textColor1}"
                         FontSize="25"
                         FontWeight="Medium"
@@ -84,66 +86,36 @@
 
             </TextBlock>
 
-            <TextBlock  
-                    Text="Název"
-                    Foreground="White"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    Margin="0,35,0,0"/>
+            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                        Text="Název"
+                        Margin="0,35,0,0"/>
 
             <TextBox x:Name="tbName"
-                    FontSize="13"
-                    FontWeight="Medium"
-                    Foreground="White"
-                    CaretBrush="White"
-                    BorderBrush="White"
-                    Background="Transparent"
-                    BorderThickness="0,0,0,1"
-                    Height="28"
-                    VerticalContentAlignment="Center"
-                    Margin="0,0,0,5">
-
+                     Style="{StaticResource TextBoxAdd}">
             </TextBox>
 
-            <TextBlock  
-                    Text="Cena"
-                    Foreground="White"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    Margin="0,10,0,0"/>
+            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                    Text="Cena"/>
 
             <TextBox x:Name="tbPrice"
-                    FontSize="13"
-                    FontWeight="Medium"
-                    Foreground="White"
-                    CaretBrush="White"
-                    BorderBrush="White"
-                    Background="Transparent"
-                    BorderThickness="0,0,0,1"
-                    Height="28"
-                    VerticalContentAlignment="Center"
-                    Margin="0,0,0,5">
+                     Style="{StaticResource TextBoxAdd}">
+            </TextBox>
+
+            <TextBlock  x:Name="text3"
+                Style="{StaticResource TextBlockAdd}"
+                    Text="Popis" />
+
+            <TextBox x:Name="tbDesc_tbCount"
+                  Style="{StaticResource TextBoxAdd}">
 
             </TextBox>
 
-            <TextBlock  
-                    Text="Popis"
-                    Foreground="White"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    Margin="0,10,0,0"/>
+            <TextBlock  x:Name="text4"
+                    Style="{StaticResource TextBlockAdd}"
+                    Text="Specifikace rostliny"/>
 
-            <TextBox x:Name="tbDesc"
-                    FontSize="13"
-                    FontWeight="Medium"
-                    Foreground="White"
-                    CaretBrush="White"
-                    BorderBrush="White"
-                    Background="Transparent"
-                    BorderThickness="0,0,0,1"
-                    Height="28"
-                    VerticalContentAlignment="Center"
-                    Margin="0,0,0,5">
+            <TextBox x:Name="tbSpec_tbUsage"
+                  Style="{StaticResource TextBoxAdd}">
 
             </TextBox>
 

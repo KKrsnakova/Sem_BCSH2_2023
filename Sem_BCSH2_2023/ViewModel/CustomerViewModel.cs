@@ -8,15 +8,41 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
-    public class CustomerViewModel:BaseViewModel
+    public class CustomerViewModel : BaseViewModel
     {
-        public static ObservableCollection<Customer> customersList = new ObservableCollection<Customer>();
+        public static ObservableCollection<Customer> CustomersList = new ObservableCollection<Customer>();
 
         public CustomerViewModel()
         {
-            //customersList.Add(new Customer(1, "adam", "novák", "adresa 123", "city", 789456123, "asdasd@xd.cz"));
-            //customersList.Add(new Customer(2, "das", "sssss", "adresa 1883", "city", 155456789, "asdasd@xd.cz"));
-            //customersList.Add(new Customer(3, "jan", "novák", "asd 123", "ssss", 123456789, "asdasd@xd.cz"));
         }
+
+        public static void AddCustomer(string nameAdd, string surnameAdd,
+                                        string addressAdd, string cityAdd,
+                                        long phoneAdd, string emailAdd)
+        {
+            CustomersList.Add(new Customer(id: IdGenerator(),
+                nameAdd, surnameAdd, addressAdd, cityAdd, phoneAdd, emailAdd));
+        }
+
+        public static void RemoveCustomer(Customer selectedCustomer)
+        {
+            CustomersList.Remove(selectedCustomer);
+        }
+
+        private static int IdGenerator()
+        {
+            int pocet;
+            if (CustomersList.Count() == 0)
+            {
+                pocet = 1;
+            }
+            else
+            {
+                pocet = CustomersList.Last().Id;
+                pocet++;
+            }
+            return pocet;
+        }
+
     }
 }

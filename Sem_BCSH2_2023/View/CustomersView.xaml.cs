@@ -1,8 +1,10 @@
-﻿using Sem_BCSH2_2023.ViewModel;
+﻿using Sem_BCSH2_2023.Model;
+using Sem_BCSH2_2023.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,20 +23,48 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class CustomersView : UserControl
     {
+        public static Customer? customer;
+
         public CustomersView()
         {
             InitializeComponent();
-            lvCustomers.ItemsSource = CustomerViewModel.customersList;
+            btnEdit.IsEnabled = false;
+            lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            Thread threadOpen = new Thread(() =>
+            {
+                AddEditCustomer windowAddCustomer = Dispatcher.Invoke(() => new AddEditCustomer(null));
+                Dispatcher.Invoke(() => windowAddCustomer.Show());
+            });
+            threadOpen.Start();
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            CustomerViewModel.RemoveCustomer((Customer)lvCustomers.SelectedItem);
         }
+
+        private void LvCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnEdit.IsEnabled = true;
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvCustomers.SelectedItem != null)
+            {
+                customer = (Customer)lvCustomers.SelectedItem;
+                int selectedId = customer.Id;
+                AddEditCustomer windowEditCustomer = new AddEditCustomer(selectedId);
+                windowEditCustomer.ShowDialog();
+                lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
+                lvCustomers.Items.Refresh();
+            }
+        }
+
+
     }
 }

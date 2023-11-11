@@ -12,6 +12,7 @@
     <None Remove="Resources\bg1.png" />
     <None Remove="Resources\bg2.png" />
     <None Remove="Resources\ic.png" />
+    <None Remove="Resources\Orchidej.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <Resource Include="Resources\bg1.png" />
     <Resource Include="Resources\bg2.png" />
     <Resource Include="Resources\ic.png" />
+    <Resource Include="Resources\Orchidej.jpg" />
   </ItemGroup>
 
 </Project>

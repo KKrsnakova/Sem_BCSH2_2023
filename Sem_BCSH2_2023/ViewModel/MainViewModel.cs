@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
-    public class MainViewModel: BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         private BaseViewModel currentChildView;
         private string description;
@@ -38,7 +37,7 @@ namespace Sem_BCSH2_2023.ViewModel
             set
             {
                 description = value;
-                OnPropertyChanged(nameof(Caption));
+                OnPropertyChanged(nameof(Description));
             }
         }
         public IconChar Icon
@@ -57,17 +56,21 @@ namespace Sem_BCSH2_2023.ViewModel
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowFlowerViewCommand { get; }
+        public ICommand ShowGoodsViewCommand { get; }
         public ICommand ShowCustomersViewCommand { get; }
+        public ICommand ShowOrdersViewCommand { get; }
         public MainViewModel()
         {
 
             //Initialize commands
             ShowHomeViewCommand = new CommandViewModel(ExecuteShowHomeViewCommand);
             ShowFlowerViewCommand = new CommandViewModel(ExecuteShowFlowerViewCommand);
+            ShowGoodsViewCommand = new CommandViewModel(ExecuteShowGoodsViewCommand);
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
+            ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
 
             //Default view
-            ExecuteShowHomeViewCommand(null);
+            //ExecuteShowHomeViewCommand(null);
         }
 
         private void ExecuteShowHomeViewCommand(object obj)
@@ -88,6 +91,20 @@ namespace Sem_BCSH2_2023.ViewModel
             CurrentChildView = new CustomerViewModel();
             Description = "Zákazníci";
             Icon = IconChar.UserGroup;
+        }
+        
+        private void ExecuteShowGoodsViewCommand(object obj)
+        {
+            CurrentChildView = new OtherItemsViewModel();
+            Description = "Zboží";
+            Icon = IconChar.Tree;
+        }
+        
+        private void ExecuteShowOrdersViewCommand(object obj)
+        {
+            CurrentChildView = new CustomerViewModel();
+            Description = "Objednávky";
+            Icon = IconChar.ShoppingBasket;
         }
 
 

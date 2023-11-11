@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
         mc:Ignorable="d"
-        Title="MainView" Height="600" Width="1024"
+        Title="MainView" Height="600" Width="1300"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
@@ -28,6 +28,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
             <local:CustomersView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:OtherItemsViewModel}">
+            <local:OtherItemsView/>
         </DataTemplate>
 
     </Window.Resources>
@@ -88,6 +91,7 @@
 
                     <RadioButton Style="{StaticResource btnMenu}"
                                  Tag="{StaticResource color3}"
+                                 Command="{Binding ShowGoodsViewCommand}" 
                                  >
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tree" Style="{StaticResource menuIcons}"/>
@@ -107,7 +111,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource btnMenu}"
-                                 Tag="{StaticResource color5}">
+                                 Tag="{StaticResource color5}"
+                                 Command="{Binding ShowOrdersViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="ShoppingBasket" Style="{StaticResource menuIcons}"/>
                             <TextBlock Text="Objednavky" Style="{StaticResource menuText}"/>

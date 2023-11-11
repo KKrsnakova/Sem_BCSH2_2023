@@ -12,9 +12,12 @@ namespace Sem_BCSH2_2023.Model
 
         public string Description { get; set; }
 
-        public Flower(int id, string name, double price, string description) : base(id, name, price)
+        public string FlowerSpecies { get; set; }
+
+        public Flower(int id, string name, double price, string description, string flowerSpecies) : base(id, name, price)
         {
             Description = description;
+            FlowerSpecies = flowerSpecies;
         }
 
         //  public Species SpeciesFlower { get; set; }
