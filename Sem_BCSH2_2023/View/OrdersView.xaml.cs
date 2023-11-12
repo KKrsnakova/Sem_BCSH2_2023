@@ -28,7 +28,7 @@ namespace Sem_BCSH2_2023.View
         public OrdersView()
         {
             InitializeComponent();
-          //  lvOrders.ItemsSource = OrderViewModel.OrderList;
+            lvOrders.ItemsSource = OrderViewModel.OrderList;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)

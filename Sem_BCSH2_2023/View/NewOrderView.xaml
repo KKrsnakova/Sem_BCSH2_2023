@@ -110,46 +110,11 @@
             <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
                       VerticalAlignment="Top"
                       Width="650" Margin="10" 
-                     DisplayMemberPath="Name" 
+                     DisplayMemberPath="Surname" 
                       SelectedValuePath="Id"
                    SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}"
                       />
 
-            <!--<TextBlock Style="{StaticResource TextBlockAdd}"
-                        Text="Přijmení" />
-
-            <TextBox x:Name="tbSurname"
-                     Style="{StaticResource TextBoxAdd}">
-            </TextBox>
-
-            <TextBlock Style="{StaticResource TextBlockAdd}"
-                       Text="Ulice a číslo popisné " />
-
-            <TextBox x:Name="tbAddress"
-                     Style="{StaticResource TextBoxAdd}">
-            </TextBox>
-
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
-                    Text="Město + PSČ "/>
-
-            <TextBox Style="{StaticResource TextBoxAdd}"
-                     x:Name="tbCity">
-            </TextBox>
-
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Text="Telefonní číslo"  />
-
-            <TextBox Style="{StaticResource TextBoxAdd}"
-                     x:Name="tbPhoneNumber">
-            </TextBox>
-
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Text="E-mailová adresa"/>
-
-            <TextBox Style="{StaticResource TextBoxAdd}"
-                    x:Name="tbEmail">
-            </TextBox>-->
-            
             <!--Order-->
             <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="Objednávka"/>

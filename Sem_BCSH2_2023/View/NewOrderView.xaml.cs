@@ -35,6 +35,9 @@ namespace Sem_BCSH2_2023.View
             if (order == null && selectedCustomer != null)
             {
                 newOrder = OrderViewModel.NewOrder(selectedCustomer.Id);
+            } else if (order != null) 
+            {
+                newOrder = order;
             }
         }
 
@@ -43,7 +46,7 @@ namespace Sem_BCSH2_2023.View
         //Add or Delete Goods from order list
         private void BtnAddGood_Click(object sender, RoutedEventArgs e)
         {
-            AllGoodsView windowAllGoods = new AllGoodsView();
+            AllGoodsView windowAllGoods = new AllGoodsView(newOrder);
             windowAllGoods.Show();
         }
 

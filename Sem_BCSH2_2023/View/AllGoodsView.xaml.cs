@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -21,17 +22,30 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class AllGoodsView : Window
     {
-        public AllGoodsView()
+        Order actualOrder;
+        public AllGoodsView(Order order)
         {
             InitializeComponent();
             lvItemsForOrder.ItemsSource = GoodViewModel.GoodsList;
-
+            actualOrder = order;
 
         }
 
         private void LvItemsForOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lvItemsForOrder.SelectedItem != null)
+            {
+                Good selectedGood = (Good)lvItemsForOrder.SelectedItem;
+                int selectedID = selectedGood.Id;
 
+              
+                    actualOrder.SellGoods(selectedGood);
+                    GoodViewModel.GoodsList.Remove(selectedGood);
+
+
+                Close();
+
+            }
         }
 
 
