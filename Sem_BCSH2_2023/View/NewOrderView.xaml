@@ -1,18 +1,16 @@
-﻿<Window x:Class="Sem_BCSH2_2023.ViewModel.AddGoods"
+﻿<Window x:Class="Sem_BCSH2_2023.View.NewOrderView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
-        xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
         mc:Ignorable="d"
-        Title="AddGoods" Height="500" Width="400"
-        WindowStartupLocation="CenterScreen"
+         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True">
-
-
+        AllowsTransparency="True"
+        Title="Nová Objednávka" Height="800" Width="1024">
     <Grid Background="{StaticResource bgAddColor}">
         <Grid.RowDefinitions>
             <!--Nav-->
@@ -26,9 +24,10 @@
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="70"/>
+
         </Grid.ColumnDefinitions>
 
-
+        <!--Header buttonst-->
         <StackPanel x:Name="navBar"
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -69,55 +68,111 @@
                             Click="BtnMinimal_Click">
                 <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
             </Button>
-
         </StackPanel>
 
+        <!--Main block-->
 
+        <StackPanel Grid.Column="3" Grid.Row="2">
+            <Button Content="+"
+                    Style="{StaticResource Add_DeleteButtonStyle}"
+                    Name="btnAddGood"
+                    Click="BtnAddGood_Click">
+                
+            </Button>
+
+            <Button Content="-"
+                    Style="{StaticResource Add_DeleteButtonStyle}"
+                    Name="btnDeleteGood"
+                    Click="BtnDeleteGood_Click">
+                
+            </Button>
+
+        </StackPanel>
         <StackPanel Grid.Column="1"
                     Grid.Row="1"
                     Orientation="Vertical"
                     Margin="0,35,0,0">
             <TextBlock  x:Name="windowName"
-                        Text="Přidat novou rostlinu"
+                        Text="Nová objednávka"
                         Foreground="{StaticResource textColor1}"
                         FontSize="25"
                         FontWeight="Medium"
                         HorizontalAlignment="Center">
 
             </TextBlock>
+            
+            
 
+            <!--TextBoxes-->
             <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Text="Název"
-                        Margin="0,35,0,0"/>
+                        Text="Zákazník"/>
 
-            <TextBox x:Name="tbName"
+            <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
+                      VerticalAlignment="Top"
+                      Width="650" Margin="10" 
+                     DisplayMemberPath="Name" 
+                      SelectedValuePath="Id"
+                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}"
+                      />
+
+            <!--<TextBlock Style="{StaticResource TextBlockAdd}"
+                        Text="Přijmení" />
+
+            <TextBox x:Name="tbSurname"
+                     Style="{StaticResource TextBoxAdd}">
+            </TextBox>
+
+            <TextBlock Style="{StaticResource TextBlockAdd}"
+                       Text="Ulice a číslo popisné " />
+
+            <TextBox x:Name="tbAddress"
                      Style="{StaticResource TextBoxAdd}">
             </TextBox>
 
             <TextBlock  Style="{StaticResource TextBlockAdd}"
-                    Text="Cena"/>
+                    Text="Město + PSČ "/>
 
-            <TextBox x:Name="tbPrice"
-                     Style="{StaticResource TextBoxAdd}">
+            <TextBox Style="{StaticResource TextBoxAdd}"
+                     x:Name="tbCity">
             </TextBox>
 
-            <TextBlock  x:Name="text3"
-                Style="{StaticResource TextBlockAdd}"
-                    Text="Popis" />
+            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                        Text="Telefonní číslo"  />
 
-            <TextBox x:Name="tbDesc_tbCount"
-                  Style="{StaticResource TextBoxAdd}">
-
+            <TextBox Style="{StaticResource TextBoxAdd}"
+                     x:Name="tbPhoneNumber">
             </TextBox>
 
-            <TextBlock  x:Name="text4"
-                    Style="{StaticResource TextBlockAdd}"
-                    Text="Specifikace rostliny"/>
+            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                        Text="E-mailová adresa"/>
 
-            <TextBox x:Name="tbSpec_tbUsage"
-                  Style="{StaticResource TextBoxAdd}">
+            <TextBox Style="{StaticResource TextBoxAdd}"
+                    x:Name="tbEmail">
+            </TextBox>-->
+            
+            <!--Order-->
+            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                        Text="Objednávka"/>
 
-            </TextBox>
+            <Border Grid.Row="1"
+                    Margin="0,10,0,10"
+                Background="#200F53"
+                CornerRadius="10" 
+                    Height="350"
+                Padding="10">
+                <ListView Name="lvOtherItems" SelectionChanged="LvOtherItems_SelectionChanged">
+                    <ListView.View>
+                        <GridView >
+                            <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
+                            <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                            <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                            <GridViewColumn Width="100" Header="Počet" DisplayMemberBinding="{Binding Count, Mode=TwoWay}" />
+                            <GridViewColumn Width="200" Header="Využití" DisplayMemberBinding="{Binding Usage, Mode=TwoWay}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+
 
             <Button Content="Přidat"
                     Name="btnAdd"
@@ -126,7 +181,7 @@
                     BorderThickness="0"
                     Foreground="White"
                     Margin="40,0,40,0"
-                    VerticalAlignment="Top" Click="btnAdd_Click">
+                    VerticalAlignment="Top" Click="BtnAdd_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#773DFF"/>
@@ -157,6 +212,4 @@
 
         </StackPanel>
     </Grid>
-
-
 </Window>

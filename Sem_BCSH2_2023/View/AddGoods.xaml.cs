@@ -135,12 +135,12 @@ namespace Sem_BCSH2_2023.ViewModel
 
         //Modification buttons
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void btnMaximal_Click(object sender, RoutedEventArgs e)
+        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Normal)
             {
@@ -150,19 +150,19 @@ namespace Sem_BCSH2_2023.ViewModel
         }
 
 
-        private void btnMinimal_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void navBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
 
 
 
-        private void navBar_MouseEnter(object sender, MouseEventArgs e)
+        private void NavBar_MouseEnter(object sender, MouseEventArgs e)
         {
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }

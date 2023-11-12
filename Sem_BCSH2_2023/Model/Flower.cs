@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Model
 {
-    public class Flower : Goods
+    public class Flower : Good
     {
 
 

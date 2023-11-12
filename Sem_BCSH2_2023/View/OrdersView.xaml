@@ -7,6 +7,93 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="110"/>
+                
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        Grid.Column="0">
+
+            </StackPanel>
+            <!--TextBoxes-->
+            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                        Grid.Column="0"
+                        Text="Zákazník: "/>
+
+
+            <!--<ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
+                      Grid.Column="1"
+                      VerticalAlignment="Top"
+                      Width="650" Margin="10" 
+                     DisplayMemberPath="Name" 
+                      SelectedValuePath="Id"
+                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}" SelectionChanged="cbCustomer_SelectionChanged_1"
+                      />-->
+            <Button Grid.Column="2"  
+                    Name="btnAdd"
+                    Content="Přidat"
+                    Style="{StaticResource BtnAddEditDelete}"
+                    FontSize="13"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    VerticalAlignment="Top" Click="BtnAdd_Click">
+
+            </Button>
+
+
+            <Button Grid.Column="3"  
+                    Name="btnDelete"
+                    Content="Odebrat"
+                    Style="{StaticResource BtnAddEditDelete}"
+                    FontSize="13"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    VerticalAlignment="Top" Click="BtnDelete_Click">
+
+            </Button>
+
+            <Button Grid.Column="4"  
+                    Name="btnEdit"
+                    Content="Edit"
+                    Style="{StaticResource BtnAddEditDelete}"
+                    FontSize="13"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    
+                    VerticalAlignment="Top" Click="BtnEdit_Click">
+
+            </Button>
+
+        </Grid>
+        <Border Grid.Row="1"
+                Background="#200F53"
+                CornerRadius="10" 
+                Padding="10">
+            <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Width="110" Header="ID Zákazník" DisplayMemberBinding="{Binding CustomerId}" />
+                        <GridViewColumn Width="110" Header="Cena" DisplayMemberBinding="{Binding OrderPrice}" />
+                        <GridViewColumn Width="110" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
+                        <GridViewColumn Width="110" Header="Splněno" DisplayMemberBinding="{Binding Done}" />
+                        <GridViewColumn Width="110" Header="Datum dokončení" DisplayMemberBinding="{Binding DateCompletion}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
     </Grid>
 </UserControl>

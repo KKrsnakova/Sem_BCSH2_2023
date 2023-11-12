@@ -102,7 +102,7 @@ namespace Sem_BCSH2_2023.ViewModel
         
         private void ExecuteShowOrdersViewCommand(object obj)
         {
-            CurrentChildView = new CustomerViewModel();
+            CurrentChildView = new OrderViewModel();
             Description = "Objednávky";
             Icon = IconChar.ShoppingBasket;
         }

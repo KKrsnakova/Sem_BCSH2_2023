@@ -32,6 +32,9 @@
         <DataTemplate DataType="{x:Type viewmodel:OtherItemsViewModel}">
             <local:OtherItemsView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:OrderViewModel}">
+            <local:OrdersView/>
+        </DataTemplate>
 
     </Window.Resources>
 

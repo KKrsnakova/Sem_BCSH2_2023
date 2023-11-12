@@ -39,6 +39,7 @@ namespace Sem_BCSH2_2023.View
             OtherItemsViewModel.OtherItemsList = OtherItemsMng.GetAllOtherItems();
 
 
+
         }
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

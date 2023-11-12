@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Model
 {
-    public class Goods
+    public class Good
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
 
-        public Goods(int id, string name, double price)
+        public Good(int id, string name, double price)
         {
             Id = id;
             Name = name;

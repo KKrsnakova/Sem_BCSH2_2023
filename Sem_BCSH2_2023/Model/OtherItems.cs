@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Model
 {
-    public class OtherItems: Goods
+    public class OtherItems: Good
     {
         public string Usage { get; set; }
         public int Count { get; set; }
