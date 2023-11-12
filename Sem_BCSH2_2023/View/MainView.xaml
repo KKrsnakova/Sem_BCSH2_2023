@@ -29,7 +29,7 @@
         <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
             <local:CustomersView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodel:OtherItemsViewModel}">
+        <DataTemplate DataType="{x:Type viewmodel:GoodViewModel}">
             <local:OtherItemsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodel:OrderViewModel}">

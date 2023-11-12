@@ -1,4 +1,5 @@
 ﻿using Sem_BCSH2_2023.Model;
+using Sem_BCSH2_2023.View;
 using System;
 using System.Linq;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
                 if (id != null)
                 {
-                    editedFlower = FlowerViewModel.FlowersList.FirstOrDefault(flower => flower.Id == id);
+                    editedFlower = (Flower?)GoodViewModel.GoodsList.FirstOrDefault(flower => flower.Id == id);
                     btnAdd.Content = "Editovat";
                     windowName.Text = "Editace položky";
                     tbName.Text = editedFlower.Name;
@@ -43,7 +44,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
                 if (id != null)
                 {
-                    editedOtherItems = OtherItemsViewModel.OtherItemsList.FirstOrDefault(otherItem => otherItem.Id == id);
+                    editedOtherItems = (OtherItems?)GoodViewModel.GoodsList.FirstOrDefault(otherItem => otherItem.Id == id);
                     btnAdd.Content = "Editovat";
                     windowName.Text = "Editace položky";
                     tbName.Text = editedOtherItems.Name;
@@ -64,7 +65,7 @@ namespace Sem_BCSH2_2023.ViewModel
                     if (CheckFlower())
                     {
                         _ = double.TryParse(tbPrice.Text, out double price);
-                        FlowerViewModel.AddFlower(tbName.Text, price, tbDesc_tbCount.Text, tbSpec_tbUsage.Text);
+                        GoodViewModel.AddFlower(tbName.Text, price, tbDesc_tbCount.Text, tbSpec_tbUsage.Text);
                         this.Close();
                     }
                     else
@@ -101,7 +102,7 @@ namespace Sem_BCSH2_2023.ViewModel
                     {
                         double.TryParse(tbPrice.Text, out double price);
                         int.TryParse(tbDesc_tbCount.Text, out int count);
-                        OtherItemsViewModel.AddOtherItems(tbName.Text, price, count, tbSpec_tbUsage.Text);
+                        GoodViewModel.AddOtherItems(tbName.Text, price, count, tbSpec_tbUsage.Text);
                         this.Close();
                     }
                     else
@@ -130,6 +131,7 @@ namespace Sem_BCSH2_2023.ViewModel
                     GetWindow(this).Close();
                 }
             }
+            
 
         }
 

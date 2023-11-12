@@ -24,7 +24,7 @@ namespace Sem_BCSH2_2023.View
         public AllGoodsView()
         {
             InitializeComponent();
-            lvItemsForOrder.ItemsSource = FlowerViewModel.FlowersList.Cast<Flower>().Concat(OtherItemsViewModel.OtherItemsList.Cast<Flower>());
+            lvItemsForOrder.ItemsSource = GoodViewModel.GoodsList;
 
 
         }

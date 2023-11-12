@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+             xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="FilteredGoods" Source="{Binding Source={x:Static local:GoodViewModel.GoodsList}}" Filter="GoodsFilter" />
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -62,7 +67,8 @@
                 Background="#200F53"
                 CornerRadius="10" 
                 Padding="10">
-            <ListView Name="lvOtherItems" SelectionChanged="LvOtherItems_SelectionChanged">
+            <ListView Name="lvOtherItems"  ItemsSource="{Binding Source={StaticResource FilteredGoods}}"
+                      SelectionChanged="LvOtherItems_SelectionChanged">
                 <ListView.View>
                     <GridView >
                         <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />

@@ -86,6 +86,13 @@ namespace Sem_BCSH2_2023.ViewModel
             Icon = IconChar.Sun;
         }
 
+        private void ExecuteShowGoodsViewCommand(object obj)
+        {
+            CurrentChildView = new GoodViewModel();
+            Description = "Zboží";
+            Icon = IconChar.Tree;
+        }
+
         private void ExecuteShowCustomersViewCommand(object obj)
         {
             CurrentChildView = new CustomerViewModel();
@@ -93,13 +100,7 @@ namespace Sem_BCSH2_2023.ViewModel
             Icon = IconChar.UserGroup;
         }
         
-        private void ExecuteShowGoodsViewCommand(object obj)
-        {
-            CurrentChildView = new OtherItemsViewModel();
-            Description = "Zboží";
-            Icon = IconChar.Tree;
-        }
-        
+               
         private void ExecuteShowOrdersViewCommand(object obj)
         {
             CurrentChildView = new OrderViewModel();

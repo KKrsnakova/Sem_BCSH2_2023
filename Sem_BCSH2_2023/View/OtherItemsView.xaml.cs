@@ -23,12 +23,24 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class OtherItemsView : UserControl
     {
-        public static OtherItems? otherItem;
+        public  OtherItems? otherItem;
         public OtherItemsView()
         {
             InitializeComponent();
             btnEdit.Visibility = Visibility.Hidden;
-            lvOtherItems.ItemsSource = OtherItemsViewModel.OtherItemsList;
+            lvOtherItems.ItemsSource = ((CollectionViewSource)Resources["FilteredGoods"]).View;
+        }
+
+        private void GoodsFilter(object sender, FilterEventArgs e)
+        {
+            if (e.Item is OtherItems)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = false;
+            }
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -49,19 +61,23 @@ namespace Sem_BCSH2_2023.View
                 int selectedId = otherItem.Id;
                 AddGoods windowEditGoods = new AddGoods(selectedId, false);
                 windowEditGoods.ShowDialog();
-                lvOtherItems.ItemsSource = OtherItemsViewModel.OtherItemsList;
-                lvOtherItems.Items.Refresh();
+                ((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
             }
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            OtherItemsViewModel.RemoveOtherItem((OtherItems)lvOtherItems.SelectedItem);
+            GoodViewModel.RemoveOtherItem((OtherItems)lvOtherItems.SelectedItem);
         }
 
         private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnEdit.Visibility = Visibility.Visible;
+        }
+
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+
         }
     }
 }

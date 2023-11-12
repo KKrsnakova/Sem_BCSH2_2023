@@ -22,21 +22,20 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class MainView : Window
     {
-        public FlowersMng FlowersMng { get; set; }
+        public GoodsMng GoodsMng { get; set; }
         public CustomerMng CustomerMng { get; set; }
-        public OtherItemsMng OtherItemsMng { get; set; }
+        //public OtherItemsMng OtherItemsMng { get; set; }
 
         public MainView()
         {
             Repo repo = new();
             InitializeComponent();
-            FlowersMng = new FlowersMng(repo);
+            GoodsMng = new GoodsMng(repo);
             CustomerMng = new CustomerMng(repo);
-            OtherItemsMng = new OtherItemsMng(repo);
+            //OtherItemsMng = new OtherItemsMng(repo);
 
-            FlowerViewModel.FlowersList = FlowersMng.GetAllFlowers();
+            GoodViewModel.GoodsList = GoodsMng.GetAllGoods();
             CustomerViewModel.CustomersList = CustomerMng.GetAllCustomers();
-            OtherItemsViewModel.OtherItemsList = OtherItemsMng.GetAllOtherItems();
 
 
 
@@ -80,14 +79,14 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnSaveData_Click(object sender, RoutedEventArgs e)
         {
-            FlowersMng.RemoveAllFlowers();
-            FlowersMng.AddAllFlowers(FlowerViewModel.FlowersList);
+            GoodsMng.RemoveAllGoods();
+            GoodsMng.AddAllGoods(GoodViewModel.GoodsList);
 
             CustomerMng.RemoveAllCustomers();
             CustomerMng.AddAllCustomers(CustomerViewModel.CustomersList);
 
-            OtherItemsMng.RemoveAllOtherItems();
-            OtherItemsMng.AddAllOtherIrems(OtherItemsViewModel.OtherItemsList);
+            //OtherItemsMng.RemoveAllOtherItems();
+            //OtherItemsMng.AddAllOtherIrems(GoodViewModel.OtherItemsList);
 
             MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
