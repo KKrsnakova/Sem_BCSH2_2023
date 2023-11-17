@@ -24,7 +24,7 @@ namespace Sem_BCSH2_2023.View
     {
         public GoodsMng GoodsMng { get; set; }
         public CustomerMng CustomerMng { get; set; }
-        //public OtherItemsMng OtherItemsMng { get; set; }
+        public OrderMng OrderMng { get; set; }
 
         public MainView()
         {
@@ -32,10 +32,11 @@ namespace Sem_BCSH2_2023.View
             InitializeComponent();
             GoodsMng = new GoodsMng(repo);
             CustomerMng = new CustomerMng(repo);
-            //OtherItemsMng = new OtherItemsMng(repo);
+            OrderMng = new OrderMng(repo);
 
             GoodViewModel.GoodsList = GoodsMng.GetAllGoods();
             CustomerViewModel.CustomersList = CustomerMng.GetAllCustomers();
+            OrderViewModel.OrderList = OrderMng.GetAllOrder();
 
 
 
@@ -85,8 +86,8 @@ namespace Sem_BCSH2_2023.View
             CustomerMng.RemoveAllCustomers();
             CustomerMng.AddAllCustomers(CustomerViewModel.CustomersList);
 
-            //OtherItemsMng.RemoveAllOtherItems();
-            //OtherItemsMng.AddAllOtherIrems(GoodViewModel.OtherItemsList);
+            OrderMng.RemoveAllOrder();
+            OrderMng.AddAllOrder(OrderViewModel.OrderList);
 
             MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 

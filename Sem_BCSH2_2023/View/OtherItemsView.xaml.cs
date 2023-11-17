@@ -45,7 +45,7 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Thread threadOpen = new Thread(() =>
+            Thread threadOpen = new(() =>
             {
                 AddGoods windowAddGoods = Dispatcher.Invoke(() => new AddGoods(null, false));
                 Dispatcher.Invoke(() => windowAddGoods.Show());
@@ -55,11 +55,12 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (lvOtherItems.SelectedItem != null)
+            Button button = (Button)sender;
+            if (button.DataContext is OtherItems item)
             {
-                otherItem = (OtherItems)lvOtherItems.SelectedItem;
+                otherItem = item;
                 int selectedId = otherItem.Id;
-                AddGoods windowEditGoods = new AddGoods(selectedId, false);
+                AddGoods windowEditGoods = new(selectedId, false);
                 windowEditGoods.ShowDialog();
                 ((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
             }
@@ -67,7 +68,11 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            GoodViewModel.RemoveOtherItem((OtherItems)lvOtherItems.SelectedItem);
+            Button button = (Button)sender;
+            if (button.DataContext is OtherItems item)
+            {
+                GoodViewModel.RemoveOtherItem((item));
+            }
         }
 
         private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -75,9 +80,6 @@ namespace Sem_BCSH2_2023.View
             btnEdit.Visibility = Visibility.Visible;
         }
 
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
-        {
-
-        }
+      
     }
 }

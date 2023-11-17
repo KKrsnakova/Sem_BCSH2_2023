@@ -12,6 +12,7 @@
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
+        Icon="/Resources/cactus.ico"
         >
 
     <Window.DataContext>
@@ -158,32 +159,19 @@
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="12"
-                            Cursor="Hand"
-                            Click="BtnClose_Click"
-                                >
+                                Click="BtnClose_Click" >
                             <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnMaximal"
                                 Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMaximal_Click">
+                                 Click="BtnMaximal_Click">
                             <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnLof"
                                 Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMinimal_Click">
+                                Click="BtnMinimal_Click">
                             <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                         </Button>
                     </StackPanel>
@@ -243,8 +231,9 @@
                                       Cursor="Hand"
                                       Click="BtnSaveData_Click"
                                     >
-                                <fa:IconImage Icon="Save"
-                                              Foreground="{StaticResource textColor1}"/>
+                                <fa:IconImage Name="IconSave"
+                                    Icon="Save"
+                                     Foreground="{StaticResource textColor1}"/>
                             </Button>
 
 

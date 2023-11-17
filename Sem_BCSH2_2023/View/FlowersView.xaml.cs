@@ -45,7 +45,13 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            GoodViewModel.RemoveFlower((Flower)lvFlowers.SelectedItem);
+
+            Button button = (Button)sender;
+            if (button.DataContext is Flower item)
+            {
+                GoodViewModel.RemoveFlower(item);
+            }
+
         }
 
         private void LvFlowers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,9 +61,11 @@ namespace Sem_BCSH2_2023.View
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (lvFlowers.SelectedItem != null)
+
+            Button button = (Button)sender;
+            if (button.DataContext is Flower item)
             {
-                flower = (Flower)lvFlowers.SelectedItem;
+                flower = item;
                 int selectedId = flower.Id;
                 AddGoods windowEditGoods = new(selectedId, true);
                 windowEditGoods.ShowDialog();
@@ -66,6 +74,6 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
-       
+
     }
 }

@@ -50,7 +50,7 @@ namespace Sem_BCSH2_2023.Repository
             try
             {
                 IEnumerable<T> ienu = Collection.FindAll();
-                ObservableCollection<T> collection = new ObservableCollection<T>();
+                ObservableCollection<T> collection = new();
                 foreach (var item in ienu)
                 {
                     collection.Add(item);

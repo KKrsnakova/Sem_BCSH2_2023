@@ -28,9 +28,9 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
-              
+
             </StackPanel>
-           
+
             <Button Grid.Column="0"  
                     Name="btnAdd"
                     Content="Přidat"
@@ -40,7 +40,7 @@
                     BorderThickness="0"
                     Foreground="White"
                     VerticalAlignment="Top" Click="BtnAdd_Click">
-               
+
             </Button>
 
             <Button Grid.Column="1"  
@@ -54,7 +54,7 @@
                     VerticalAlignment="Top" Click="btnEdit_Click">
 
             </Button>
-            
+
             <Button Grid.Column="2"  
                     Name="btnDelete"
                     Content="Odebrat"
@@ -73,12 +73,40 @@
                 Padding="10">
             <ListView Name="lvFlowers" ItemsSource="{Binding Source={StaticResource FilteredFlowers}}" 
                       SelectionChanged="LvFlowers_SelectionChanged">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Width="60" Header="Editace">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="btnEdit_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id}"  />
                         <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price}" />
                         <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description}" />
+                        <GridViewColumn Header="Odebrat">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

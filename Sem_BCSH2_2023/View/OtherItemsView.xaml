@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="FilteredGoods" Source="{Binding Source={x:Static local:GoodViewModel.GoodsList}}" Filter="GoodsFilter" />
+    </UserControl.Resources>
 
 
     <Grid>
@@ -64,14 +69,44 @@
                 Background="#200F53"
                 CornerRadius="10" 
                 Padding="10">
-            <ListView Name="lvOtherItems" 
+            <ListView Name="lvOtherItems"  ItemsSource="{Binding Source={StaticResource FilteredGoods}}"
                       SelectionChanged="LvOtherItems_SelectionChanged">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                
                 <ListView.View>
                     <GridView >
+                        <GridViewColumn Width="60" Header="Editace">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                    <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    
                         <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                         <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
-                      </GridView>
+
+                        <GridViewColumn Header="Odebrat">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
                 </ListView.View>
             </ListView>
         </Border>

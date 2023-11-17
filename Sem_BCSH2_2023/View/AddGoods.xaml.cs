@@ -190,8 +190,8 @@ namespace Sem_BCSH2_2023.ViewModel
                 !String.IsNullOrEmpty(tbDesc_tbCount.Text) &&
                 !String.IsNullOrEmpty(tbSpec_tbUsage.Text) &&
                 !String.IsNullOrEmpty(tbPrice.Text) &&
-                double.TryParse(tbPrice.Text, out double price) &&
-                int.TryParse(tbDesc_tbCount.Text, out int count))
+                double.TryParse(tbPrice.Text, out _) &&
+                int.TryParse(tbDesc_tbCount.Text, out _))
             {
                 return true;
             }
