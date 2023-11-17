@@ -36,38 +36,25 @@
 
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
+            <!--<Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="70"/>
-            </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>-->
 
 
             <!--Header buttonst-->
-            <StackPanel x:Name="navBar"
-                    Orientation="Horizontal"
-                    FlowDirection="RightToLeft"
-                    Background="Transparent"
-                    Margin="0,0,5,0"
-                    MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
-                    MouseEnter="NavBar_MouseEnter">
-                
-            </StackPanel>
-            <StackPanel 
-        Orientation="Horizontal"
-                Grid.Column="1"
-        Background="Transparent"
-        MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
-        MouseEnter="NavBar_MouseEnter">
 
-            </StackPanel>
             <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
-                                Margin="0,0,5,0">
+                                Margin="0,0,5,0"
+                 MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+ MouseEnter="NavBar_MouseEnter"
+                >
 
                 <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
@@ -99,16 +86,16 @@
                             Click="BtnMinimal_Click">
                     <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                 </Button>
-                
+
             </StackPanel>
 
-           
+
 
 
             <StackPanel Grid.Column="1"
                     Grid.Row="1"
                     Orientation="Vertical"
-                    Margin="0,35,0,0">
+                    Margin="70,35,70,0">
                 <TextBlock  x:Name="windowName"
                         Text="Přidat novou rostlinu"
                         Foreground="{StaticResource textColor1}"
