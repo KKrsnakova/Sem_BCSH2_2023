@@ -1,10 +1,7 @@
 ﻿using Sem_BCSH2_2023.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -13,11 +10,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public static ObservableCollection<Order> OrderList= new();
 
-        //public OrderViewModel()
-        //{
-        //    OrderList.Add(new Order(10, 1, DateTime.Now));
-        //    OrderList.Add(new Order(120, 2, DateTime.Now));
-        //}
+      
 
         public static void AddOrder(int customerIdAdd)
         {
@@ -56,6 +49,16 @@ namespace Sem_BCSH2_2023.ViewModel
                 pocet++;
             }
             return pocet;
+        }
+
+        public static double OrderPrice (Order order)
+        {
+            double price = 0;
+            foreach (var item in order.ListOfGoods)
+            {
+                price += item.Price;
+            }
+            return price;
         }
     }
 }

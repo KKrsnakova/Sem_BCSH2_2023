@@ -3,6 +3,7 @@ using Sem_BCSH2_2023.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,23 +23,30 @@ namespace Sem_BCSH2_2023.View
     public partial class NewOrderView : Window
     {
 
-        Customer? selectedCustomer;
-        Order newOrder;
+        Customer selectedCustomer;
+        readonly Order order;
         int orderPrice = 0;
-        public NewOrderView(Order? order)
+        public NewOrderView(Order ord)
         {
-
+            
             InitializeComponent();
             cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
-            selectedCustomer = cbCustomer.SelectedItem as Customer;
+            cbCustomer.SelectedIndex = 0;
+            selectedCustomer = (Customer)cbCustomer.SelectedItem;
+            //if(ord.ListOfGoods.Count!= null) { 
+            //lvOrder.ItemsSource = ord.ListOfGoods;
+            //    }
+            //new order
+            order = OrderViewModel.NewOrder(selectedCustomer.Id);
 
-            if (order == null && selectedCustomer != null)
-            {
-                newOrder = OrderViewModel.NewOrder(selectedCustomer.Id);
-            } else if (order != null) 
-            {
-                newOrder = order;
-            }
+
+            //if (order == null && selectedCustomer != null)
+            //{
+            //    OrderNew = OrderViewModel.NewOrder(selectedCustomer.Id);
+            //} else if (order != null) 
+            //{
+            //    OrderNew = order;
+            //}
         }
 
 
@@ -46,8 +54,13 @@ namespace Sem_BCSH2_2023.View
         //Add or Delete Goods from order list
         private void BtnAddGood_Click(object sender, RoutedEventArgs e)
         {
-            AllGoodsView windowAllGoods = new AllGoodsView(newOrder);
-            windowAllGoods.Show();
+            AllGoodsView windowAllGoods = new(order);
+            windowAllGoods.ShowDialog();
+            lvOrder.Items.Refresh();
+            MessageBox.Show(order.ListOfGoods.Count()+" = count", "Uloženo do DB", MessageBoxButton.OK);
+            lvOrder.ItemsSource = order.ListOfGoods;
+
+
         }
 
         private void BtnDeleteGood_Click(object sender, RoutedEventArgs e)
@@ -55,17 +68,36 @@ namespace Sem_BCSH2_2023.View
 
         }
 
-       
-
-        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
+        
 
         private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedCustomer = (Customer)cbCustomer.SelectedItem;
+        }
+
+
+
+        //Confirm / Close Order
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
+            order.CustomerId = selectedCustomer.Id;
+            OrderViewModel.AddOrder(order);
+            this.Close();
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+       
+
 
 
         //Window operations
@@ -84,15 +116,7 @@ namespace Sem_BCSH2_2023.View
             else this.WindowState = WindowState.Normal;
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
 
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -105,6 +129,9 @@ namespace Sem_BCSH2_2023.View
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-       
+        private void lvOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

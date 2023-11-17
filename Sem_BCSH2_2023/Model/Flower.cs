@@ -20,6 +20,11 @@ namespace Sem_BCSH2_2023.Model
             FlowerSpecies = flowerSpecies;
         }
 
+        public override string? ToString()
+        {
+            return Id + " " + Name + "Is Flower";
+        }
+
         //  public Species SpeciesFlower { get; set; }
 
 
@@ -28,6 +33,8 @@ namespace Sem_BCSH2_2023.Model
         //    SpeciesFlower = speciesFlower;
         //    Description = description;
         //}
+
+
 
     }
 }

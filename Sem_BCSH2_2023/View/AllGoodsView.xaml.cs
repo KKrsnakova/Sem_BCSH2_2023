@@ -23,24 +23,32 @@ namespace Sem_BCSH2_2023.View
     public partial class AllGoodsView : Window
     {
         Order actualOrder;
-        public AllGoodsView(Order order)
+        public AllGoodsView(Order ord)
         {
             InitializeComponent();
             lvItemsForOrder.ItemsSource = GoodViewModel.GoodsList;
-            actualOrder = order;
+           
+           actualOrder = ord;
 
         }
 
         private void LvItemsForOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lvItemsForOrder.SelectedItem != null)
+            if (lvItemsForOrder.SelectedItems.Count > 0) 
             {
                 Good selectedGood = (Good)lvItemsForOrder.SelectedItem;
                 int selectedID = selectedGood.Id;
+                MessageBox.Show("int selectedID = selectedGood.Id;" + selectedID , "Uloženo do DB", MessageBoxButton.OK);
 
-              
-                    actualOrder.SellGoods(selectedGood);
-                    GoodViewModel.GoodsList.Remove(selectedGood);
+                Good good = GoodViewModel.GoodsList.FirstOrDefault(objekt => objekt.Id == selectedID);
+
+                MessageBox.Show(good.ToString() , "Uloženo do DB", MessageBoxButton.OK);
+
+
+
+
+                GoodViewModel.GoodsList.Remove(selectedGood);
+                actualOrder.SellGoods(good);
 
 
                 Close();

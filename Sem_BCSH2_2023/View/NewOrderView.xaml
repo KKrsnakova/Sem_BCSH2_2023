@@ -108,11 +108,12 @@
                         Text="Zákazník"/>
 
             <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
+                      SelectedIndex="0"
                       VerticalAlignment="Top"
                       Width="650" Margin="10" 
                      DisplayMemberPath="Surname" 
                       SelectedValuePath="Id"
-                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}"
+                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}" SelectionChanged="CbCustomer_SelectionChanged" 
                       />
 
             <!--Order-->
@@ -125,15 +126,13 @@
                 CornerRadius="10" 
                     Height="350"
                 Padding="10">
-                <ListView Name="lvOtherItems" SelectionChanged="LvOtherItems_SelectionChanged">
+                <ListView Name="lvOrder" SelectionChanged="lvOrder_SelectionChanged">
                     <ListView.View>
                         <GridView >
                             <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                             <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
                             <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
-                            <GridViewColumn Width="100" Header="Počet" DisplayMemberBinding="{Binding Count, Mode=TwoWay}" />
-                            <GridViewColumn Width="200" Header="Využití" DisplayMemberBinding="{Binding Usage, Mode=TwoWay}" />
-                        </GridView>
+                            </GridView>
                     </ListView.View>
                 </ListView>
             </Border>

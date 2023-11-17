@@ -13,122 +13,155 @@
         ResizeMode="NoResize"
         Title="AddEditCustomer" Height="600" Width="550">
 
-    <Grid Background="{StaticResource bgAddColor}">
-        <Grid.RowDefinitions>
-            <!--Nav-->
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="*"/>
 
-        </Grid.RowDefinitions>
+    <Border CornerRadius="10"
+        BorderThickness="2"
+            Background="{StaticResource bgAddColor}">
+
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource borderColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource borderColor2}" Offset="0.75"/>
+                <GradientStop Color="{StaticResource borderColor3}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid >
 
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="70"/>
-        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <!--Nav-->
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
 
-        <!--Header buttonst-->
-        <StackPanel x:Name="navBar"
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+
+
+            <!--Header buttonst-->
+            <StackPanel x:Name="navBar"
+                    Orientation="Horizontal"
+                    FlowDirection="RightToLeft"
+                    Background="Transparent"
+                    Margin="0,0,5,0"
+                    MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+                    MouseEnter="NavBar_MouseEnter">
+                
+            </StackPanel>
+            <StackPanel 
+        Orientation="Horizontal"
+                Grid.Column="1"
+        Background="Transparent"
+        MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+        MouseEnter="NavBar_MouseEnter">
+
+            </StackPanel>
+            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
-                                Margin="0,0,5,0"
-                                MouseLeftButtonDown="navBar_MouseLeftButtonDown"
-                                MouseEnter="navBar_MouseEnter">
+                                Margin="0,0,5,0">
 
-            <Button x:Name="btnClose"
+                <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="12"
                             Cursor="Hand"
-                            Click="btnClose_Click"
+                            Click="BtnClose_Click"
                                 >
-                <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
-            </Button>
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
+                </Button>
 
-            <Button x:Name="btnMaximal"
+                <Button x:Name="btnMaximal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
-                            Click="btnMaximal_Click">
-                <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
-            </Button>
+                            Click="BtnMaximal_Click">
+                    <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                </Button>
 
-            <Button x:Name="btnMinimal"
+                <Button x:Name="btnMinimal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
-                            Click="btnMinimal_Click">
-                <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
-            </Button>
-        </StackPanel>
+                            Click="BtnMinimal_Click">
+                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+                
+            </StackPanel>
+
+           
 
 
-        <StackPanel Grid.Column="1"
+            <StackPanel Grid.Column="1"
                     Grid.Row="1"
                     Orientation="Vertical"
                     Margin="0,35,0,0">
-            <TextBlock  x:Name="windowName"
+                <TextBlock  x:Name="windowName"
                         Text="Přidat novou rostlinu"
                         Foreground="{StaticResource textColor1}"
                         FontSize="25"
                         FontWeight="Medium"
                         HorizontalAlignment="Center">
 
-            </TextBlock>
+                </TextBlock>
 
-            <!--TextBoxes-->
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                <!--TextBoxes-->
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="Jméno"/>
 
-            <TextBox  x:Name="tbName"
+                <TextBox  x:Name="tbName"
                       Style="{StaticResource TextBoxAdd}">
-            </TextBox>
+                </TextBox>
 
-             <TextBlock Style="{StaticResource TextBlockAdd}"
+                <TextBlock Style="{StaticResource TextBlockAdd}"
                         Text="Přijmení" />
 
-            <TextBox x:Name="tbSurname"
+                <TextBox x:Name="tbSurname"
                      Style="{StaticResource TextBoxAdd}">
-            </TextBox>
+                </TextBox>
 
-            <TextBlock Style="{StaticResource TextBlockAdd}"
+                <TextBlock Style="{StaticResource TextBlockAdd}"
                        Text="Ulice a číslo popisné " />
 
-            <TextBox x:Name="tbAddress"
+                <TextBox x:Name="tbAddress"
                      Style="{StaticResource TextBoxAdd}">
-            </TextBox>
-            
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                </TextBox>
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
                     Text="Město + PSČ "/>
 
-            <TextBox Style="{StaticResource TextBoxAdd}"
+                <TextBox Style="{StaticResource TextBoxAdd}"
                      x:Name="tbCity">
-            </TextBox>
+                </TextBox>
 
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="Telefonní číslo"  />
 
-            <TextBox Style="{StaticResource TextBoxAdd}"
+                <TextBox Style="{StaticResource TextBoxAdd}"
                      x:Name="tbPhoneNumber">
-            </TextBox>
+                </TextBox>
 
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="E-mailová adresa"/>
 
-            <TextBox Style="{StaticResource TextBoxAdd}"
+                <TextBox Style="{StaticResource TextBoxAdd}"
                     x:Name="tbEmail">
-            </TextBox>
+                </TextBox>
 
-            <Button Content="Přidat"
+                <Button Content="Přidat"
                     Name="btnAdd"
                     FontSize="12"
                     Cursor="Hand"
@@ -136,34 +169,37 @@
                     Foreground="White"
                     Margin="40,0,40,0"
                     VerticalAlignment="Top" Click="BtnAdd_Click">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#773DFF"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Height="30"
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#773DFF"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Height="30"
                                             CornerRadius="15"
                                             Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                           HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#836EFB"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#836EFB"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
 
 
 
 
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+
 </Window>

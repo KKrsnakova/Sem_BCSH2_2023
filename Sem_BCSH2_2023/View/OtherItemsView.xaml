@@ -7,9 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <UserControl.Resources>
-        <CollectionViewSource x:Key="FilteredGoods" Source="{Binding Source={x:Static local:GoodViewModel.GoodsList}}" Filter="GoodsFilter" />
-    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -67,16 +64,14 @@
                 Background="#200F53"
                 CornerRadius="10" 
                 Padding="10">
-            <ListView Name="lvOtherItems"  ItemsSource="{Binding Source={StaticResource FilteredGoods}}"
+            <ListView Name="lvOtherItems" 
                       SelectionChanged="LvOtherItems_SelectionChanged">
                 <ListView.View>
                     <GridView >
                         <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                         <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
-                        <GridViewColumn Width="100" Header="Počet" DisplayMemberBinding="{Binding Count, Mode=TwoWay}" />
-                        <GridViewColumn Width="200" Header="Využití" DisplayMemberBinding="{Binding Usage, Mode=TwoWay}" />
-                    </GridView>
+                      </GridView>
                 </ListView.View>
             </ListView>
         </Border>

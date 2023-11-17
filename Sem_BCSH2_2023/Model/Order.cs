@@ -11,7 +11,7 @@ namespace Sem_BCSH2_2023.Model
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public float OrderPrice { get; set; }
+        public double OrderPrice { get; set; }
         public DateTime DateOfCreation { get; set; }
         public ObservableCollection<Good> ListOfGoods { get; set; }
         public bool Done { get; set; }
