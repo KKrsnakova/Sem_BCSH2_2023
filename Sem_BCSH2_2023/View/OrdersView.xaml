@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -18,7 +19,7 @@
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
-                
+
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
@@ -83,7 +84,7 @@
                 CornerRadius="10" 
                 Padding="10">
             <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
-                
+
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -92,12 +93,34 @@
 
                 <ListView.View>
                     <GridView >
+                        <GridViewColumn Width="60" Header="Editace">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
                         <GridViewColumn Width="110" Header="ID Zákazník" DisplayMemberBinding="{Binding CustomerId}" />
                         <GridViewColumn Width="110" Header="Cena" DisplayMemberBinding="{Binding OrderPrice}" />
                         <GridViewColumn Width="140" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
                         <GridViewColumn Width="110" Header="Splněno" DisplayMemberBinding="{Binding Done}" />
                         <GridViewColumn Width="110" Header="Datum dokončení" DisplayMemberBinding="{Binding DateCompletion}" />
+                        <GridViewColumn Header="Odebrat">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                     </GridView>
                 </ListView.View>
             </ListView>

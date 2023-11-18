@@ -44,7 +44,12 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            CustomerViewModel.RemoveCustomer((Customer)lvCustomers.SelectedItem);
+            Button button = (Button)sender;
+            if (button.DataContext is Customer item)
+            {
+                CustomerViewModel.RemoveCustomer(item);
+            }
+            
         }
 
         private void LvCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,11 +59,12 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (lvCustomers.SelectedItem != null)
+            Button button = (Button)sender;
+            if (button.DataContext is Customer item)
             {
-                customer = (Customer)lvCustomers.SelectedItem;
+                customer = item;
                 int selectedId = customer.Id;
-                AddEditCustomer windowEditCustomer = new AddEditCustomer(selectedId);
+                AddEditCustomer windowEditCustomer = new(selectedId);
                 windowEditCustomer.ShowDialog();
                 lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
                 lvCustomers.Items.Refresh();

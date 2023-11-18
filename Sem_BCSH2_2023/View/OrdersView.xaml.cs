@@ -43,7 +43,12 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            OrderViewModel.RemoveOrder((Order)lvOrders.SelectedItem);
+            Button button = (Button)sender;
+            if (button.DataContext is Order item)
+            {
+                OrderViewModel.RemoveOrder(item);
+            }
+            
         }
 
         private void LvOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)

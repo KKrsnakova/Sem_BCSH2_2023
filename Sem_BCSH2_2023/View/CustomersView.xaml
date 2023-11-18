@@ -22,7 +22,7 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
-               
+
             </StackPanel>
             <Button Grid.Column="0"  
                     Name="btnAdd"
@@ -33,10 +33,9 @@
                     BorderThickness="0"
                     Foreground="White"
                     VerticalAlignment="Top" Click="BtnAdd_Click">
-
             </Button>
 
-            
+
             <Button Grid.Column="1"  
                     Name="btnDelete"
                     Content="Odebrat"
@@ -61,7 +60,7 @@
                     VerticalAlignment="Top" Click="BtnEdit_Click">
 
             </Button>
-            
+
         </Grid>
         <Border Grid.Row="1"
                 Background="#200F53"
@@ -77,6 +76,16 @@
 
                 <ListView.View>
                     <GridView >
+                        <GridViewColumn Width="60" Header="Editace">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
                         <GridViewColumn Width="100" Header="Jméno" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Width="100" Header="Příjmení" DisplayMemberBinding="{Binding Surname}" />
@@ -84,6 +93,18 @@
                         <GridViewColumn Width="100" Header="Město" DisplayMemberBinding="{Binding City}" />
                         <GridViewColumn Width="100" Header="Telefon" DisplayMemberBinding="{Binding PhoneNumber}" />
                         <GridViewColumn Width="120" Header="Email" DisplayMemberBinding="{Binding Email}" />
+
+                        <GridViewColumn Header="Odebrat">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                     </GridView>
                 </ListView.View>
             </ListView>
