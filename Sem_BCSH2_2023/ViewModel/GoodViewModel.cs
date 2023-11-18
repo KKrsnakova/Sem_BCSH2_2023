@@ -31,6 +31,11 @@ namespace Sem_BCSH2_2023.ViewModel
                                         flowerSpecies: spec));
         }
 
+        public static void AddFlower(Flower flower)
+        {
+            GoodsList.Add((Flower)flower);
+        }
+
         public static void RemoveFlower(Flower selectedFlower)
         {
             GoodsList.Remove(selectedFlower);
@@ -45,10 +50,17 @@ namespace Sem_BCSH2_2023.ViewModel
             GoodsList.Add(new OtherItems(IdGenerator(), nameAdd, priceAdd, usageAdd, countAdd));
         }
 
+        public static void AddOtherItems(OtherItems otherItems)
+        {
+            GoodsList.Add(otherItems);
+        }
+
         public static void RemoveOtherItem(OtherItems selectedOtherItem)
         {
             GoodsList.Remove(selectedOtherItem);
         }
+
+        
 
 
 

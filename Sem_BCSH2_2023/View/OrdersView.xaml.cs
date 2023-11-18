@@ -23,11 +23,12 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class OrdersView : UserControl
     {
-
+        public static Order? order;
 
         public OrdersView()
         {
             InitializeComponent();
+
             lvOrders.ItemsSource = OrderViewModel.OrderList;
         }
 
@@ -35,7 +36,7 @@ namespace Sem_BCSH2_2023.View
         {
             Thread threadOpen = new(() =>
             {
-                NewOrderView windowNewOrder = Dispatcher.Invoke(() => new NewOrderView(null));
+                NewOrderView windowNewOrder = Dispatcher.Invoke(() => new NewOrderView(null, null));
                 Dispatcher.Invoke(() => windowNewOrder.Show());
             });
             threadOpen.Start();
@@ -48,7 +49,7 @@ namespace Sem_BCSH2_2023.View
             {
                 OrderViewModel.RemoveOrder(item);
             }
-            
+
         }
 
         private void LvOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -58,7 +59,16 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)sender;
+            if (button.DataContext is Order item)
+            {
+                order = (Order)item;
+                NewOrderView windowEditGoods = new(order, order.Id);
+                windowEditGoods.ShowDialog();
+               
+            }
+            lvOrders.ItemsSource = OrderViewModel.OrderList;
+            lvOrders.Items.Refresh();
         }
 
         private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)

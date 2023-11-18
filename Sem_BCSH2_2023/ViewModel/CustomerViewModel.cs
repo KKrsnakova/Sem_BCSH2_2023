@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -28,6 +29,22 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             CustomersList.Remove(selectedCustomer);
         }
+
+        public static Customer GetCustomerById(int customerId)
+        {
+            Customer selectedCustomer = CustomersList.FirstOrDefault(customer => customer.Id == customerId);
+            if (selectedCustomer != null)
+            {
+                return selectedCustomer;
+            } else
+            {
+                MessageBox.Show("Chyba, zakázník není v seznamu  " + selectedCustomer.ToString(), "Chyba", MessageBoxButton.OK);
+                return null;
+            }
+            
+        }
+
+
 
         private static int IdGenerator()
         {

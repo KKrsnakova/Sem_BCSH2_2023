@@ -24,20 +24,34 @@ namespace Sem_BCSH2_2023.View
     {
 
         Customer selectedCustomer;
-        readonly Order order;
-        int orderPrice = 0;
-        public NewOrderView(Order ord)
+        private Order order;
+       // public NewOrderView(Order ord, Customer customer)
+        public NewOrderView(Order ord, int? customerID)
         {
             
             InitializeComponent();
             cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
             cbCustomer.SelectedIndex = 0;
-            selectedCustomer = (Customer)cbCustomer.SelectedItem;
+            
+
+
+            if(customerID != null && ord != null )
+            {
+                order = ord;
+                selectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
+                cbCustomer.SelectedValue = selectedCustomer;
+                lvOrder.ItemsSource = ord.ListOfGoods;
+            } else
+            {
+                selectedCustomer = (Customer)cbCustomer.SelectedItem;
+                order = OrderViewModel.NewOrder(selectedCustomer.Id);
+            }
+
             //if(ord.ListOfGoods.Count!= null) { 
             //lvOrder.ItemsSource = ord.ListOfGoods;
             //    }
             //new order
-            order = OrderViewModel.NewOrder(selectedCustomer.Id);
+            
 
 
             //if (order == null && selectedCustomer != null)
@@ -65,7 +79,16 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnDeleteGood_Click(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)sender;
+            if (button.DataContext is Flower flw)
+            {
+                order.ListOfGoods.Remove(flw);
+                GoodViewModel.AddFlower(flw);
+            } else if (button.DataContext is OtherItems otitem)
+            {
+                order.ListOfGoods.Remove(otitem);
+                GoodViewModel.AddOtherItems(otitem);
+            }
         }
 
         
@@ -86,10 +109,14 @@ namespace Sem_BCSH2_2023.View
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-            order.CustomerId = selectedCustomer.Id;
-            OrderViewModel.AddOrder(order);
+           
+           // order.CustomerId = selectedCustomer.Id;
+ 
+            //OrderViewModel.AddOrder(order);
+          
             this.Close();
         }
+
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {

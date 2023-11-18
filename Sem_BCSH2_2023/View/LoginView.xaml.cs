@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sem_BCSH2_2023.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Sem_BCSH2_2023.View
         public LoginView()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -29,19 +31,16 @@ namespace Sem_BCSH2_2023.View
             if(e.LeftButton==MouseButtonState.Pressed) { DragMove(); }
         }
 
-        private void btnMinimal_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

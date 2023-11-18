@@ -93,10 +93,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id}"  />
-                        <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price}" />
-                        <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description}" />
+                        <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}"  />
+                        <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                        <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

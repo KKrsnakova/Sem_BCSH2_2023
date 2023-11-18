@@ -28,5 +28,9 @@ namespace Sem_BCSH2_2023.Model
             Email = email;
         }
 
+        public override string? ToString()
+        {
+            return Id+" , "+Name;
+        }
     }
 }

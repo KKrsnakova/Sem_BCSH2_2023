@@ -25,10 +25,11 @@ namespace Sem_BCSH2_2023.View
         Order actualOrder;
         public AllGoodsView(Order ord)
         {
+            actualOrder = ord;
             InitializeComponent();
             lvItemsForOrder.ItemsSource = GoodViewModel.GoodsList;
            
-           actualOrder = ord;
+           
 
         }
 
@@ -40,7 +41,7 @@ namespace Sem_BCSH2_2023.View
                 int selectedID = selectedGood.Id;
                 MessageBox.Show("int selectedID = selectedGood.Id;" + selectedID , "Uloženo do DB", MessageBoxButton.OK);
 
-                Good good = GoodViewModel.GoodsList.FirstOrDefault(objekt => objekt.Id == selectedID);
+                Good? good = GoodViewModel.GoodsList.FirstOrDefault(objekt => objekt.Id == selectedID);
 
                 MessageBox.Show(good.ToString() , "Uloženo do DB", MessageBoxButton.OK);
 

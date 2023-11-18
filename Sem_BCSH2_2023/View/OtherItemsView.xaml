@@ -94,6 +94,8 @@
                         <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                         <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                        <GridViewColumn Width="100" Header="Počet" DisplayMemberBinding="{Binding Count, Mode=TwoWay}" />
+                        <GridViewColumn Width="130" Header="Využití" DisplayMemberBinding="{Binding Usage, Mode=TwoWay}" />
 
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
