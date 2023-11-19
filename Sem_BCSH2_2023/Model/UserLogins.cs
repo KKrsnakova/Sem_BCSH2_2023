@@ -13,19 +13,17 @@ namespace Sem_BCSH2_2023.Model
       //  public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
 
-        public UserLogins(string username, string password)
+
+        public UserLogins(string username, string password, string fullName, string email)
         {
             Username = username;
             Password = password;
+            FullName = fullName;
+            Email = email;
         }
-
-
-
-        //public string Name { get; set; }
-        //public string LastName { get; set; }
-        //public string Email { get; set; }
-
 
 
     }

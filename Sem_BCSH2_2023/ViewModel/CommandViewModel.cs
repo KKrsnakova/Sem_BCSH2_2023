@@ -34,7 +34,7 @@ namespace Sem_BCSH2_2023.ViewModel
         //Methods
         public bool CanExecute(object parameter)
         {
-            return canExecuteAction == null ? true : canExecuteAction(parameter);
+            return canExecuteAction == null || canExecuteAction(parameter);
         }
         public void Execute(object parameter)
         {

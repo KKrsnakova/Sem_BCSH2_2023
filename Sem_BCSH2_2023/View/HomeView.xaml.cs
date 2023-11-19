@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sem_BCSH2_2023.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace Sem_BCSH2_2023.View
         public HomeView()
         {
             InitializeComponent();
+            SetBoxes();
         }
+
+        private void SetBoxes()
+        {
+            UserLogins usr = MainView.GetCurrentUser();
+            tbFullName.Text = usr.FullName;
+            tbEmail.Text = usr.Email;
+            tbUserLogin.Text = usr.Username;
+            tbPassword.Text = usr.Password;
+        }
+        
     }
 }

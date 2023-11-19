@@ -15,8 +15,10 @@ namespace Sem_BCSH2_2023.Manager
         public Repo2<Order> OrderRepo { get; set; }
         public OrderMng(Repo orderRepo)
         {
-            OrderRepo = new Repo2<Order>();
-            OrderRepo.Collection = orderRepo.GetInstance().GetCollection<Order>("Order");
+            OrderRepo = new Repo2<Order>
+            {
+                Collection = orderRepo.GetInstance().GetCollection<Order>("Order")
+            };
         }
 
         public Order GetByIdOrder(int id)

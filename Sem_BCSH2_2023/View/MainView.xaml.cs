@@ -1,4 +1,6 @@
-﻿using Sem_BCSH2_2023.Manager;
+﻿using CommunityToolkit.Mvvm.Input;
+using Sem_BCSH2_2023.Manager;
+using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.Repository;
 using Sem_BCSH2_2023.ViewModel;
 using System;
@@ -25,14 +27,23 @@ namespace Sem_BCSH2_2023.View
         public GoodsMng GoodsMng { get; set; }
         public CustomerMng CustomerMng { get; set; }
         public OrderMng OrderMng { get; set; }
+        public Repo Repo { get; set; }
 
-        public MainView()
+        public static UserLogins ActualUser { get; set; }
+
+        public MainView(UserLogins actualUser)
         {
-            Repo repo = new();
+
+            //// DataContext = new MainViewModel();
+
+            ActualUser = actualUser;
+
+            Repo = new();
             InitializeComponent();
-            GoodsMng = new GoodsMng(repo);
-            CustomerMng = new CustomerMng(repo);
-            OrderMng = new OrderMng(repo);
+            tbUserNameActual.Text = actualUser.FullName;
+            GoodsMng = new GoodsMng(Repo);
+            CustomerMng = new CustomerMng(Repo);
+            OrderMng = new OrderMng(Repo);
 
             GoodViewModel.GoodsList = GoodsMng.GetAllGoods();
             CustomerViewModel.CustomersList = CustomerMng.GetAllCustomers();
@@ -40,6 +51,22 @@ namespace Sem_BCSH2_2023.View
 
 
 
+
+
+
+        }
+
+        public static void SetCurrentUser(UserLogins user)
+        {
+            ActualUser = user;
+
+            // Můžete provést další aktualizace nebo akce související s aktuálním uživatelem.
+        } 
+        public static UserLogins GetCurrentUser()
+        {
+            return ActualUser;    
+
+            // Můžete provést další aktualizace nebo akce související s aktuálním uživatelem.
         }
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -75,7 +102,17 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnLogOut_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Odhlášeno");
+            Repo.Dispose();
+            // Uzavřít aktuální okno
+            //Window currentWindow = Application.Current.MainWindow;
+            //currentWindow.Close();
+            LoginView loginView = new LoginView();
+            this.Close();
 
+            // Vytvořit a zobrazit nové přihlašovací okno
+
+            loginView.Show();
         }
 
         private void BtnSaveData_Click(object sender, RoutedEventArgs e)
@@ -92,6 +129,8 @@ namespace Sem_BCSH2_2023.View
             MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
+
+
 
     }
 }

@@ -8,5 +8,8 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class HomeViewModel: BaseViewModel
     {
+        public HomeViewModel()
+        {
+        }
     }
 }

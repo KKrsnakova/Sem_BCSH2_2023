@@ -16,8 +16,10 @@ namespace Sem_BCSH2_2023.Manager
 
         public CustomerMng(Repo customersRepo)
         {
-            CustomersRepo = new Repo2<Customer>();
-            CustomersRepo.Collection = customersRepo.GetInstance().GetCollection<Customer>("Customer");
+            CustomersRepo = new Repo2<Customer>
+            {
+                Collection = customersRepo.GetInstance().GetCollection<Customer>("Customer")
+            };
         }
 
         public Customer GetByIdCustomers(int id)

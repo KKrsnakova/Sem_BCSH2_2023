@@ -9,12 +9,26 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
-        public ObservableCollection<UserLogins> Users { get; } = new ObservableCollection<UserLogins>();
+        public static ObservableCollection<UserLogins> Users { get; set; } = new ObservableCollection<UserLogins>();
+
+
+
+        private bool isLoggedIn;
+
+        public bool IsLoggedIn
+        {
+            get { return isLoggedIn; }
+            set
+            {
+                isLoggedIn = value;
+                OnPropertyChanged(nameof(IsLoggedIn));
+            }
+        }
 
         public LoginViewModel()
         {
-            Users.Add(new UserLogins("admin", "admin"));
-            Users.Add(new UserLogins("pepa", "12"));
+            Users.Add(new UserLogins("admin", "admin", "admin admin", "admin@admin.cz"));
+            Users.Add(new UserLogins("pepa", "12", "Pepa Pepa", "pepa@admin.cz"));
             LoginCommand = new RelayCommand(OnLogin);
         }
 
@@ -33,15 +47,30 @@ namespace Sem_BCSH2_2023.ViewModel
             set => SetProperty(ref _password, value, nameof(Password));
         }
 
+        private string _fullName;
+
+        public string FullName
+        {
+            get { return _fullName; }
+            set
+            {
+                _fullName = value;
+                OnPropertyChanged(nameof(FullName));
+            }
+        }
+
         public RelayCommand LoginCommand { get; }
+
+        private UserLogins _loggedInUser;
 
         private void OnLogin()
         {
-            bool isValidCredentials = Users.Any(user => user.Username == Username && user.Password == Password);
+            _loggedInUser = Users.FirstOrDefault(user => user.Username == Username && user.Password == Password);
 
-            if (isValidCredentials)
+            if (_loggedInUser != null)
             {
-                MainView mainView = new MainView();
+
+                MainView mainView = new MainView(_loggedInUser);
                 mainView.Show();
                 Application.Current.MainWindow.Close();
             }
@@ -51,6 +80,7 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
+        
 
     }
 }

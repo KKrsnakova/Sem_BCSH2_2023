@@ -14,6 +14,7 @@
     <None Remove="Resources\cactus.ico" />
     <None Remove="Resources\ic.png" />
     <None Remove="Resources\Orchidej.jpg" />
+    <None Remove="Resources\personinfo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
     <Resource Include="Resources\cactus.ico" />
     <Resource Include="Resources\ic.png" />
     <Resource Include="Resources\Orchidej.jpg" />
+    <Resource Include="Resources\personinfo.png" />
   </ItemGroup>
 
 </Project>

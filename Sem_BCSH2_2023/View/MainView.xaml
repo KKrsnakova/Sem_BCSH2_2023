@@ -19,6 +19,8 @@
         <viewmodel:MainViewModel/>
     </Window.DataContext>
 
+
+
     <Window.Resources>
 
         <DataTemplate DataType="{x:Type viewmodel:HomeViewModel}">
@@ -210,13 +212,14 @@
                                     BorderThickness="0"
                                     Foreground="White"
                                     Cursor="Hand"
-                                    Click="BtnLogOut_Click">
+                                    Click="BtnLogOut_Click"
+                                    >
                                 <fa:IconImage Icon="SignOut"
                                               Foreground="{StaticResource textColor1}"
                                     />
                             </Button>
 
-                            <TextBlock Text="Uživatelské jméno"
+                            <TextBlock x:Name="tbUserNameActual"
                                        Foreground="{StaticResource textColor1}"
                                        FontSize="16"
                                        FontWeight="Medium"

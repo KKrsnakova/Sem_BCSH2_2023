@@ -1,11 +1,16 @@
-﻿using FontAwesome.Sharp;
+﻿using CommunityToolkit.Mvvm.Input;
+using FontAwesome.Sharp;
+using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
@@ -69,8 +74,10 @@ namespace Sem_BCSH2_2023.ViewModel
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
 
+
+
             //Default view
-            //ExecuteShowHomeViewCommand(null);
+            ExecuteShowGoodsViewCommand(null);
         }
 
         private void ExecuteShowHomeViewCommand(object obj)
@@ -108,7 +115,7 @@ namespace Sem_BCSH2_2023.ViewModel
             Icon = IconChar.ShoppingBasket;
         }
 
-
+       
 
     }
 

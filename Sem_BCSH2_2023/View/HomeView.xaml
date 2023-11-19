@@ -7,6 +7,98 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Image Source="/Resources/bg1.png" Opacity="0.7"/>
+        <!--<Image Source="/Resources/bg1.png" Opacity="0.5"/>-->
+
+        <Grid>
+            <!-- Nav -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+                    Grid.Row="1">
+                <Image x:Name="personInfo" Source="/Resources/personinfo.png" Margin="0,0,0,100"/>
+
+            </Grid>
+
+            <Grid 
+                Grid.Column="1"
+                Grid.Row="1"
+                Margin="60,35,60,0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+
+
+                <TextBlock  Style="{StaticResource TextBlockUserOverV}"
+                            Grid.Row="0"
+                            x:Name="windowName"
+                            Text="Vítejte"
+                            FontSize="25"
+                            HorizontalAlignment="Center"
+                            Padding="0,30,0,0">
+                </TextBlock>
+
+                <!--TextBoxes-->
+                <TextBlock  Grid.Row="1" 
+                            Style="{StaticResource TextBlockUserOverV}"
+                            Text="Jméno a Přijmení"/> 
+
+                     <TextBox Grid.Row="1"  
+                              x:Name="tbFullName"
+                              Style="{StaticResource TextBoxUserOverV}" >
+                      </TextBox>
+
+                <TextBlock Grid.Row="2" 
+                           Style="{StaticResource TextBlockUserOverV}"
+                           Text="Uživatelské jméno" />
+
+                    <TextBox Grid.Row="2" 
+                             x:Name="tbUserLogin"
+                             Style="{StaticResource TextBoxUserOverV}">
+                    </TextBox>
+
+                <TextBlock Grid.Row="3" 
+                           Style="{StaticResource TextBlockUserOverV}"
+                           Text="Heslo" />
+
+                    <TextBox Grid.Row="3" 
+                             x:Name="tbPassword"
+                             Style="{StaticResource TextBoxUserOverV}">
+                    </TextBox>
+                
+                 <TextBlock Grid.Row="4"  
+                            Style="{StaticResource TextBlockUserOverV}"
+                            Text="E-mailová adresa"/>
+
+                    <TextBox  Grid.Row="4" 
+                              Style="{StaticResource TextBoxUserOverV}"
+                              x:Name="tbEmail">
+                    </TextBox>
+
+
+                <Button Grid.Row="5" 
+                        Style="{StaticResource BtnAddEditDelete}"
+                        Content="Přidat"
+                        Name="btnAdd"
+                        Width="200"
+                        BorderThickness="0"
+                        Margin="0,10,0,0"
+                        VerticalAlignment="Top">
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

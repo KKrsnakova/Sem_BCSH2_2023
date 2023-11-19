@@ -15,8 +15,10 @@ namespace Sem_BCSH2_2023.Manager
 
         public GoodsMng(Repo goodsRepo) 
         {
-            GoodsRepo = new Repo2<Good>();
-            GoodsRepo.Collection = goodsRepo.GetInstance().GetCollection<Good>("Goods");
+            GoodsRepo = new Repo2<Good>
+            {
+                Collection = goodsRepo.GetInstance().GetCollection<Good>("Goods")
+            };
         }
 
         public Good GetByIdGoods(int id)

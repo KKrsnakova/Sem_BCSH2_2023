@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Repository
 {
-    public class Repo
+    public class Repo : IDisposable
     {
         public LiteDatabase Databaze
         {
-            get; set;
+            get; private set;
         }
 
         public Repo()
@@ -26,6 +26,21 @@ namespace Sem_BCSH2_2023.Repository
         public LiteDatabase GetInstance()
         {
             return Databaze;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Uvolnění prostředků ovládaných
+                Databaze?.Dispose();
+            }
         }
     }
 
