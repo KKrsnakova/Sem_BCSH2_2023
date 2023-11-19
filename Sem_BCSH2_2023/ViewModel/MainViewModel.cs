@@ -74,10 +74,10 @@ namespace Sem_BCSH2_2023.ViewModel
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
 
-
+            
 
             //Default view
-            ExecuteShowGoodsViewCommand(null);
+           // ExecuteShowGoodsViewCommand(null);
         }
 
         private void ExecuteShowHomeViewCommand(object obj)
