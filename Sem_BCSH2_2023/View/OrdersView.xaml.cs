@@ -63,7 +63,7 @@ namespace Sem_BCSH2_2023.View
             if (button.DataContext is Order item)
             {
                 order = (Order)item;
-                NewOrderView windowEditGoods = new(order, order.Id);
+                NewOrderView windowEditGoods = new(order, order.CustomerId);
                 windowEditGoods.ShowDialog();
                
             }

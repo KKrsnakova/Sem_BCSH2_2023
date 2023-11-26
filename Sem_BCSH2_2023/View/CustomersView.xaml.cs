@@ -28,7 +28,7 @@ namespace Sem_BCSH2_2023.View
         public CustomersView()
         {
             InitializeComponent();
-            btnEdit.IsEnabled = false;
+            //btnEdit.IsEnabled = false;
             lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
         }
 
@@ -54,7 +54,7 @@ namespace Sem_BCSH2_2023.View
 
         private void LvCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnEdit.IsEnabled = true;
+            //btnEdit.IsEnabled = true;
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)

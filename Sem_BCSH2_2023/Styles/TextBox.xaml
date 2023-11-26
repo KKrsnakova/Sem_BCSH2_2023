@@ -47,4 +47,18 @@
         <Setter Property="Padding" Value="10,0,110,0"/>
     </Style>
 
+    <Style x:Key="TextBoxPassword" TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Foreground" Value="{StaticResource textColor1}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <!--<Setter Property="Margin" Value="120,0,110,5"/>
+        <Setter Property="Padding" Value="10,0,110,0"/>-->
+    </Style>
+
 </ResourceDictionary>

@@ -18,7 +18,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
-                <ColumnDefinition Width="110"/>
 
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
@@ -44,11 +43,7 @@
                     Name="btnAdd"
                     Content="Přidat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnAdd_Click">
+                    Click="BtnAdd_Click">
 
             </Button>
 
@@ -57,15 +52,11 @@
                     Name="btnDelete"
                     Content="Odebrat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnDelete_Click">
+                    Click="BtnDelete_Click">
 
             </Button>
 
-            <Button Grid.Column="4"  
+            <!--<Button Grid.Column="4"  
                     Name="btnEdit"
                     Content="Edit"
                     Style="{StaticResource BtnAddEditDelete}"
@@ -76,7 +67,7 @@
                     
                     VerticalAlignment="Top" Click="BtnEdit_Click">
 
-            </Button>
+            </Button>-->
 
         </Grid>
         <Border Grid.Row="1"

@@ -41,6 +41,9 @@ namespace Sem_BCSH2_2023.View
             Application.Current.Shutdown();
         }
 
-        
+        private void btnMaximal_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

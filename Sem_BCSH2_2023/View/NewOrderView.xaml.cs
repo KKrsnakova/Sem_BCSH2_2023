@@ -25,24 +25,28 @@ namespace Sem_BCSH2_2023.View
 
         Customer selectedCustomer;
         private Order order;
-       // public NewOrderView(Order ord, Customer customer)
+        private bool edit;
+        // public NewOrderView(Order ord, Customer customer)
         public NewOrderView(Order ord, int? customerID)
         {
-            
+
             InitializeComponent();
             cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
             cbCustomer.SelectedIndex = 0;
-            
 
 
-            if(customerID != null && ord != null )
+            if (customerID != null && ord != null)
             {
+                edit = true;
                 order = ord;
+                MessageBox.Show("Customer id" + customerID, "Uloženo do DB", MessageBoxButton.OK);
                 selectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
                 cbCustomer.SelectedValue = selectedCustomer;
                 lvOrder.ItemsSource = ord.ListOfGoods;
-            } else
+            }
+            else
             {
+                edit = false;
                 selectedCustomer = (Customer)cbCustomer.SelectedItem;
                 order = OrderViewModel.NewOrder(selectedCustomer.Id);
             }
@@ -51,7 +55,7 @@ namespace Sem_BCSH2_2023.View
             //lvOrder.ItemsSource = ord.ListOfGoods;
             //    }
             //new order
-            
+
 
 
             //if (order == null && selectedCustomer != null)
@@ -71,7 +75,7 @@ namespace Sem_BCSH2_2023.View
             AllGoodsView windowAllGoods = new(order);
             windowAllGoods.ShowDialog();
             lvOrder.Items.Refresh();
-            MessageBox.Show(order.ListOfGoods.Count()+" = count", "Uloženo do DB", MessageBoxButton.OK);
+            MessageBox.Show(order.ListOfGoods.Count() + " = count", "Uloženo do DB", MessageBoxButton.OK);
             lvOrder.ItemsSource = order.ListOfGoods;
 
 
@@ -84,14 +88,15 @@ namespace Sem_BCSH2_2023.View
             {
                 order.ListOfGoods.Remove(flw);
                 GoodViewModel.AddFlower(flw);
-            } else if (button.DataContext is OtherItems otitem)
+            }
+            else if (button.DataContext is OtherItems otitem)
             {
                 order.ListOfGoods.Remove(otitem);
                 GoodViewModel.AddOtherItems(otitem);
             }
         }
 
-        
+
 
         private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -107,13 +112,21 @@ namespace Sem_BCSH2_2023.View
 
         //Confirm / Close Order
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-           
-           // order.CustomerId = selectedCustomer.Id;
- 
-            //OrderViewModel.AddOrder(order);
-          
+        {  
+            if (edit)
+            {
+                order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
+                this.Close();
+
+            } else
+            {
+                order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
+                // order.CustomerId = selectedCustomer.Id;
+                OrderViewModel.AddOrder(order);
+
+            }
+
+
             this.Close();
         }
 
@@ -123,7 +136,7 @@ namespace Sem_BCSH2_2023.View
             this.Close();
         }
 
-       
+
 
 
 
@@ -143,7 +156,7 @@ namespace Sem_BCSH2_2023.View
             else this.WindowState = WindowState.Normal;
         }
 
-       
+
 
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

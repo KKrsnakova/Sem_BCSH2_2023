@@ -56,7 +56,7 @@ namespace Sem_BCSH2_2023.View
 
         private void LvFlowers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnEdit.Visibility = Visibility.Visible;
+            //btnEdit.Visibility = Visibility.Visible;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

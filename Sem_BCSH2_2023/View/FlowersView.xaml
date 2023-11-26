@@ -35,15 +35,11 @@
                     Name="btnAdd"
                     Content="Přidat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnAdd_Click">
+                    Click="BtnAdd_Click">
 
             </Button>
 
-            <Button Grid.Column="1"  
+            <!--<Button Grid.Column="2"  
                     Name="btnEdit"
                     Content="Edit"
                     Style="{StaticResource BtnAddEditDelete}"
@@ -53,17 +49,13 @@
                     Foreground="White"
                     VerticalAlignment="Top" Click="btnEdit_Click">
 
-            </Button>
+            </Button>-->
 
-            <Button Grid.Column="2"  
+            <Button Grid.Column="1"  
                     Name="btnDelete"
                     Content="Odebrat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnDelete_Click">
+                    Click="BtnDelete_Click">
 
             </Button>
         </Grid>

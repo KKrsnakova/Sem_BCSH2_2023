@@ -50,23 +50,17 @@ namespace Sem_BCSH2_2023.View
             OrderViewModel.OrderList = OrderMng.GetAllOrder();
 
 
-
-
-
-
         }
 
         public static void SetCurrentUser(UserLogins user)
         {
             ActualUser = user;
 
-            // Můžete provést další aktualizace nebo akce související s aktuálním uživatelem.
         } 
         public static UserLogins GetCurrentUser()
         {
             return ActualUser;    
 
-            // Můžete provést další aktualizace nebo akce související s aktuálním uživatelem.
         }
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
