@@ -62,7 +62,7 @@ namespace Sem_BCSH2_2023.View
                 int selectedId = otherItem.Id;
                 AddGoods windowEditGoods = new(selectedId, false);
                 windowEditGoods.ShowDialog();
-                ((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
+               //((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
             }
         }
 

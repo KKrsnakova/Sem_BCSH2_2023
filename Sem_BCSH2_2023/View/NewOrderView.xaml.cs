@@ -74,7 +74,7 @@ namespace Sem_BCSH2_2023.View
         {
             AllGoodsView windowAllGoods = new(order);
             windowAllGoods.ShowDialog();
-            lvOrder.Items.Refresh();
+            //lvOrder.Items.Refresh();
             MessageBox.Show(order.ListOfGoods.Count() + " = count", "Uloženo do DB", MessageBoxButton.OK);
             lvOrder.ItemsSource = order.ListOfGoods;
 

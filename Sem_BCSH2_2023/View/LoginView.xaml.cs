@@ -43,7 +43,7 @@ namespace Sem_BCSH2_2023.View
 
         private void btnMaximal_Click(object sender, RoutedEventArgs e)
         {
-
+            //todo
         }
     }
 }

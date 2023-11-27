@@ -34,6 +34,15 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderList.Remove(selectedOrder);
         }
 
+        public static void OrderDone(Order selectedOrder)
+        {
+
+            selectedOrder.Done = !selectedOrder.Done;
+           
+        }
+
+
+
 
 
         private static int IdGenerator()
@@ -60,5 +69,7 @@ namespace Sem_BCSH2_2023.ViewModel
             }
             return price;
         }
+
+
     }
 }

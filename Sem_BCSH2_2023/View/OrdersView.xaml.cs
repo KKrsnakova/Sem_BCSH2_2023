@@ -68,12 +68,33 @@ namespace Sem_BCSH2_2023.View
                
             }
             lvOrders.ItemsSource = OrderViewModel.OrderList;
-            lvOrders.Items.Refresh();
         }
 
         private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+        private void BtnDone_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            if (button.DataContext is Order item)
+            {
+                order = (Order)item;
+                order.Done = !order.Done;
+                order.DateCompletion = DateTime.Now;
+
+                // Získání ListViewItem z položky Order
+                ListViewItem? lvi = lvOrders.ItemContainerGenerator.ContainerFromItem(item) as ListViewItem;
+
+                if (lvi != null)
+                {
+                    lvi.IsEnabled = false;
+                    lvi.IsHitTestVisible = false;
+                }
+            }
+        }
+
     }
 }

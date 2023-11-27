@@ -69,7 +69,6 @@ namespace Sem_BCSH2_2023.View
                 int selectedId = flower.Id;
                 AddGoods windowEditGoods = new(selectedId, true);
                 windowEditGoods.ShowDialog();
-                ((CollectionViewSource)Resources["FilteredFlowers"]).View.Refresh();
 
             }
         }

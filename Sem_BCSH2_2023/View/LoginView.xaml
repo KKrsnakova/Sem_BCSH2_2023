@@ -61,8 +61,7 @@
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
-                                Margin="0,0,5,0"
-                               >
+                                Margin="0,0,5,0">
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
@@ -108,6 +107,7 @@
                                Margin="0,35,0,0"/>
 
                     <TextBox Name="tbUsername"
+                             
                              Text="{Binding Username}"
                              Style="{StaticResource TextBoxAdd}" >
                     </TextBox>
@@ -134,7 +134,7 @@
                             Cursor="Hand"
                             Grid.Column="2"
                             Margin="0,35,0,0"
-                            Command="{Binding LoginCommand}">
+                            Command="{Binding LoginCommand}" >
                     </Button>
                 </StackPanel>
             </Grid>

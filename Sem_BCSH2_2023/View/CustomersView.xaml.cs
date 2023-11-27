@@ -67,7 +67,6 @@ namespace Sem_BCSH2_2023.View
                 AddEditCustomer windowEditCustomer = new(selectedId);
                 windowEditCustomer.ShowDialog();
                 lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
-                lvCustomers.Items.Refresh();
             }
         }
 
