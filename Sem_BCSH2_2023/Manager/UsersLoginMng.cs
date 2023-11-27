@@ -14,11 +14,11 @@ namespace Sem_BCSH2_2023.Manager
 
         public Repo2<UserLogins> UserLoginsRepo { get; set; }
 
-        public UsersLoginMng(Repo customersRepo)
+        public UsersLoginMng(RepoLogin loginRepo)
         {
             UserLoginsRepo = new Repo2<UserLogins>
             {
-                Collection = customersRepo.GetInstance().GetCollection<UserLogins>("UserLogins")
+                Collection = loginRepo.GetInstance().GetCollection<UserLogins>("UserLogins")
             };
         }
 

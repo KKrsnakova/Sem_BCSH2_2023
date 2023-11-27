@@ -41,9 +41,13 @@ namespace Sem_BCSH2_2023.View
             Application.Current.Shutdown();
         }
 
-        private void btnMaximal_Click(object sender, RoutedEventArgs e)
+        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
         {
-            //todo
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+            else this.WindowState = WindowState.Normal;
         }
     }
 }

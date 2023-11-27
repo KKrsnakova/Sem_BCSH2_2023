@@ -34,7 +34,7 @@ namespace Sem_BCSH2_2023.View
         public MainView(UserLogins actualUser)
         {
 
-            //// DataContext = new MainViewModel();
+            // DataContext = new MainViewModel();
 
             ActualUser = actualUser;
 

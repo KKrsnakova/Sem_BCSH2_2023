@@ -71,7 +71,7 @@
 
                         <Button x:Name="btnMaximal"
                                  Style="{StaticResource navBtn}"
-                                 Click="btnMaximal_Click">          
+                                 Click="BtnMaximal_Click">          
                             <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 

@@ -23,6 +23,8 @@ namespace Sem_BCSH2_2023.Repository
             Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Db\MyDb.db")));
         }
 
+
+
         public LiteDatabase GetInstance()
         {
             return Databaze;
@@ -43,6 +45,50 @@ namespace Sem_BCSH2_2023.Repository
             }
         }
     }
+
+    //_______Repo Login______________
+
+    public class RepoLogin : IDisposable
+    {
+        public LiteDatabase Databaze { get; private set; }
+
+        public RepoLogin()
+        {
+            string _BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Db\LoginDb.db")));
+        }
+
+        public LiteDatabase GetInstance()
+        {
+            return Databaze;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void CloseConnection()
+        {
+            Databaze?.Dispose();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Uvolnění prostředků ovládaných
+                Databaze?.Dispose();
+            }
+        }
+    }
+
+
+    //_______End Repo Login______________
+
+
+
 
     public class Repo2<T>
     {

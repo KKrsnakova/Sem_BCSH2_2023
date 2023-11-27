@@ -54,7 +54,16 @@ namespace Sem_BCSH2_2023.View
 
         private void LvOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Order selectedOrder = lvOrders.SelectedItem as Order;
 
+            // Získání ListViewItem z aktuálně vybrané položky
+            ListViewItem lvi = lvOrders.ItemContainerGenerator.ContainerFromItem(selectedOrder) as ListViewItem;
+
+            if (lvi != null && lvi.IsEnabled)
+            {
+                lvi.IsEnabled = true;
+                lvi.IsHitTestVisible = true;
+            }
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -65,9 +74,7 @@ namespace Sem_BCSH2_2023.View
                 order = (Order)item;
                 NewOrderView windowEditGoods = new(order, order.CustomerId);
                 windowEditGoods.ShowDialog();
-               
             }
-            lvOrders.ItemsSource = OrderViewModel.OrderList;
         }
 
         private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
