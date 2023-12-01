@@ -82,12 +82,12 @@ namespace Sem_BCSH2_2023.ViewModel
                         editedFlower.Price = price;
                         editedFlower.Description = tbDesc_tbCount.Text;
                         editedFlower.FlowerSpecies = tbSpec_tbUsage.Text;
+                        this.Close();
                     }
                     else
                     {
                         MessageBox.Show( "Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
                     }
-                   // GetWindow(this).Close();
                 }
             }
             //Editation of OtherItem

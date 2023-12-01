@@ -72,8 +72,16 @@ namespace Sem_BCSH2_2023.View
             if (button.DataContext is Order item)
             {
                 order = (Order)item;
-                NewOrderView windowEditGoods = new(order, order.CustomerId);
-                windowEditGoods.ShowDialog();
+                int orderId = order.CustomerId;
+                if (CustomerViewModel.CustomersList.Any(customer => customer.Id == orderId))
+                {
+                    NewOrderView windowEditGoods = new(order, order.CustomerId);
+                    windowEditGoods.ShowDialog();
+                } else
+                {
+                    MessageBox.Show("Zákazník byl smazán");
+                }
+                
             }
         }
 

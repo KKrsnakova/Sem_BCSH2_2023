@@ -46,7 +46,6 @@ namespace Sem_BCSH2_2023.View
             }
             else
             {
-
                 edit = false;
                 order = OrderViewModel.NewOrder();
             }
@@ -94,13 +93,13 @@ namespace Sem_BCSH2_2023.View
             if (edit)
             {
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-                order.CustomerId = selectedCustomer.Id;
+                //order.CustomerId = selectedCustomer.Id;
                 this.Close();
 
             } else
             {
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-                // order.CustomerId = selectedCustomer.Id;
+                 order.CustomerId = selectedCustomer.Id;
                 OrderViewModel.AddOrder(order);
 
             }

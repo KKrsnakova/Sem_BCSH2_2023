@@ -70,6 +70,10 @@
                                 <Setter Property="IsEnabled" Value="False"/>
                                 <Setter Property="IsHitTestVisible" Value="False"/>
                             </DataTrigger>
+
+
+                          
+
                         </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>

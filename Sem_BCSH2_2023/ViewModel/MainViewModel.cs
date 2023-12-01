@@ -121,6 +121,7 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderMng.RemoveAllOrder();
             OrderMng.AddAllOrder(OrderViewModel.OrderList);
 
+            Repo.Dispose();
             MessageBox.Show("Data SNAD uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
@@ -128,13 +129,9 @@ namespace Sem_BCSH2_2023.ViewModel
         private void LogOutCom(object obj)
         {
             MessageBox.Show("Odhlášeno");
-            //Repo.Dispose();
-            // Uzavřít aktuální okno
+            Repo.Dispose();
             Window currentWindow = App.Current.Windows[0];
             LoginView loginView = new LoginView();
-
-
-            // Vytvořit a zobrazit nové přihlašovací okno
 
             loginView.Show();
             currentWindow.Close();

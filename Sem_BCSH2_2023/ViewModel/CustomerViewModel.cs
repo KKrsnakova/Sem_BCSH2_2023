@@ -30,6 +30,15 @@ namespace Sem_BCSH2_2023.ViewModel
         public static void RemoveCustomer(Customer selectedCustomer)
         {
             CustomersList.Remove(selectedCustomer);
+
+            // Odstranění všech objednávek spojených s odstraněným zákazníkem
+            List<Order> ordersToRemove = OrderViewModel.OrderList.Where(order => order.CustomerId == selectedCustomer.Id).ToList();
+
+            foreach (Order order in ordersToRemove)
+            {
+                OrderViewModel.OrderList.Remove(order);
+            }
+
         }
 
         public static Customer GetCustomerById(int customerId)
