@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FontAwesome.Sharp;
+using Sem_BCSH2_2023.Manager;
 using Sem_BCSH2_2023.Model;
+using Sem_BCSH2_2023.Repository;
 using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,19 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+
+        //repos
+        public GoodsMng GoodsMng { get; set; }
+        public CustomerMng CustomerMng { get; set; }
+        public OrderMng OrderMng { get; set; }
+        public Repo Repo { get; set; }
+
+
+
+
+
+
+
         private BaseViewModel currentChildView;
         private string description;
         private IconChar icon;
@@ -65,6 +80,7 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand ShowCustomersViewCommand { get; }
         public ICommand ShowOrdersViewCommand { get; }
         public ICommand LogOut { get; }
+        public ICommand SaveData { get; }
 
 
 
@@ -79,7 +95,33 @@ namespace Sem_BCSH2_2023.ViewModel
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
             LogOut = new CommandViewModel(LogOutCom);
+            SaveData = new CommandViewModel(SaveDataCom);
 
+
+
+            Repo = new();
+            GoodsMng = new GoodsMng(Repo);
+            CustomerMng = new CustomerMng(Repo);
+            OrderMng = new OrderMng(Repo);
+
+            GoodViewModel.GoodsList = GoodsMng.GetAllGoods();
+            CustomerViewModel.CustomersList = CustomerMng.GetAllCustomers();
+            OrderViewModel.OrderList = OrderMng.GetAllOrder();
+
+        }
+
+        private void SaveDataCom(object obj)
+        {
+            GoodsMng.RemoveAllGoods();
+            GoodsMng.AddAllGoods(GoodViewModel.GoodsList);
+
+            CustomerMng.RemoveAllCustomers();
+            CustomerMng.AddAllCustomers(CustomerViewModel.CustomersList);
+
+            OrderMng.RemoveAllOrder();
+            OrderMng.AddAllOrder(OrderViewModel.OrderList);
+
+            MessageBox.Show("Data SNAD uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
 

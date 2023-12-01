@@ -238,8 +238,7 @@
 
                             <Button x:Name="btnSaveData"
                                       Style="{StaticResource btnLogOut}"
-                                   
-                                      Click="BtnSaveData_Click"
+                                   Command="{Binding SaveData}"
                                     >
                                 <fa:IconImage Name="IconSave"
                                     Icon="Save"
