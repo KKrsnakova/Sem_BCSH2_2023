@@ -12,9 +12,11 @@ namespace Sem_BCSH2_2023.ViewModel
     public class CustomerViewModel : BaseViewModel
     {
         public static ObservableCollection<Customer> CustomersList = new ObservableCollection<Customer>();
+        // public static ObservableCollection<Customer> CustomersList;
 
         public CustomerViewModel()
         {
+
         }
 
         public static void AddCustomer(string nameAdd, string surnameAdd,
@@ -36,12 +38,13 @@ namespace Sem_BCSH2_2023.ViewModel
             if (selectedCustomer != null)
             {
                 return selectedCustomer;
-            } else
+            }
+            else
             {
                 MessageBox.Show("Chyba, zakázník není v seznamu  " + selectedCustomer.ToString(), "Chyba", MessageBoxButton.OK);
                 return null;
             }
-            
+
         }
 
 

@@ -55,7 +55,7 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (isFlowerWindow)
             {
@@ -70,8 +70,7 @@ namespace Sem_BCSH2_2023.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Chyba", "Špatně zadaná hodnota", MessageBoxButton.OK);
-                        this.Close();
+                        MessageBox.Show("Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
                     }
                 }
                 else
@@ -86,10 +85,9 @@ namespace Sem_BCSH2_2023.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Chyba", "Špatně zadaná hodnota", MessageBoxButton.OK);
-                        this.Close();
+                        MessageBox.Show( "Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
                     }
-                    GetWindow(this).Close();
+                   // GetWindow(this).Close();
                 }
             }
             //Editation of OtherItem
@@ -103,12 +101,11 @@ namespace Sem_BCSH2_2023.ViewModel
                         double.TryParse(tbPrice.Text, out double price);
                         int.TryParse(tbDesc_tbCount.Text, out int count);
                         GoodViewModel.AddOtherItems(tbName.Text, price, count, tbSpec_tbUsage.Text);
-                        this.Close();
+                        CloseWindow();
                     }
                     else
                     {
-                        MessageBox.Show("Chyba", "Špatně zadaná hodnota", MessageBoxButton.OK);
-                        this.Close();
+                        MessageBox.Show("Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
                     }
                 }
                 else
@@ -122,13 +119,12 @@ namespace Sem_BCSH2_2023.ViewModel
                         editedOtherItems.Price = price;
                         editedOtherItems.Count = count;
                         editedOtherItems.Usage = tbSpec_tbUsage.Text;
+                        CloseWindow();
                     }
                     else
                     {
-                        MessageBox.Show("Chyba", "Špatně zadaná hodnota", MessageBoxButton.OK);
-                        this.Close();
+                        MessageBox.Show("Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
                     }
-                    GetWindow(this).Close();
                 }
             }
             
@@ -202,5 +198,11 @@ namespace Sem_BCSH2_2023.ViewModel
         }
 
        
+
+        private void CloseWindow()
+        {
+            GetWindow(this).Close();
+        }
+
     }
 }

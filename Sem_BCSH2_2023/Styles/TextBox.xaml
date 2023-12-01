@@ -60,5 +60,14 @@
         <!--<Setter Property="Margin" Value="120,0,110,5"/>
         <Setter Property="Padding" Value="10,0,110,0"/>-->
     </Style>
+    
+    
+    <!--ListView sytles-->
+    <Style x:Key="ListViewsBorder" TargetType="Border">
+        <Setter Property="Margin" Value="0,10,0,10"></Setter>
+        <Setter Property="Background" Value="{StaticResource lvBorderSolidColor}"/>
+        <Setter Property="CornerRadius" Value="5"></Setter>
+        <Setter Property="Padding" Value="5"></Setter>
+    </Style>
 
 </ResourceDictionary>

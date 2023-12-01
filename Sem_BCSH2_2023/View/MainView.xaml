@@ -44,6 +44,7 @@
     <Border CornerRadius="10"
             BorderThickness="1">
 
+
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource borderColor1}" Offset="0"/>
@@ -131,13 +132,24 @@
 
             <!--Main Window-->
             <Border CornerRadius="0,10,10,0"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    Opacity="1"
+                    >
+
+
                 <Border.Background>
+                    <ImageBrush ImageSource="/Resources/bg2.png"
+                 Stretch="Fill" Opacity="1"/>
+                </Border.Background>
+
+                <Border.BorderBrush>
                     <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
                         <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
                         <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
                     </LinearGradientBrush>
-                </Border.Background>
+                </Border.BorderBrush>
+
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -209,10 +221,7 @@
 
                             <Button x:Name="btnLogOut"
                                     Style="{StaticResource btnLogOut}"
-                                    BorderThickness="0"
-                                    Foreground="White"
-                                    Cursor="Hand"
-                                    Click="BtnLogOut_Click"
+                                    Command="{Binding LogOut}"
                                     >
                                 <fa:IconImage Icon="SignOut"
                                               Foreground="{StaticResource textColor1}"
@@ -229,9 +238,7 @@
 
                             <Button x:Name="btnSaveData"
                                       Style="{StaticResource btnLogOut}"
-                                      BorderThickness="0"
-                                      Foreground="White"
-                                      Cursor="Hand"
+                                   
                                       Click="BtnSaveData_Click"
                                     >
                                 <fa:IconImage Name="IconSave"

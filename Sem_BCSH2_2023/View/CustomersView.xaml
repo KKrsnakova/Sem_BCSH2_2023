@@ -49,9 +49,8 @@
 
         </Grid>
         <Border Grid.Row="1"
-                Background="#200F53"
-                CornerRadius="10" 
-                Padding="10">
+                 Style="{StaticResource ListViewsBorder}"
+               >
             <ListView Name="lvCustomers" SelectionChanged="LvCustomers_SelectionChanged">
 
                 <ListView.ItemContainerStyle>

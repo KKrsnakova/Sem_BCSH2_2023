@@ -52,13 +52,12 @@ namespace Sem_BCSH2_2023.View
                 if (CheckFill())
                 {
                     _ = long.TryParse(tbPhoneNumber.Text, out long phone);
-                    CustomerViewModel.AddCustomer(tbName.Text,tbSurname.Text, tbAddress.Text, tbCity.Text, phone, tbEmail.Text);
+                    CustomerViewModel.AddCustomer(tbName.Text, tbSurname.Text, tbAddress.Text, tbCity.Text, phone, tbEmail.Text);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Chyba", "Špatně zadaná hodnota", MessageBoxButton.OK);
-                    this.Close();
+                    MessageBox.Show("Špatně zadané hodnoty, prosím překontrolujte", "Chyba", MessageBoxButton.OK);
                 }
             }
             else
@@ -66,7 +65,7 @@ namespace Sem_BCSH2_2023.View
                 if (CheckFill())
                 {
                     _ = long.TryParse(tbPhoneNumber.Text, out long phone);
-                     editedCustomer.Name = tbName.Text;
+                    editedCustomer.Name = tbName.Text;
                     editedCustomer.Surname = tbSurname.Text;
                     editedCustomer.Address = tbAddress.Text;
                     editedCustomer.City = tbCity.Text;
@@ -76,8 +75,7 @@ namespace Sem_BCSH2_2023.View
                 }
                 else
                 {
-                    MessageBox.Show("Chyba", "Špatně zadaná hodnota", MessageBoxButton.OK);
-                    this.Close();
+                    MessageBox.Show("Špatně zadané hodnoty, prosím překontrolujte", "Chyba", MessageBoxButton.OK);
                 }
             }
 
@@ -95,7 +93,7 @@ namespace Sem_BCSH2_2023.View
             }
             else
             {
-               return false;
+                return false;
             }
 
         }
@@ -135,7 +133,7 @@ namespace Sem_BCSH2_2023.View
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-       
+
     }
 
 }

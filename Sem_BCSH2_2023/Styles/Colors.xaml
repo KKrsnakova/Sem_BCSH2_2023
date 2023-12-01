@@ -12,6 +12,15 @@
     <Color x:Key="bgColor2">#0E769F</Color>
     <SolidColorBrush x:Key="bgAddColor" Color="#278BEF"/>
     
+    <!--Background windows-->
+    <!--<Color x:Key="bgColor1">#16BAFF</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>
+    <Color x:Key="bgColor2">#0E769F</Color>-->
+
     <!--Text-->
     <SolidColorBrush x:Key="textColor1" Color="#FFFFFF"/>
 
@@ -58,6 +67,11 @@
     <Color x:Key="bgAddColor2">#0E769F</Color>
     <Color x:Key="bgAddColor3">#000000</Color>
     
+    
     <SolidColorBrush x:Key="bgAddEditColor" Color="#278BEF"/>
-
+    
+    <!--ListView Border color-->
+    <Color x:Key="lvBorderColor">#d661fa</Color>
+    <SolidColorBrush x:Key="lvBorderSolidColor" Color="#d661fa"/>
+    
 </ResourceDictionary>

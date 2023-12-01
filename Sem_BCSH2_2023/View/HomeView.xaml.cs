@@ -1,4 +1,5 @@
 ﻿using Sem_BCSH2_2023.Model;
+using Sem_BCSH2_2023.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,24 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class HomeView : UserControl
     {
+        private readonly UserLogins _loggedInUser;
+
         public HomeView()
         {
             InitializeComponent();
+            HomeViewModel homeViewModel = new HomeViewModel(MainView.GetCurrentUser());
+            _loggedInUser = homeViewModel.ActualUser;
             SetBoxes();
-        }
 
-        private void SetBoxes()
+        }
+       
+
+        private void SetBoxes( )
         {
-            UserLogins usr = MainView.GetCurrentUser();
-            tbFullName.Text = usr.FullName;
-            tbEmail.Text = usr.Email;
-            tbUserLogin.Text = usr.Username;
-            tbPassword.Text = usr.Password;
+            tbFullName.Text = _loggedInUser.FullName;
+            tbEmail.Text = _loggedInUser.Email;
+            tbUserLogin.Text = _loggedInUser.Username;
+            tbPassword.Text = _loggedInUser.Password;
         }
         
     }

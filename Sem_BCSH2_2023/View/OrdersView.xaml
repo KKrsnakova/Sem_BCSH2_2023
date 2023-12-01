@@ -56,29 +56,21 @@
 
             </Button>
 
-            <!--<Button Grid.Column="4"  
-                    Name="btnEdit"
-                    Content="Edit"
-                    Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    
-                    VerticalAlignment="Top" Click="BtnEdit_Click">
-
-            </Button>-->
 
         </Grid>
         <Border Grid.Row="1"
-                Background="#200F53"
-                CornerRadius="10" 
-                Padding="10">
+                 Style="{StaticResource ListViewsBorder}">
             <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
-
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Style.Triggers>
+                            <!-- Trigger pro nastavení IsEnabled a IsHitTestVisible na false, pokud Done je True -->
+                            <DataTrigger Binding="{Binding Done}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
 
@@ -88,7 +80,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
-                                            Style="{StaticResource BtnAddEditDelete}">
+                                    Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
                                     </Button>
                                 </DataTemplate>
@@ -101,34 +93,32 @@
                         <GridViewColumn Width="140" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
                         <GridViewColumn Width="110" Header="Splněno" DisplayMemberBinding="{Binding Done}" />
 
-                        
                         <GridViewColumn Width="140" Header="Datum dokončení" DisplayMemberBinding="{Binding DateCompletion}" />
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
-                                            Style="{StaticResource BtnAddEditDelete}">
+                                    Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
                                     </Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        
+
                         <GridViewColumn Header="Splnit">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Click="BtnDone_Click" CommandParameter="{Binding Done}"
-                                            Style="{StaticResource BtnAddEditDelete}">
+                                    Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Question" Style="{StaticResource listViewIcon}"/>
                                     </Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        
-                        
 
                     </GridView>
                 </ListView.View>
+
             </ListView>
         </Border>
     </Grid>

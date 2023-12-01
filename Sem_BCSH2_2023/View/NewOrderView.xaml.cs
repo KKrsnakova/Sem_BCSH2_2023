@@ -2,6 +2,7 @@
 using Sem_BCSH2_2023.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -22,51 +23,40 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class NewOrderView : Window
     {
-
+        private readonly ObservableCollection<Customer> CustomersList;
         Customer selectedCustomer;
         private Order order;
         private bool edit;
         // public NewOrderView(Order ord, Customer customer)
         public NewOrderView(Order ord, int? customerID)
         {
-
+            CustomersList = CustomerViewModel.CustomersList;
             InitializeComponent();
-            cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
-            cbCustomer.SelectedIndex = 0;
 
+            cbCustomer.ItemsSource = CustomersList;
+            cbCustomer.SelectedIndex = 0;
 
             if (customerID != null && ord != null)
             {
                 edit = true;
                 order = ord;
-                MessageBox.Show("Customer id" + customerID, "Uloženo do DB", MessageBoxButton.OK);
-                selectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
-                cbCustomer.SelectedValue = selectedCustomer;
+                selectedCustomer = CustomersList.First(x => x.Id == customerID);
+                cbCustomer.SelectedItem = selectedCustomer;
                 lvOrder.ItemsSource = ord.ListOfGoods;
             }
             else
             {
+
                 edit = false;
-                selectedCustomer = (Customer)cbCustomer.SelectedItem;
-                order = OrderViewModel.NewOrder(selectedCustomer.Id);
+                order = OrderViewModel.NewOrder();
             }
 
-            //if(ord.ListOfGoods.Count!= null) { 
-            //lvOrder.ItemsSource = ord.ListOfGoods;
-            //    }
-            //new order
-
-
-
-            //if (order == null && selectedCustomer != null)
-            //{
-            //    OrderNew = OrderViewModel.NewOrder(selectedCustomer.Id);
-            //} else if (order != null) 
-            //{
-            //    OrderNew = order;
-            //}
         }
 
+        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedCustomer = (Customer)cbCustomer.SelectedItem;
+        }
 
 
         //Add or Delete Goods from order list
@@ -74,8 +64,6 @@ namespace Sem_BCSH2_2023.View
         {
             AllGoodsView windowAllGoods = new(order);
             windowAllGoods.ShowDialog();
-            //lvOrder.Items.Refresh();
-            MessageBox.Show(order.ListOfGoods.Count() + " = count", "Uloženo do DB", MessageBoxButton.OK);
             lvOrder.ItemsSource = order.ListOfGoods;
 
 
@@ -98,16 +86,6 @@ namespace Sem_BCSH2_2023.View
 
 
 
-        private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedCustomer = (Customer)cbCustomer.SelectedItem;
-        }
-
 
 
         //Confirm / Close Order
@@ -116,6 +94,7 @@ namespace Sem_BCSH2_2023.View
             if (edit)
             {
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
+                order.CustomerId = selectedCustomer.Id;
                 this.Close();
 
             } else

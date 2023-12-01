@@ -27,7 +27,6 @@ namespace Sem_BCSH2_2023.View
         public OtherItemsView()
         {
             InitializeComponent();
-            btnEdit.Visibility = Visibility.Hidden;
             lvOtherItems.ItemsSource = ((CollectionViewSource)Resources["FilteredGoods"]).View;
         }
 
@@ -75,11 +74,7 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
-        private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnEdit.Visibility = Visibility.Visible;
-        }
-
+      
       
     }
 }

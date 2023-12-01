@@ -64,6 +64,11 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand ShowGoodsViewCommand { get; }
         public ICommand ShowCustomersViewCommand { get; }
         public ICommand ShowOrdersViewCommand { get; }
+        public ICommand LogOut { get; }
+
+
+
+
         public MainViewModel()
         {
 
@@ -73,16 +78,30 @@ namespace Sem_BCSH2_2023.ViewModel
             ShowGoodsViewCommand = new CommandViewModel(ExecuteShowGoodsViewCommand);
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
+            LogOut = new CommandViewModel(LogOutCom);
 
-            
 
-            //Default view
-           // ExecuteShowGoodsViewCommand(null);
+        }
+
+        private void LogOutCom(object obj)
+        {
+            MessageBox.Show("Odhlášeno");
+            //Repo.Dispose();
+            // Uzavřít aktuální okno
+            Window currentWindow = App.Current.Windows[0];
+            LoginView loginView = new LoginView();
+
+
+            // Vytvořit a zobrazit nové přihlašovací okno
+
+            loginView.Show();
+            currentWindow.Close();
+
         }
 
         private void ExecuteShowHomeViewCommand(object obj)
         {
-            CurrentChildView = new HomeViewModel();
+            CurrentChildView = new HomeViewModel(MainView.GetCurrentUser());
             Description = "Přehled";
             Icon = IconChar.UserGroup;
         }

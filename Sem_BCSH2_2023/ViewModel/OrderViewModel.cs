@@ -17,9 +17,9 @@ namespace Sem_BCSH2_2023.ViewModel
            OrderList.Add(new Order(IdGenerator(), customerIdAdd, DateTime.Now));
         }
 
-        public static Order NewOrder(int customerIdAdd)
+        public static Order NewOrder()
         {
-            Order order = new Order(IdGenerator(), customerIdAdd, DateTime.Now);
+            Order order = new Order(IdGenerator(), 1, DateTime.Now);
             return order;
         }
 

@@ -11,24 +11,36 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="Nová Objednávka" Height="800" Width="1024">
-    <Grid Background="{StaticResource bgAddColor}">
-        <Grid.RowDefinitions>
-            <!--Nav-->
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="*"/>
 
-        </Grid.RowDefinitions>
+    <Border CornerRadius="10" BorderThickness="2">
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="70"/>
+        <Grid >
+            <Grid.RowDefinitions>
+                <!--Nav-->
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="600"/>
 
-        </Grid.ColumnDefinitions>
+            </Grid.RowDefinitions>
 
-        <!--Header buttonst-->
-        <StackPanel x:Name="navBar"
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!--Header buttonst-->
+            <StackPanel x:Name="navBar"
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 Orientation="Horizontal"
@@ -38,7 +50,7 @@
                                 MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
                                 MouseEnter="NavBar_MouseEnter">
 
-            <Button x:Name="btnClose"
+                <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
@@ -46,153 +58,132 @@
                             Cursor="Hand"
                             Click="BtnClose_Click"
                                 >
-                <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
-            </Button>
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
+                </Button>
 
-            <Button x:Name="btnMaximal"
+                <Button x:Name="btnMaximal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
                             Click="BtnMaximal_Click">
-                <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
-            </Button>
+                    <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                </Button>
 
-            <Button x:Name="btnMinimal"
+                <Button x:Name="btnMinimal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
                             Click="BtnMinimal_Click">
-                <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
-            </Button>
-        </StackPanel>
+                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+            </StackPanel>
 
-        <!--Main block-->
+            <!--Main block-->
 
-        <StackPanel Grid.Column="3" Grid.Row="2">
-            <Button Content="+"
-                    Style="{StaticResource Add_DeleteButtonStyle}"
-                    Name="btnAddGood"
-                    Click="BtnAddGood_Click">
-                
-            </Button>
 
-            <Button Content="-"
-                    Style="{StaticResource Add_DeleteButtonStyle}"
-                    Name="btnDeleteGood"
-                    Click="BtnDeleteGood_Click">
-                
-            </Button>
 
-        </StackPanel>
-        <StackPanel Grid.Column="1"
-                    Grid.Row="1"
+
+            <StackPanel Grid.Column="1"
+                Grid.Row="1"
+                Orientation="Vertical"
+                Margin="0,35,0,0">
+
+                <TextBlock  x:Name="windowName"
+                     Foreground="{StaticResource textColor1}"
+                     Text="Nová objednávka"
+                     FontSize="25"
+                     FontWeight="Medium"
+                     HorizontalAlignment="Center">
+                </TextBlock>
+
+
+
+                <!--TextBoxes-->
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                            Text="Zákazník"/>
+
+                <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
+                           SelectedIndex="0"
+                           VerticalAlignment="Top"
+                           Width="650" Margin="10" 
+                           DisplayMemberPath="Surname" 
+                           SelectedValuePath="Id"
+                           SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" 
+         
+          SelectionChanged="CbCustomer_SelectionChanged"/>
+
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1"
+                    Grid.Row="2"
                     Orientation="Vertical"
                     Margin="0,35,0,0">
-            <TextBlock  x:Name="windowName"
-                        Text="Nová objednávka"
-                        Foreground="{StaticResource textColor1}"
-                        FontSize="25"
-                        FontWeight="Medium"
-                        HorizontalAlignment="Center">
 
-            </TextBlock>
-            
-            
 
-            <!--TextBoxes-->
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Text="Zákazník"/>
-
-            <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
-                      SelectedIndex="0"
-                      VerticalAlignment="Top"
-                      Width="650" Margin="10" 
-                     DisplayMemberPath="Surname" 
-                      SelectedValuePath="Id"
-                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}" SelectionChanged="CbCustomer_SelectionChanged" 
-                      />
-
-            <!--Order-->
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                <!--Order-->
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="Objednávka"/>
 
-            <Border Grid.Row="1"
-                    Margin="0,10,0,10"
-                Background="#200F53"
-                CornerRadius="10" 
-                    Height="350"
-                Padding="10">
-                <ListView Name="lvOrder" SelectionChanged="lvOrder_SelectionChanged">
+                <Button Content="Přidat položku"
+                        Style="{StaticResource Add_DeleteButtonStyle}"
+                        MaxWidth="150"
+                        Name="btnAddGood"
+                        Click="BtnAddGood_Click">
 
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                </Button>
 
-                    <ListView.View>
-                        <GridView >
-                            <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
-                            <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                            <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                <Border Grid.Row="3"
+                        Style="{StaticResource ListViewsBorder}"
+                        Height="350">
+                    <ListView Name="lvOrder" SelectionChanged="lvOrder_SelectionChanged">
 
-                            <GridViewColumn Header="Odebrat">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Click="BtnDeleteGood_Click" CommandParameter="{Binding Id}"
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Width="80" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
+                                <GridViewColumn Width="200" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                                <GridViewColumn Width="110" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+
+                                <GridViewColumn Header="Odebrat">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="BtnDeleteGood_Click" CommandParameter="{Binding Id}"
                                                 Style="{StaticResource BtnAddEditDelete}">
-                                            <fa:IconImage Icon="Multiply" Style="{StaticResource listViewIcon}"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                                                <fa:IconImage Icon="Multiply" Style="{StaticResource listViewIcon}"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Border>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
 
 
-            <Button Content="Přidat"
+                <Button Content="Přidat"
                     Name="btnAdd"
-                    FontSize="12"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    Margin="40,0,40,0"
+                    Style="{StaticResource Add_DeleteButtonStyle}"
+                    MaxWidth="150"
                     VerticalAlignment="Top" Click="BtnAdd_Click">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#773DFF"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Height="30"
-                                            CornerRadius="15"
-                                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                                          HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#836EFB"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+
+                </Button>
 
 
 
 
 
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

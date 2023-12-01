@@ -20,6 +20,7 @@
             <ImageBrush ImageSource="/Resources/bg2.png"
                         Stretch="Fill"/>
         </Border.Background>
+        
         <Border CornerRadius="10"
             BorderThickness="1"
             Opacity="0.95">
