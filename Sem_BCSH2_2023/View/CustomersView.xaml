@@ -10,11 +10,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="*"/>
@@ -33,25 +33,23 @@
 
 
             <Button Grid.Column="1"  
-                    Name="btnDelete"
-                    Content="Odebrat"
+                    Name="btnDeleteAll"
+                    Content="Odebrat Vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnDelete_Click">
-
+                    Click="BtnDeleteAll_Click">
             </Button>
 
-            <!--<Button Grid.Column="2"  
-                    Name="btnEdit"
-                    Content="Edit"
-                    Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnEdit_Click">
-            </Button>-->
-
         </Grid>
-        <Border Grid.Row="1"
+
+        <TextBlock  Style="{StaticResource TextBlockHint}"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Text="Lze filtrovat dle ID, Jmena a Přijmení"/>    
+
+        <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}"
                >
-            <ListView Name="lvCustomers" SelectionChanged="LvCustomers_SelectionChanged">
+            <ListView Name="lvCustomers">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -92,6 +90,11 @@
 
                     </GridView>
                 </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <EventSetter Event="Click" Handler="GridViewColumnHeader_Click" />
+                    </Style>
+                </ListView.Resources>
             </ListView>
         </Border>
     </Grid>

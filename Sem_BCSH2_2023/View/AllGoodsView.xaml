@@ -109,7 +109,7 @@
                             <GridView >
                                 <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                                 <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                                <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                                <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

@@ -16,11 +16,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="110"/>
+        <Grid Grid.Row="0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>  
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="*"/>
@@ -39,27 +39,22 @@
 
             </Button>
 
-            <!--<Button Grid.Column="2"  
-                    Name="btnEdit"
-                    Content="Edit"
-                    Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="btnEdit_Click">
-
-            </Button>-->
-
             <Button Grid.Column="1"  
-                    Name="btnDelete"
-                    Content="Odebrat"
+                    Name="btnDeleteAll"
+                    Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnDelete_Click">
+                    Click="BtnDeleteAll_Click">
 
             </Button>
         </Grid>
-        <Border Grid.Row="1"
+
+        <TextBlock  Style="{StaticResource TextBlockHint}"
+             Grid.Row="1"
+             VerticalAlignment="Center"
+             Text="Lze filtrovat dle ID, Názvu a Ceny"/>
+
+
+        <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}">
             <ListView Name="lvFlowers" ItemsSource="{Binding Source={StaticResource FilteredFlowers}}" 
                       SelectionChanged="LvFlowers_SelectionChanged">
@@ -75,7 +70,7 @@
                         <GridViewColumn Width="60" Header="Editace">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="btnEdit_Click" CommandParameter="{Binding Id}"
+                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
                                             Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
                                     </Button>
@@ -85,12 +80,13 @@
 
                         <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}"  />
                         <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
-                        <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
+                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, StringFormat={}{0:N2} Kč}" />
+                    
+                            <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                    <Button Click="BtnDeleteRow_Click" CommandParameter="{Binding Id}"
                                             Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
                                     </Button>
@@ -99,6 +95,11 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <EventSetter Event="Click" Handler="GridViewColumnHeader_Click" />
+                    </Style>
+                </ListView.Resources>
             </ListView>
         </Border>
     </Grid>

@@ -10,22 +10,25 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public static ObservableCollection<Order> OrderList= new();
 
-      
 
-        public static void AddOrder(int customerIdAdd)
-        {
-           OrderList.Add(new Order(IdGenerator(), customerIdAdd, DateTime.Now));
-        }
+
+
+        //public static void AddOrder(Customer customerAdd)
+        //{
+        //   OrderList.Add(new Order(IdGenerator(), customerAdd.Id, customerAdd.Name, customerAdd.Surname, DateTime.Now));
+        //}
 
         public static Order NewOrder()
         {
-            Order order = new Order(IdGenerator(), 1, DateTime.Now);
+            Order order = new Order(IdGenerator(), 1, "test", "test", DateTime.Now);
             return order;
         }
 
         public static void AddOrder(Order order)
         {
-            OrderList.Add(order);   
+             OrderList.Add(order);
+            
+           // OrderList.Add(new Order(IdGenerator(), customerAdd.Id, customerAdd.Name, customerAdd.Surname, DateTime.Now));
         }
 
 
@@ -34,12 +37,19 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderList.Remove(selectedOrder);
         }
 
+        public static void RemoveAllOrder()
+        {
+            OrderList.Clear();
+        }
+
         public static void OrderDone(Order selectedOrder)
         {
 
             selectedOrder.Done = !selectedOrder.Done;
            
         }
+
+
 
 
 
@@ -68,6 +78,16 @@ namespace Sem_BCSH2_2023.ViewModel
                 price += item.Price;
             }
             return price;
+        }
+
+
+        public static string GetCustomerNameById(int customerId)
+        {
+            var customer = CustomerViewModel.CustomersList.FirstOrDefault(c => c.Id == customerId);
+            return customer != null ? $"{customer.Name} {customer.Surname}" : $"Customer {customerId} Not Found";
+
+
+
         }
 
 

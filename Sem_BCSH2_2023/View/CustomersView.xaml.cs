@@ -24,22 +24,25 @@ namespace Sem_BCSH2_2023.View
     public partial class CustomersView : UserControl
     {
         public static Customer? customer;
+        private SortData sortData;
 
         public CustomersView()
         {
             InitializeComponent();
-            //btnEdit.IsEnabled = false;
             lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
+            sortData = new SortData();
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private async void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Thread threadOpen = new Thread(() =>
+            await Task.Run(() =>
             {
-                AddEditCustomer windowAddCustomer = Dispatcher.Invoke(() => new AddEditCustomer(null));
-                Dispatcher.Invoke(() => windowAddCustomer.Show());
+                Dispatcher.Invoke(() =>
+                {
+                    AddEditCustomer windowAddCustomer = new AddEditCustomer(null);
+                    windowAddCustomer.Show();
+                });
             });
-            threadOpen.Start();
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -49,27 +52,55 @@ namespace Sem_BCSH2_2023.View
             {
                 CustomerViewModel.RemoveCustomer(item);
             }
-            
         }
 
-        private void LvCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //btnEdit.IsEnabled = true;
-        }
 
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        private async void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             if (button.DataContext is Customer item)
             {
                 customer = item;
                 int selectedId = customer.Id;
-                AddEditCustomer windowEditCustomer = new(selectedId);
-                windowEditCustomer.ShowDialog();
-                lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
+
+                await Task.Run(() =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        AddEditCustomer windowEditCustomer = new(selectedId);
+                        windowEditCustomer.ShowDialog();
+                        lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
+                    });
+                });
             }
         }
 
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader column = (GridViewColumnHeader)e.OriginalSource;
+            string header = (string)column.Content;
 
+            if (header == "ID")
+            {
+                sortData.SortDataMethod("Id", lvCustomers);
+            }
+            else if (header == "Jméno")
+            {
+                sortData.SortDataMethod("Name", lvCustomers);
+            }
+            else if (header == "Příjmení")
+            {
+                sortData.SortDataMethod("Surname", lvCustomers);
+            }
+        }
+
+        private async void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() =>
+                {
+                    CustomerViewModel.RemoveAllCustomer();
+                });
+
+        }
     }
 }

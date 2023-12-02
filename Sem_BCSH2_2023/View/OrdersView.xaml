@@ -7,17 +7,16 @@
              xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="110"/>
-                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="100"/>
 
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
@@ -26,39 +25,51 @@
 
             </StackPanel>
             <!--TextBoxes-->
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Grid.Column="0"
-                        Text="Zákazník: "/>
 
 
-            <!--<ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
-                      Grid.Column="1"
-                      VerticalAlignment="Top"
-                      Width="650" Margin="10" 
-                     DisplayMemberPath="Name" 
-                      SelectedValuePath="Id"
-                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}" SelectionChanged="cbCustomer_SelectionChanged_1"
-                      />-->
-            <Button Grid.Column="2"  
+
+
+            <Button Grid.Column="0"  
                     Name="btnAdd"
                     Content="Přidat"
+                    VerticalAlignment="Center"
                     Style="{StaticResource BtnAddEditDelete}"
                     Click="BtnAdd_Click">
 
             </Button>
 
 
-            <Button Grid.Column="3"  
-                    Name="btnDelete"
-                    Content="Odebrat"
+            <Button Grid.Column="1"  
+                    Name="btnDeleteAll"
+                    VerticalAlignment="Center"
+                    Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnDelete_Click">
+                    Click="BtnDeleteAll_Click">
 
             </Button>
 
 
+
         </Grid>
-        <Border Grid.Row="1"
+        <TextBlock  Style="{StaticResource TextBlockAdd}"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Text="Zákazník: "/>
+
+        <ComboBox x:Name="cbCustomer" 
+                  HorizontalAlignment="Center" 
+                  Grid.Row="1"
+                  VerticalAlignment="Center"
+                  Width="650" 
+                  DisplayMemberPath="Name" 
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding ListCustomersForCB}" 
+
+           />
+
+
+        <Border Grid.Row="2
+                "
                  Style="{StaticResource ListViewsBorder}">
             <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
                 <ListView.ItemContainerStyle>
@@ -71,8 +82,6 @@
                                 <Setter Property="IsHitTestVisible" Value="False"/>
                             </DataTrigger>
 
-
-                          
 
                         </Style.Triggers>
                     </Style>
@@ -92,8 +101,8 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Width="110" Header="ID Zákazník" DisplayMemberBinding="{Binding CustomerId}" />
-                        <GridViewColumn Width="110" Header="Cena" DisplayMemberBinding="{Binding OrderPrice}" />
+                        <GridViewColumn Width="110" Header="Zákazník" DisplayMemberBinding="{Binding FullName}" />
+                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding OrderPrice, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
                         <GridViewColumn Width="140" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
                         <GridViewColumn Width="110" Header="Splněno" DisplayMemberBinding="{Binding Done}" />
 

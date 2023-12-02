@@ -20,7 +20,7 @@
             <ImageBrush ImageSource="/Resources/bg2.png"
                         Stretch="Fill"/>
         </Border.Background>
-        
+
         <Border CornerRadius="10"
             BorderThickness="1"
             Opacity="0.95">
@@ -66,13 +66,13 @@
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
-                                Click="BtnClose_Click">     
+                                Click="BtnClose_Click">
                             <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnMaximal"
                                  Style="{StaticResource navBtn}"
-                                 Click="BtnMaximal_Click">          
+                                 Click="BtnMaximal_Click">
                             <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
@@ -137,6 +137,15 @@
                             Margin="0,35,0,0"
                             Command="{Binding LoginCommand}" >
                     </Button>
+
+                    <TextBlock x:Name="tbRegisterHere"
+                     Style="{StaticResource TextBlockHint}"
+                               HorizontalAlignment="Center"
+                               Text="Nemáte účet? Zaregistrujte se zde." 
+                               Cursor="Hand"
+                               MouseLeftButtonDown="TbRegisterHere_MouseLeftButtonDown"
+                               />
+
                 </StackPanel>
             </Grid>
         </Border>

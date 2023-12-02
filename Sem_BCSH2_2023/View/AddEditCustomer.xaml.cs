@@ -55,10 +55,6 @@ namespace Sem_BCSH2_2023.View
                     CustomerViewModel.AddCustomer(tbName.Text, tbSurname.Text, tbAddress.Text, tbCity.Text, phone, tbEmail.Text);
                     this.Close();
                 }
-                else
-                {
-                    MessageBox.Show("Špatně zadané hodnoty, prosím překontrolujte", "Chyba", MessageBoxButton.OK);
-                }
             }
             else
             {
@@ -73,10 +69,6 @@ namespace Sem_BCSH2_2023.View
                     editedCustomer.Email = tbEmail.Text;
                     GetWindow(this).Close();
                 }
-                else
-                {
-                    MessageBox.Show("Špatně zadané hodnoty, prosím překontrolujte", "Chyba", MessageBoxButton.OK);
-                }
             }
 
 
@@ -84,17 +76,28 @@ namespace Sem_BCSH2_2023.View
 
         private bool CheckFill()
         {
-            if (!string.IsNullOrEmpty(tbName.Text)
-                        && !string.IsNullOrEmpty(tbSurname.Text) && !string.IsNullOrEmpty(tbAddress.Text)
-                        && !string.IsNullOrEmpty(tbCity.Text) && !string.IsNullOrEmpty(tbPhoneNumber.Text)
-                        && !string.IsNullOrEmpty(tbEmail.Text) && long.TryParse(tbPhoneNumber.Text, out _))
+            if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbSurname.Text) ||
+            string.IsNullOrEmpty(tbAddress.Text) || string.IsNullOrEmpty(tbCity.Text) ||
+            string.IsNullOrEmpty(tbPhoneNumber.Text) || string.IsNullOrEmpty(tbEmail.Text))
             {
-                return true;
-            }
-            else
-            {
+                MessageBox.Show("Všechna pole musí být vyplněna.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+
+            if (!long.TryParse(tbPhoneNumber.Text, out _))
+            {
+                MessageBox.Show("Telefonní číslo musí být číslo.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            string emailRegex = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+            if (!System.Text.RegularExpressions.Regex.IsMatch(tbEmail.Text, emailRegex))
+            {
+                MessageBox.Show("Nesprávný formát e-mailu.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
 
         }
 

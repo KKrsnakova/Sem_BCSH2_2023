@@ -105,16 +105,22 @@
                 <!--TextBoxes-->
                 <TextBlock  Style="{StaticResource TextBlockAdd}"
                             Text="Zákazník"/>
+                
+                
+                <TextBlock  x:Name="tbCustomer"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource TextBlockAdd}"
+                            Text="Zákazník"/>
+                
 
                 <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
-                           SelectedIndex="0"
+                          
                            VerticalAlignment="Top"
-                           Width="650" Margin="10" 
+                           Width="650" Margin="10"
                            DisplayMemberPath="Surname" 
                            SelectedValuePath="Id"
                            SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" 
-         
-          SelectionChanged="CbCustomer_SelectionChanged"/>
+                           SelectionChanged="CbCustomer_SelectionChanged"/>
 
             </StackPanel>
 
@@ -152,7 +158,7 @@
                             <GridView >
                                 <GridViewColumn Width="80" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                                 <GridViewColumn Width="200" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                                <GridViewColumn Width="110" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                                <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
 
                                 <GridViewColumn Header="Odebrat">
                                     <GridViewColumn.CellTemplate>

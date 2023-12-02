@@ -16,44 +16,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Sem_BCSH2_2023.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for RegistrationView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class RegistrationView : Window
     {
-        private UserLogins _loggedInUser;
         private ObservableCollection<UserLogins> users;
-
         private UsersLoginMng UserLoginMng { get; set; }
-        private readonly HomeViewModel homeViewModel;
 
-
-        public HomeView()
+        public RegistrationView()
         {
             InitializeComponent();
-             homeViewModel = new HomeViewModel(MainView.GetCurrentUser());
-            _loggedInUser = homeViewModel.ActualUser;
             users = new ObservableCollection<UserLogins>();
-            tbPassword.IsReadOnly = true;
-            SetBoxes();
 
         }
-       
 
-        private void SetBoxes( )
-        {
-            tbFullName.Text = _loggedInUser.FullName;
-            tbEmail.Text = _loggedInUser.Email;
-            tbUserLogin.Text = _loggedInUser.Username;
-            tbPassword.Text = _loggedInUser.Password;
-        }
 
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             if (CheckInputs())
             {
@@ -66,26 +49,18 @@ namespace Sem_BCSH2_2023.View
                         users = UserLoginMng.GetAllUserLogins();
 
                         string name = tbFullName.Text;
-                        string username = tbUserLogin.Text;
+                        string username = tbLogin.Text;
                         string email = tbEmail.Text;
+                        string password = tbPasswordFirst.Password;
 
-                        var userToUpdate = users.FirstOrDefault(u => u.FullName == _loggedInUser.FullName);
+                        UserLogins newUser = RegistrationViewModel.RegisterUser(users.Count, username, password, name, email);
+                        users.Add(newUser);
 
-                        if (userToUpdate != null)
-                        {
-                            // Aktualizuj údaje
-                            userToUpdate.FullName = name;
-                            userToUpdate.Username = username;
-                            userToUpdate.Email = email;
 
-                            _loggedInUser = userToUpdate;
-                            // Aktualizuj seznam uživatelů
-                            UserLoginMng.RemoveAllUserLogins();
-                            UserLoginMng.AddAllUserLogins(users);
+                        UserLoginMng.RemoveAllUserLogins();
+                        UserLoginMng.AddAllUserLogins(users);
 
-                            MessageBox.Show("Upraveno");
-                            SetBoxes();
-                        }
+                        this.Close();
                     }
                 }
                 catch (Exception ex)
@@ -98,16 +73,23 @@ namespace Sem_BCSH2_2023.View
         private bool CheckInputs()
         {
             string name = tbFullName.Text;
-            string username = tbUserLogin.Text;
+            string username = tbLogin.Text;
             string email = tbEmail.Text;
-           
+            string password = tbPasswordFirst.Password;
+            string passwordChecked = tbPasswordCheck.Password;
 
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordChecked))
             {
                 MessageBox.Show("Všechna pole musí být vyplněna.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
+            if (password != passwordChecked)
+            {
+                MessageBox.Show("Hesla se neshodují.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
 
             string emailform = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
             if (!System.Text.RegularExpressions.Regex.IsMatch(email, emailform))
@@ -118,5 +100,42 @@ namespace Sem_BCSH2_2023.View
 
             return true;
         }
+
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+            else this.WindowState = WindowState.Normal;
+        }
+
+
+        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
+
+
+
+        private void NavBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -48,6 +49,18 @@ namespace Sem_BCSH2_2023.View
                 this.WindowState = WindowState.Maximized;
             }
             else this.WindowState = WindowState.Normal;
+        }
+
+
+
+        private void TbRegisterHere_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Thread threadOpen = new(() =>
+            {
+                RegistrationView newRefistrationWindow = Dispatcher.Invoke(() => new RegistrationView());
+                Dispatcher.Invoke(() => newRefistrationWindow.Show());
+            });
+            threadOpen.Start();
         }
     }
 }

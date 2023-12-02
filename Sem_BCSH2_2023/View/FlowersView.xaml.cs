@@ -2,6 +2,7 @@
 using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.ViewModel;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -13,12 +14,13 @@ namespace Sem_BCSH2_2023.View
     public partial class FlowersView : UserControl
     {
         public static Flower? flower;
-
+        SortData sortData;
         public FlowersView()
         {
             InitializeComponent();
 
             lvFlowers.ItemsSource = ((CollectionViewSource)Resources["FilteredFlowers"]).View;
+            sortData = new SortData();
         }
 
         private void FlowerFilter(object sender, FilterEventArgs e)
@@ -43,7 +45,7 @@ namespace Sem_BCSH2_2023.View
             threadOpen.Start();
         }
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteRow_Click(object sender, RoutedEventArgs e)
         {
 
             Button button = (Button)sender;
@@ -59,7 +61,7 @@ namespace Sem_BCSH2_2023.View
             //btnEdit.Visibility = Visibility.Visible;
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
 
             Button button = (Button)sender;
@@ -73,6 +75,33 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader column = (GridViewColumnHeader)e.OriginalSource;
+            string header = (string)column.Content;
 
+            if (header == "ID")
+            {
+                sortData.SortDataMethod("Id", lvFlowers);
+            }
+            else if (header == "Název")
+            {
+                sortData.SortDataMethod("Name", lvFlowers);
+            }
+            else if (header == "Cena")
+            {
+                sortData.SortDataMethod("Price", lvFlowers);
+            }
+        }
+
+        private void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                GoodViewModel.RemoveAllFlower();
+            }
+        }
     }
 }

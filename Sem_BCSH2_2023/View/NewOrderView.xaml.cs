@@ -23,29 +23,38 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class NewOrderView : Window
     {
-        private readonly ObservableCollection<Customer> CustomersList;
+        //private readonly ObservableCollection<Customer> CustomersList;
         Customer selectedCustomer;
         private Order order;
         private bool edit;
         // public NewOrderView(Order ord, Customer customer)
+
+
         public NewOrderView(Order ord, int? customerID)
         {
-            CustomersList = CustomerViewModel.CustomersList;
+            //CustomersList = CustomerViewModel.CustomersList;
             InitializeComponent();
 
-            cbCustomer.ItemsSource = CustomersList;
+            cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
             cbCustomer.SelectedIndex = 0;
 
             if (customerID != null && ord != null)
             {
+                btnAdd.Content = "Editovat";
+                tbCustomer.Visibility = Visibility.Visible;
+                tbCustomer.Text = customerID+"";
+                cbCustomer.Visibility = Visibility.Collapsed;
                 edit = true;
                 order = ord;
-                selectedCustomer = CustomersList.First(x => x.Id == customerID);
+                selectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
                 cbCustomer.SelectedItem = selectedCustomer;
                 lvOrder.ItemsSource = ord.ListOfGoods;
             }
             else
             {
+                tbCustomer.Visibility = Visibility.Collapsed;
+                cbCustomer.Visibility = Visibility.Visible;
+                cbCustomer.SelectedIndex = 0;
                 edit = false;
                 order = OrderViewModel.NewOrder();
             }
@@ -91,22 +100,26 @@ namespace Sem_BCSH2_2023.View
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {  
             if (edit)
-            {
+            {//Edit
+                
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
                 //order.CustomerId = selectedCustomer.Id;
                 this.Close();
 
             } else
-            {
+            { //Add
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-                 order.CustomerId = selectedCustomer.Id;
-                OrderViewModel.AddOrder(order);
+                order.CustomerId = selectedCustomer.Id;
+                Customer customer = CustomerViewModel.GetCustomerById(selectedCustomer.Id);
+                order.FullName = OrderViewModel.GetCustomerNameById(customer.Id);
 
+                    OrderViewModel.AddOrder(order);
             }
-
 
             this.Close();
         }
+
+        
 
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -14,8 +15,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public GoodViewModel()
         {
-            //GoodsList.Add(new Flower(10, "asdasd", 10, "asd", "asda"));
-            //GoodsList.Add(new OtherItems(5, "asdasd", 5654, "asda", 5));
+            
         }
 
 
@@ -40,6 +40,16 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             GoodsList.Remove(selectedFlower);
         }
+        public static void RemoveAllFlower()
+        {
+            var flowersToRemove = GoodsList.OfType<Flower>().ToList();
+
+            foreach (var flower in flowersToRemove)
+            {
+                GoodsList.Remove(flower);
+            }
+        }
+
 
 
         //Other goods
@@ -58,6 +68,17 @@ namespace Sem_BCSH2_2023.ViewModel
         public static void RemoveOtherItem(OtherItems selectedOtherItem)
         {
             GoodsList.Remove(selectedOtherItem);
+        } 
+        
+        public static void RemoveAllOtherItem()
+        {
+
+            var otherItemsToRemove = GoodsList.OfType<OtherItems>().ToList();
+
+            foreach (var otherItem in otherItemsToRemove)
+            {
+                GoodsList.Remove(otherItem);
+            }
         }
 
         

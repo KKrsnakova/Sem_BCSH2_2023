@@ -2,6 +2,7 @@
 using Sem_BCSH2_2023.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,12 +25,20 @@ namespace Sem_BCSH2_2023.View
     public partial class OrdersView : UserControl
     {
         public static Order? order;
+        public ObservableCollection<Customer> ListCustomersForCB
+        {
+            get;
+            set;
+        }
+
 
         public OrdersView()
         {
             InitializeComponent();
 
             lvOrders.ItemsSource = OrderViewModel.OrderList;
+            ListCustomersForCB = CustomerViewModel.CustomersList;
+           
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -77,11 +86,12 @@ namespace Sem_BCSH2_2023.View
                 {
                     NewOrderView windowEditGoods = new(order, order.CustomerId);
                     windowEditGoods.ShowDialog();
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Zákazník byl smazán");
                 }
-                
+
             }
         }
 
@@ -111,5 +121,14 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
+        private void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                OrderViewModel.RemoveAllOrder();
+            }
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace Sem_BCSH2_2023.ViewModel
                     windowName.Text = "Editace položky";
                     tbName.Text = editedOtherItems.Name;
                     tbPrice.Text = editedOtherItems.Price.ToString();
-                    tbDesc_tbCount.Text = editedOtherItems.Count.ToString();
+                    tbDesc_tbCount.Text = editedOtherItems.CountInPackage.ToString();
                     tbSpec_tbUsage.Text = editedOtherItems.Usage;
                 }
             }
@@ -68,10 +68,7 @@ namespace Sem_BCSH2_2023.ViewModel
                         GoodViewModel.AddFlower(tbName.Text, price, tbDesc_tbCount.Text, tbSpec_tbUsage.Text);
                         this.Close();
                     }
-                    else
-                    {
-                        MessageBox.Show("Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
-                    }
+                   
                 }
                 else
                 {
@@ -84,10 +81,8 @@ namespace Sem_BCSH2_2023.ViewModel
                         editedFlower.FlowerSpecies = tbSpec_tbUsage.Text;
                         this.Close();
                     }
-                    else
-                    {
-                        MessageBox.Show( "Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
-                    }
+                    
+                    
                 }
             }
             //Editation of OtherItem
@@ -103,10 +98,7 @@ namespace Sem_BCSH2_2023.ViewModel
                         GoodViewModel.AddOtherItems(tbName.Text, price, count, tbSpec_tbUsage.Text);
                         CloseWindow();
                     }
-                    else
-                    {
-                        MessageBox.Show("Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
-                    }
+                    
                 }
                 else
                 {
@@ -117,14 +109,11 @@ namespace Sem_BCSH2_2023.ViewModel
 
                         editedOtherItems.Name = tbName.Text;
                         editedOtherItems.Price = price;
-                        editedOtherItems.Count = count;
+                        editedOtherItems.CountInPackage = count;
                         editedOtherItems.Usage = tbSpec_tbUsage.Text;
                         CloseWindow();
                     }
-                    else
-                    {
-                        MessageBox.Show("Špatně zadaná hodnota", "Chyba", MessageBoxButton.OK);
-                    }
+                    
                 }
             }
             
@@ -167,37 +156,28 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private bool CheckFlower()
         {
-            if (!String.IsNullOrEmpty(tbName.Text) &&
-                !String.IsNullOrEmpty(tbDesc_tbCount.Text) &&
-                !String.IsNullOrEmpty(tbSpec_tbUsage.Text) &&
-                double.TryParse(tbPrice.Text, out double price))
+            if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbDesc_tbCount.Text) ||
+                string.IsNullOrEmpty(tbSpec_tbUsage.Text) || !double.TryParse(tbPrice.Text, out _))
             {
-                return true;
-            }
-            else
-            {
+                MessageBox.Show("Všechna pole musí být vyplněna a cena musí být platné číslo.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+            return true;
         }
 
         private bool CheckOtherItems()
         {
-            if (!String.IsNullOrEmpty(tbName.Text) &&
-                !String.IsNullOrEmpty(tbDesc_tbCount.Text) &&
-                !String.IsNullOrEmpty(tbSpec_tbUsage.Text) &&
-                !String.IsNullOrEmpty(tbPrice.Text) &&
-                double.TryParse(tbPrice.Text, out _) &&
-                int.TryParse(tbDesc_tbCount.Text, out _))
+            if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbDesc_tbCount.Text) ||
+                string.IsNullOrEmpty(tbSpec_tbUsage.Text) || string.IsNullOrEmpty(tbPrice.Text) ||
+                !double.TryParse(tbPrice.Text, out _) || !int.TryParse(tbDesc_tbCount.Text, out _))
             {
-                return true;
-            }
-            else
-            {
+                MessageBox.Show("Všechna pole musí být vyplněna, cena a počet musí být platná čísla.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+            return true;
         }
 
-       
+
 
         private void CloseWindow()
         {

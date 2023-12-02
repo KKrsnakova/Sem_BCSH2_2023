@@ -16,16 +16,16 @@ namespace Sem_BCSH2_2023.Model
             get => _usage;
             set => SetProperty(ref _usage, value, nameof(Usage));
         }
-        public int Count
+        public int CountInPackage
         {
             get => _count;
-            set => SetProperty(ref _count, value, nameof(Count));
+            set => SetProperty(ref _count, value, nameof(CountInPackage));
         }
 
         public OtherItems(int id, string name, double price, string usage, int count) : base(id, name, price)
         {
             Usage = usage;
-            Count = count;
+            CountInPackage = count;
         }
     }
 }

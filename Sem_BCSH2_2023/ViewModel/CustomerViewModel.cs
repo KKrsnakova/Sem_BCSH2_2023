@@ -40,6 +40,21 @@ namespace Sem_BCSH2_2023.ViewModel
             }
 
         }
+        
+        public static void RemoveAllCustomer( )
+        {
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky? \n Spolu se Zákazniky budou odstraněny i všenchy objednávky",
+                                                      "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                CustomersList.Clear();
+                OrderViewModel.RemoveAllOrder();
+            }
+
+        }
+
+
 
         public static Customer GetCustomerById(int customerId)
         {

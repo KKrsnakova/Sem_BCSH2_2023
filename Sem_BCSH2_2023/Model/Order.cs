@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Model
 {
-    public  class Order : BaseViewModel
+    public class Order : BaseViewModel
     {
         private int _id;
         private int _customerId;
@@ -17,6 +17,7 @@ namespace Sem_BCSH2_2023.Model
         private bool _done;
         private DateTime? _doneDate;
         private ObservableCollection<Good> _listOfGoods;
+        private string _fullname;
 
 
 
@@ -35,18 +36,38 @@ namespace Sem_BCSH2_2023.Model
             get => _orderPrice;
             set => SetProperty(ref _orderPrice, value, nameof(OrderPrice));
         }
-        public DateTime DateOfCreation { get => _orderDate; 
-            set => SetProperty(ref _orderDate, value, nameof(DateOfCreation)); }
-        public ObservableCollection<Good> ListOfGoods { get => _listOfGoods;
-            set => SetProperty(ref _listOfGoods, value, nameof(ListOfGoods)); }
-        public bool Done { get => _done; 
-                set => SetProperty(ref _done, value, nameof(Done)); }
-        public DateTime? DateCompletion { get => _doneDate; 
-            set => SetProperty(ref _doneDate, value, nameof(DateCompletion)); }
+        public DateTime DateOfCreation
+        {
+            get => _orderDate;
+            set => SetProperty(ref _orderDate, value, nameof(DateOfCreation));
+        }
+        public ObservableCollection<Good> ListOfGoods
+        {
+            get => _listOfGoods;
+            set => SetProperty(ref _listOfGoods, value, nameof(ListOfGoods));
+        }
+        public bool Done
+        {
+            get => _done;
+            set => SetProperty(ref _done, value, nameof(Done));
+        }
+        public DateTime? DateCompletion
+        {
+            get => _doneDate;
+            set => SetProperty(ref _doneDate, value, nameof(DateCompletion));
+        }
 
-        public Order(int id, int customerId, DateTime dateOfCreation)
+        public string FullName
+        {
+            get => _fullname;
+            set => SetProperty(ref _fullname, value, nameof(FullName));
+        }
+
+
+        public Order(int id, int customerId, string name, string surname, DateTime dateOfCreation)
         {
             Id = id;
+            FullName = name + " " + surname;
             CustomerId = customerId;
             OrderPrice = 0;
             DateOfCreation = dateOfCreation;

@@ -23,11 +23,13 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class OtherItemsView : UserControl
     {
-        public  OtherItems? otherItem;
+        public OtherItems? otherItem;
+        private SortData sortData;
         public OtherItemsView()
         {
             InitializeComponent();
             lvOtherItems.ItemsSource = ((CollectionViewSource)Resources["FilteredGoods"]).View;
+            sortData = new SortData();
         }
 
         private void GoodsFilter(object sender, FilterEventArgs e)
@@ -61,20 +63,49 @@ namespace Sem_BCSH2_2023.View
                 int selectedId = otherItem.Id;
                 AddGoods windowEditGoods = new(selectedId, false);
                 windowEditGoods.ShowDialog();
-               //((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
+                //((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
             }
         }
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                GoodViewModel.RemoveAllOtherItem();
+            }
+        }
+
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader column = (GridViewColumnHeader)e.OriginalSource;
+            string header = (string)column.Content;
+
+            switch (header)
+            {
+                case "ID":
+                    sortData.SortDataMethod("Id", lvOtherItems);
+                    break;
+                case "Název":
+                    sortData.SortDataMethod("Name", lvOtherItems);
+                    break;
+                case "Cena":
+                    sortData.SortDataMethod("Price", lvOtherItems);
+                    break;
+                case "Počet v balení":
+                    sortData.SortDataMethod("CountInPackage", lvOtherItems);
+                    break;
+            }
+        }
+
+        private void BtnDeleteRow_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             if (button.DataContext is OtherItems item)
             {
-                GoodViewModel.RemoveOtherItem((item));
+                GoodViewModel.RemoveOtherItem(item);
             }
         }
-
-      
-      
     }
 }

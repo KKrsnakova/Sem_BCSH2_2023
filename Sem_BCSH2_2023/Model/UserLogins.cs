@@ -45,8 +45,9 @@ namespace Sem_BCSH2_2023.Model
         }
 
 
-        public UserLogins(string username, string password, string fullName, string email)
+        public UserLogins(int id, string username, string password, string fullName, string email)
         {
+            Id = id;
             Username = username;
             Password = password;
             FullName = fullName;
