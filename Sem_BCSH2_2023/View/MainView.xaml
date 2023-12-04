@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
         xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel"
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="MainView" Height="600" Width="1300"
         WindowStartupLocation="CenterScreen"
@@ -15,20 +15,17 @@
         Icon="/Resources/cactus.ico"
         >
 
-    <Window.DataContext>
-        <viewmodel:MainViewModel/>
-    </Window.DataContext>
-
-
 
     <Window.Resources>
 
         <DataTemplate DataType="{x:Type viewmodel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
+
         <DataTemplate DataType="{x:Type viewmodel:FlowerViewModel}">
             <local:FlowersView/>
         </DataTemplate>
+        
         <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
             <local:CustomersView/>
         </DataTemplate>
@@ -201,8 +198,8 @@
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
                             <fa:IconImage Icon="{Binding Icon}"
-                                          Height="20"
-                                          Width="20"
+                                          Height="26"
+                                          Width="26"
                                           Foreground="{StaticResource textColor1}"
                                           Margin="35,0,10,0"/>
                             <TextBlock Text="{Binding Description}"
@@ -228,19 +225,14 @@
                                     />
                             </Button>
 
-                            <TextBlock x:Name="tbUserNameActual"
-                                       Foreground="{StaticResource textColor1}"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       VerticalAlignment="Center">
-                            </TextBlock>
+                           
 
 
                             <Button x:Name="btnSaveData"
                                       Style="{StaticResource btnLogOut}"
                                    Command="{Binding SaveData}"
                                     >
-                                <fa:IconImage Name="IconSave"
+                                <fa:IconImage 
                                     Icon="Save"
                                      Foreground="{StaticResource textColor1}"/>
                             </Button>

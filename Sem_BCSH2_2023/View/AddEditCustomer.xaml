@@ -48,7 +48,7 @@
                     <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
-                <Button x:Name="btnMaximal"
+                <Button 
                         Style="{StaticResource navBtn}"
                         Click="BtnMaximal_Click">
                     <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>

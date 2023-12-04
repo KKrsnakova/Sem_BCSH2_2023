@@ -20,7 +20,7 @@ namespace Sem_BCSH2_2023.ViewModel
     public class MainViewModel : BaseViewModel
     {
 
-        //repos
+        ////repos
         public GoodsMng GoodsMng { get; set; }
         public CustomerMng CustomerMng { get; set; }
         public OrderMng OrderMng { get; set; }
@@ -28,13 +28,10 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
 
-
-
-
-
         private BaseViewModel currentChildView;
         private string description;
         private IconChar icon;
+        private UserLogins actualUser;
 
         public BaseViewModel CurrentChildView
         {
@@ -72,6 +69,20 @@ namespace Sem_BCSH2_2023.ViewModel
                 OnPropertyChanged(nameof(Icon));
             }
         }
+        public static UserLogins loggedUser;
+        public UserLogins ActualUser
+        {
+            get
+            {
+                return actualUser;
+            }
+            set
+            {
+                actualUser = value;
+                OnPropertyChanged(nameof(ActualUser));
+            }
+        }
+
 
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
@@ -85,19 +96,28 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
 
-        public MainViewModel()
+        public MainViewModel( )
         {
-
+            
             //Initialize commands
             ShowHomeViewCommand = new CommandViewModel(ExecuteShowHomeViewCommand);
             ShowFlowerViewCommand = new CommandViewModel(ExecuteShowFlowerViewCommand);
             ShowGoodsViewCommand = new CommandViewModel(ExecuteShowGoodsViewCommand);
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
+
+
             LogOut = new CommandViewModel(LogOutCom);
             SaveData = new CommandViewModel(SaveDataCom);
 
+            loggedUser = ActualUser;
+            NewRepo();
 
+
+        }
+
+        private void NewRepo()
+        {
 
             Repo = new();
             GoodsMng = new GoodsMng(Repo);
@@ -107,7 +127,6 @@ namespace Sem_BCSH2_2023.ViewModel
             GoodViewModel.GoodsList = GoodsMng.GetAllGoods();
             CustomerViewModel.CustomersList = CustomerMng.GetAllCustomers();
             OrderViewModel.OrderList = OrderMng.GetAllOrder();
-
         }
 
         private void SaveDataCom(object obj)
@@ -122,9 +141,11 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderMng.AddAllOrder(OrderViewModel.OrderList);
 
             Repo.Dispose();
-            MessageBox.Show("Data SNAD uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
+            MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
+
+
 
         private void LogOutCom(object obj)
         {
@@ -138,9 +159,11 @@ namespace Sem_BCSH2_2023.ViewModel
 
         }
 
+
+
         private void ExecuteShowHomeViewCommand(object obj)
         {
-            CurrentChildView = new HomeViewModel(MainView.GetCurrentUser());
+            CurrentChildView = new HomeViewModel(ActualUser);
             Description = "Přehled";
             Icon = IconChar.UserGroup;
         }

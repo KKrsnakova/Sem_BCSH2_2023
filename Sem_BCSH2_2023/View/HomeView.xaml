@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:Sem_BCSH2_2023.View" 
              xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <Grid>
         <Grid>
             <!-- Nav -->
@@ -59,10 +62,8 @@
                                        x:Name="windowName"
                                        Text="Vítejte"
                                        FontSize="25"
-                                       HorizontalAlignment="Center"
-                                       Grid.Column="1" 
-                                       >
-                            </TextBlock>
+                                       HorizontalAlignment="Left" Margin="10,3,0,7" Grid.Column="1" 
+                                       />
 
                             <!--TextBoxes-->
                             <TextBlock Grid.Row="1" 
@@ -72,6 +73,7 @@
                             <TextBox Grid.Row="1"  
                                      x:Name="tbFullName"
                                      Style="{StaticResource TextBoxUserOverV}" 
+                                     Text="{Binding FullName, Mode=TwoWay}"
                                      Grid.Column="1" Margin="75,6,110,11" >
                             </TextBox>
 
@@ -82,6 +84,8 @@
                             <TextBox Grid.Row="2" 
                                      x:Name="tbUserLogin"
                                      Style="{StaticResource TextBoxUserOverV}" 
+                                     
+                                     Text="{Binding Username, Mode=TwoWay}"
                                      Grid.Column="1" Margin="75,6,110,11">
                             </TextBox>
 
@@ -92,8 +96,14 @@
                             <TextBox Grid.Row="3" 
                                      x:Name="tbPassword"
                                      Style="{StaticResource TextBoxUserOverV}" 
+                                     Text="{Binding Password, Mode=TwoWay}"
                                      Grid.Column="1" Margin="75,6,110,11">
+
+
                             </TextBox>
+
+                            <!--<local:PasswordUserControl x:Name="tbPassword"
+                                                       Grid.Column="1" Margin="75,1,110,1" Grid.Row="3"/>-->
 
                             <TextBlock Grid.Row="4"  
                                        Style="{StaticResource TextBlockUserOverV}"
@@ -102,6 +112,7 @@
                             <TextBox  Grid.Row="4" 
                                       Style="{StaticResource TextBoxUserOverV}"
                                       x:Name="tbEmail" Grid.Column="1" 
+                                      Text="{Binding Email, Mode=TwoWay}"
                                       Margin="75,6,110,11">
                             </TextBox>
 
@@ -110,8 +121,9 @@
                                     Content="Uložit úpravy"
                                     Name="btnEdit"
                                     Width="200"
+                                    Command="{Binding EditCommand}"
                                     BorderThickness="0"
-                                    Margin="95,10,140,0" Grid.Column="1" Click="BtnEdit_Click"/>
+                                    Margin="95,10,140,0" Grid.Column="1"/>
                         </Grid>
                     </Border>
                 </Grid>

@@ -16,11 +16,11 @@ namespace Sem_BCSH2_2023.Repository
             get; private set;
         }
 
-        public Repo()
+        public Repo( )
         {
             string _BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Db\MyDb.db")));
+            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Sem_BCSH2_2023\Db\MyDb.db")));
         }
 
 
@@ -55,7 +55,7 @@ namespace Sem_BCSH2_2023.Repository
         public RepoLogin()
         {
             string _BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Db\LoginDb.db")));
+            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Sem_BCSH2_2023\Db\LoginDb.db")));
         }
 
         public LiteDatabase GetInstance()

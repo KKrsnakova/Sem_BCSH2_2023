@@ -37,7 +37,6 @@ namespace Sem_BCSH2_2023.Model
         {
             get => _fullname;
             set => SetProperty(ref _fullname, value, nameof(FullName));
-           //set => OnPropertyChanged(nameof(FullName));
         }
         public string Email {
             get => _email;
@@ -54,6 +53,9 @@ namespace Sem_BCSH2_2023.Model
             Email = email;
         }
 
-
+        public override string? ToString()
+        {
+            return FullName;
+        }
     }
 }

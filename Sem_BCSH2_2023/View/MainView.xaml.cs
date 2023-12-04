@@ -5,6 +5,7 @@ using Sem_BCSH2_2023.Repository;
 using Sem_BCSH2_2023.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,22 +25,30 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class MainView : Window
     {
-       
 
-         public static UserLogins? ActualUser { get; set; }
-      
 
-        public MainView(UserLogins actualUser)
+        private UserLogins _loggedInUser;
+        public UserLogins LoggedInUser
+        {
+            get { return _loggedInUser; }
+            set { _loggedInUser = value; }
+        }
+
+
+        public MainViewModel? MainVM { get; set; }
+
+
+        public MainView()
         {
 
+            InitializeComponent();
 
-            ActualUser = actualUser;
+           // ActualUser = actualUser;
 
-
-                InitializeComponent();
-                tbUserNameActual.Text = actualUser.FullName;
-               
             
+           //tbUserNameActual.Text = actu;
+
+
 
 
         }
@@ -49,11 +58,11 @@ namespace Sem_BCSH2_2023.View
         //    ActualUser = user;
 
         //}
-        public static UserLogins GetCurrentUser()
-        {
-            return ActualUser;
+        //public static UserLogins GetCurrentUser()
+        //{
+        //    return ActualUser;
 
-        }
+        //}
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -83,26 +92,6 @@ namespace Sem_BCSH2_2023.View
             }
             else this.WindowState = WindowState.Normal;
         }
-
-
-        private void BtnLogOut_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Odhlášeno");
-            //Repo.Dispose();
-            // Uzavřít aktuální okno
-            //Window currentWindow = Application.Current.MainWindow;
-            //currentWindow.Close();
-            LoginView loginView = new LoginView();
-            this.Close();
-
-            // Vytvořit a zobrazit nové přihlašovací okno
-
-            loginView.Show();
-        }
-
-       
-
-
 
     }
 }

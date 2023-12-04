@@ -32,16 +32,16 @@ namespace Sem_BCSH2_2023.ViewModel
         public LoginViewModel()
         {
 
-                //Users.Add(new UserLogins("admin", "admin", "add add", "admin@admin.cz"));
-                //Users.Add(new UserLogins("pepa", "12", "Pepa Pepaaa", "pepa@admin.cz"));
- 
+            //Users.Add(new UserLogins("admin", "admin", "add add", "admin@admin.cz"));
+            //Users.Add(new UserLogins("pepa", "12", "Pepa Pepaaa", "pepa@admin.cz"));
+
             LoginCommand = new RelayCommand(OnLogin);
         }
 
         private string _username;
         private string _password;
 
-       
+
         public string Username
         {
             get => _username;
@@ -65,15 +65,21 @@ namespace Sem_BCSH2_2023.ViewModel
                 using (var repoLogin = new RepoLogin())
                 {
                     UserLoginMng = new UsersLoginMng(repoLogin);
-
                     Users = UserLoginMng.GetAllUserLogins();
                     LoggedInUser = Users.FirstOrDefault(user => user.Username == Username && user.Password == Password);
 
                     if (LoggedInUser != null)
                     {
-                        MainView mainView = new MainView(LoggedInUser);
+                        MainViewModel mainViewModel = new MainViewModel();
+                        mainViewModel.ActualUser = LoggedInUser;
+
+                        MainView mainView = new MainView
+                        {
+                            DataContext = mainViewModel
+                        };
                         mainView.Show();
                         App.Current.Windows[0].Close();
+
                     }
                     else
                     {
@@ -86,5 +92,7 @@ namespace Sem_BCSH2_2023.ViewModel
                 MessageBox.Show($"Chyba při přihlašování: {ex.Message}");
             }
         }
+
+
     }
 }
