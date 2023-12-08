@@ -23,16 +23,14 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class NewOrderView : Window
     {
-        //private readonly ObservableCollection<Customer> CustomersList;
         Customer selectedCustomer;
         private Order order;
         private bool edit;
-        // public NewOrderView(Order ord, Customer customer)
 
 
         public NewOrderView(Order ord, int? customerID)
         {
-            //CustomersList = CustomerViewModel.CustomersList;
+            selectedCustomer = CustomerViewModel.CustomersList.First();
             InitializeComponent();
 
             cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
@@ -41,14 +39,17 @@ namespace Sem_BCSH2_2023.View
             if (customerID != null && ord != null)
             {
                 btnAdd.Content = "Editovat";
+                tbWindowName.Text = "Editace položek objednávky";
                 tbCustomer.Visibility = Visibility.Visible;
-                tbCustomer.Text = customerID+"";
+               
                 cbCustomer.Visibility = Visibility.Collapsed;
                 edit = true;
                 order = ord;
                 selectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
+                tbCustomer.Text = selectedCustomer.ToString();
                 cbCustomer.SelectedItem = selectedCustomer;
                 lvOrder.ItemsSource = ord.ListOfGoods;
+                cbCustomer.IsEditable = false;
             }
             else
             {
@@ -64,6 +65,7 @@ namespace Sem_BCSH2_2023.View
         private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedCustomer = (Customer)cbCustomer.SelectedItem;
+
         }
 
 
@@ -109,11 +111,14 @@ namespace Sem_BCSH2_2023.View
             } else
             { //Add
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-                order.CustomerId = selectedCustomer.Id;
-                Customer customer = CustomerViewModel.GetCustomerById(selectedCustomer.Id);
-                order.FullName = OrderViewModel.GetCustomerNameById(customer.Id);
+               
+                    order.CustomerId = selectedCustomer.Id;
+                    Customer customer = CustomerViewModel.GetCustomerById(selectedCustomer.Id);
+                    order.FullName = OrderViewModel.GetCustomerNameById(customer.Id);
 
                     OrderViewModel.AddOrder(order);
+               
+               
             }
 
             this.Close();

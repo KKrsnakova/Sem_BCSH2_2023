@@ -92,7 +92,7 @@
                 Orientation="Vertical"
                 Margin="0,35,0,0">
 
-                <TextBlock  x:Name="windowName"
+                <TextBlock  x:Name="tbWindowName"
                      Foreground="{StaticResource textColor1}"
                      Text="Nová objednávka"
                      FontSize="25"
@@ -103,8 +103,6 @@
 
 
                 <!--TextBoxes-->
-                <TextBlock  Style="{StaticResource TextBlockAdd}"
-                            Text="Zákazník"/>
                 
                 
                 <TextBlock  x:Name="tbCustomer"
@@ -119,7 +117,7 @@
                            Width="650" Margin="10"
                            DisplayMemberPath="Surname" 
                            SelectedValuePath="Id"
-                           SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" 
+                           SelectedItem="{Binding SelectedCustomer}" 
                            SelectionChanged="CbCustomer_SelectionChanged"/>
 
             </StackPanel>

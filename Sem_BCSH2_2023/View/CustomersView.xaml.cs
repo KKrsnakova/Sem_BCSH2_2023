@@ -33,17 +33,6 @@ namespace Sem_BCSH2_2023.View
             sortData = new SortData();
         }
 
-        private async void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            await Task.Run(() =>
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    AddEditCustomer windowAddCustomer = new AddEditCustomer(null);
-                    windowAddCustomer.Show();
-                });
-            });
-        }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -93,14 +82,6 @@ namespace Sem_BCSH2_2023.View
                 sortData.SortDataMethod("Surname", lvCustomers);
             }
         }
-
-        private async void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
-        {
-            await Task.Run(() =>
-                {
-                    CustomerViewModel.RemoveAllCustomer();
-                });
-
-        }
+       
     }
 }

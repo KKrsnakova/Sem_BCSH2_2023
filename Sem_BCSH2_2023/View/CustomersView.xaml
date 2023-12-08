@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+             xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:CustomerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -28,7 +28,7 @@
                     Name="btnAdd"
                     Content="Přidat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnAdd_Click">
+                    Command="{Binding AddCustomers}">
             </Button>
 
 
@@ -36,7 +36,7 @@
                     Name="btnDeleteAll"
                     Content="Odebrat Vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnDeleteAll_Click">
+                    Command="{Binding DeleteAllCustomer}">
             </Button>
 
         </Grid>

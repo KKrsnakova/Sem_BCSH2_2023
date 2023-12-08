@@ -1,17 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.VisualBasic.ApplicationServices;
 using Sem_BCSH2_2023.Manager;
 using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.Repository;
-using Sem_BCSH2_2023.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -29,7 +23,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
         public UserLogins User { get; set; }
-        public UserLogins userToEdit { get; set; }
+        public UserLogins UserToEdit { get; set; }
         public MainViewModel MainVM { get; set; }
         public string FullName
         {
@@ -131,19 +125,19 @@ namespace Sem_BCSH2_2023.ViewModel
                 {
                     UserLoginMng = new UsersLoginMng(repoLogin);
                     Users = UserLoginMng.GetAllUserLogins();
-                    userToEdit = Users.FirstOrDefault(user => user.Id == User.Id);
+                    UserToEdit = Users.FirstOrDefault(user => user.Id == User.Id);
 
-                    userToEdit.FullName = FullName;
-                    userToEdit.Username = Username;
-                    userToEdit.Password = Password;
-                    userToEdit.Email = Email;
+                    UserToEdit.FullName = FullName;
+                    UserToEdit.Username = Username;
+                    UserToEdit.Password = Password;
+                    UserToEdit.Email = Email;
 
-                    if (userToEdit != null)
+                    if (UserToEdit != null)
                     {
                         UserLoginMng.RemoveAllUserLogins();
                         UserLoginMng.AddAllUserLogins(Users);
 
-                        MessageBox.Show("Upraveno");
+                        MessageBox.Show("Údaje upraveny","Upraveno");
                     }
                     else
                     {

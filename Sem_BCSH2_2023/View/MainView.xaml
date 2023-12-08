@@ -29,7 +29,7 @@
         <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
             <local:CustomersView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodel:GoodViewModel}">
+        <DataTemplate DataType="{x:Type viewmodel:OtherItemsViewModel}">
             <local:OtherItemsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodel:OrderViewModel}">
@@ -95,7 +95,7 @@
 
                     <RadioButton Style="{StaticResource btnMenu}"
                                  Tag="{StaticResource color3}"
-                                 Command="{Binding ShowGoodsViewCommand}" 
+                                 Command="{Binding ShowOtherItemsViewCommand}" 
                                  >
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tree" Style="{StaticResource menuIcons}"/>
@@ -170,7 +170,7 @@
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
-                                Click="BtnClose_Click" >
+                                Command="{Binding Close}" >
                             <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 

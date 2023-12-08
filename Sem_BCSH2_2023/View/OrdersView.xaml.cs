@@ -25,6 +25,7 @@ namespace Sem_BCSH2_2023.View
     public partial class OrdersView : UserControl
     {
         public static Order? order;
+        Customer selectedCustomer;
         public ObservableCollection<Customer> ListCustomersForCB
         {
             get;
@@ -35,10 +36,20 @@ namespace Sem_BCSH2_2023.View
         public OrdersView()
         {
             InitializeComponent();
-
+            cbCustomer.Items.Clear();
+            cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
             lvOrders.ItemsSource = OrderViewModel.OrderList;
             ListCustomersForCB = CustomerViewModel.CustomersList;
-           
+
+        }
+        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedCustomer = (Customer)cbCustomer.SelectedItem;
+            LvRefresh();
+        }
+        private void LvRefresh()
+        {
+            lvOrders.ItemsSource = OrderViewModel.OrderList.Where(order => order.CustomerId == selectedCustomer.Id);
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -53,12 +64,15 @@ namespace Sem_BCSH2_2023.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            if (button.DataContext is Order item)
+            Thread threadOpen = new(() =>
             {
-                OrderViewModel.RemoveOrder(item);
-            }
-
+                Button button = (Button)sender;
+                if (button.DataContext is Order item)
+                {
+                    OrderViewModel.RemoveOrder(item);
+                }
+            });
+            threadOpen.Start();
         }
 
         private void LvOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,10 +109,6 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
-        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void BtnDone_Click(object sender, RoutedEventArgs e)
         {

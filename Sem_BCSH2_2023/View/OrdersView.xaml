@@ -24,9 +24,6 @@
                         Grid.Column="0">
 
             </StackPanel>
-            <!--TextBoxes-->
-
-
 
 
             <Button Grid.Column="0"  
@@ -57,18 +54,17 @@
                     Text="Zákazník: "/>
 
         <ComboBox x:Name="cbCustomer" 
-                  HorizontalAlignment="Center" 
-                  Grid.Row="1"
-                  VerticalAlignment="Center"
-                  Width="650" 
-                  DisplayMemberPath="Name" 
-                  SelectedValuePath="Id"
+           HorizontalAlignment="Center" 
+           Grid.Row="1"
+           VerticalAlignment="Center"
+           Width="650" 
+           DisplayMemberPath="NameSur" 
+           SelectedValuePath="Id"
+           SelectionChanged="CbCustomer_SelectionChanged"
+    />
 
-           />
 
-
-        <Border Grid.Row="2
-                "
+        <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}">
             <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
                 <ListView.ItemContainerStyle>
@@ -130,7 +126,6 @@
 
                     </GridView>
                 </ListView.View>
-
             </ListView>
         </Border>
     </Grid>

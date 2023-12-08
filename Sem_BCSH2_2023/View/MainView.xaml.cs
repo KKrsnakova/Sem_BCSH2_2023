@@ -1,22 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Sem_BCSH2_2023.Manager;
-using Sem_BCSH2_2023.Model;
-using Sem_BCSH2_2023.Repository;
+﻿using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sem_BCSH2_2023.View
 {
@@ -43,26 +28,8 @@ namespace Sem_BCSH2_2023.View
 
             InitializeComponent();
 
-           // ActualUser = actualUser;
-
-            
-           //tbUserNameActual.Text = actu;
-
-
-
-
+          
         }
-
-        //public static void SetCurrentUser(UserLogins user)
-        //{
-        //    ActualUser = user;
-
-        //}
-        //public static UserLogins GetCurrentUser()
-        //{
-        //    return ActualUser;
-
-        //}
 
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -79,10 +46,7 @@ namespace Sem_BCSH2_2023.View
             WindowState = WindowState.Minimized;
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+
 
         private void BtnMaximal_Click(object sender, RoutedEventArgs e)
         {

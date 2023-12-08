@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
-             xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel"
+             xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=local:FlowerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -35,7 +36,7 @@
                     Name="btnAdd"
                     Content="Přidat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnAdd_Click">
+                   Command="{Binding AddFlower}">
 
             </Button>
 
@@ -43,7 +44,7 @@
                     Name="btnDeleteAll"
                     Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnDeleteAll_Click">
+                   Command="{Binding DeleteAllFlower}">
 
             </Button>
         </Grid>
@@ -57,7 +58,7 @@
         <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}">
             <ListView Name="lvFlowers" ItemsSource="{Binding Source={StaticResource FilteredFlowers}}" 
-                      SelectionChanged="LvFlowers_SelectionChanged">
+                     >
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

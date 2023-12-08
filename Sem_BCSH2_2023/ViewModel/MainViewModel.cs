@@ -1,17 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using FontAwesome.Sharp;
+﻿using FontAwesome.Sharp;
 using Sem_BCSH2_2023.Manager;
 using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.Repository;
 using Sem_BCSH2_2023.View;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -87,14 +79,13 @@ namespace Sem_BCSH2_2023.ViewModel
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowFlowerViewCommand { get; }
-        public ICommand ShowGoodsViewCommand { get; }
+        public ICommand ShowOtherItemsViewCommand { get; }
         public ICommand ShowCustomersViewCommand { get; }
         public ICommand ShowOrdersViewCommand { get; }
         public ICommand LogOut { get; }
         public ICommand SaveData { get; }
 
-
-
+        public ICommand Close { get; }
 
         public MainViewModel( )
         {
@@ -102,7 +93,7 @@ namespace Sem_BCSH2_2023.ViewModel
             //Initialize commands
             ShowHomeViewCommand = new CommandViewModel(ExecuteShowHomeViewCommand);
             ShowFlowerViewCommand = new CommandViewModel(ExecuteShowFlowerViewCommand);
-            ShowGoodsViewCommand = new CommandViewModel(ExecuteShowGoodsViewCommand);
+            ShowOtherItemsViewCommand = new CommandViewModel(ExecuteShowOtherItemsViewCommand);
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
 
@@ -110,10 +101,17 @@ namespace Sem_BCSH2_2023.ViewModel
             LogOut = new CommandViewModel(LogOutCom);
             SaveData = new CommandViewModel(SaveDataCom);
 
+            Close = new CommandViewModel(CloseWindowCom);
+
             loggedUser = ActualUser;
             NewRepo();
 
 
+        }
+
+        private void CloseWindowCom(object obj)
+        {
+            Application.Current.Shutdown();
         }
 
         private void NewRepo()
@@ -140,7 +138,6 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderMng.RemoveAllOrder();
             OrderMng.AddAllOrder(OrderViewModel.OrderList);
 
-            Repo.Dispose();
             MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
@@ -174,9 +171,9 @@ namespace Sem_BCSH2_2023.ViewModel
             Icon = IconChar.Sun;
         }
 
-        private void ExecuteShowGoodsViewCommand(object obj)
+        private void ExecuteShowOtherItemsViewCommand(object obj)
         {
-            CurrentChildView = new GoodViewModel();
+            CurrentChildView = new OtherItemsViewModel();
             Description = "Zboží";
             Icon = IconChar.Tree;
         }
@@ -197,6 +194,7 @@ namespace Sem_BCSH2_2023.ViewModel
         }
 
        
+
 
     }
 

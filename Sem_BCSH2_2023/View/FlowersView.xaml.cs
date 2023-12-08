@@ -35,15 +35,6 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            Thread threadOpen = new(() =>
-            {
-                AddGoods windowAddGoods = Dispatcher.Invoke(() => new AddGoods(null, true));
-                Dispatcher.Invoke(() => windowAddGoods.Show());
-            });
-            threadOpen.Start();
-        }
 
         private void BtnDeleteRow_Click(object sender, RoutedEventArgs e)
         {
@@ -56,10 +47,8 @@ namespace Sem_BCSH2_2023.View
 
         }
 
-        private void LvFlowers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //btnEdit.Visibility = Visibility.Visible;
-        }
+
+
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -91,16 +80,6 @@ namespace Sem_BCSH2_2023.View
             else if (header == "Cena")
             {
                 sortData.SortDataMethod("Price", lvFlowers);
-            }
-        }
-
-        private void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                GoodViewModel.RemoveAllFlower();
             }
         }
     }

@@ -44,16 +44,7 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            Thread threadOpen = new(() =>
-            {
-                AddGoods windowAddGoods = Dispatcher.Invoke(() => new AddGoods(null, false));
-                Dispatcher.Invoke(() => windowAddGoods.Show());
-            });
-            threadOpen.Start();
-        }
-
+      
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -63,19 +54,10 @@ namespace Sem_BCSH2_2023.View
                 int selectedId = otherItem.Id;
                 AddGoods windowEditGoods = new(selectedId, false);
                 windowEditGoods.ShowDialog();
-                //((CollectionViewSource)Resources["FilteredGoods"]).View.Refresh();
             }
         }
 
-        private void BtnDeleteAll_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                GoodViewModel.RemoveAllOtherItem();
-            }
-        }
+      
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {

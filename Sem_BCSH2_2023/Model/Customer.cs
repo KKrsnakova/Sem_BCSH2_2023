@@ -18,6 +18,12 @@ namespace Sem_BCSH2_2023.Model
         private string _city;
         private long _phone;
         private string _email;
+
+        public string NameSur
+        {
+            get => $"{_name} {_surname}";
+        }
+
         public int Id
         {
             get => _id; 
