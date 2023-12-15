@@ -62,6 +62,7 @@ namespace Sem_BCSH2_2023.View
         private void LvOtherItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnEdit.Visibility = Visibility.Visible;
+
         }
     }
 }
