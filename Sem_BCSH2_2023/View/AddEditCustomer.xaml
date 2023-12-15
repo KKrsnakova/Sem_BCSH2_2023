@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddEditCustomerViewModel}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -42,23 +42,23 @@
                         MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
                         MouseEnter="NavBar_MouseEnter" >
 
-                <Button x:Name="btnClose"
-                        Style="{StaticResource navBtn}"
-                        Click="BtnClose_Click" >
+                    <Button x:Name="btnClose"
+                             Style="{StaticResource navBtn}"
+                            Command="{Binding CloseCommand}" >                  
                     <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
-                </Button>
+                    </Button>
 
-                <Button 
-                        Style="{StaticResource navBtn}"
-                        Click="BtnMaximal_Click">
-                    <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
-                </Button>
+                    <Button x:Name="btnMaximal"
+                            Style="{StaticResource navBtn}"
+                            Command="{Binding MaximizeCommand}">            
+                        <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                    </Button>
 
-                <Button x:Name="btnMinimal"
-                        Style="{StaticResource navBtn}"
-                        Click="BtnMinimal_Click">
-                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
-                </Button>
+                    <Button x:Name="btnMinimal"
+                             Style="{StaticResource navBtn}"
+                             Command="{Binding MinimizeCommand}">
+                        <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                    </Button>
 
             </StackPanel>
 
@@ -68,7 +68,7 @@
                         Margin="70,35,70,0">    
                 <TextBlock  
                         x:Name="windowName"
-                        Text="Přidat novou rostlinu"
+                        Text="{Binding WindowName}"
                         Foreground="{StaticResource textColor1}"
                         FontSize="25"
                         FontWeight="Medium"
@@ -80,13 +80,16 @@
                         Text="Jméno"/>
 
                 <TextBox  x:Name="tbName"
+                          Text="{Binding Name}"
                       Style="{StaticResource TextBoxAdd}">
                 </TextBox>
 
                 <TextBlock Style="{StaticResource TextBlockAdd}"
+                          
                         Text="Přijmení" />
 
                 <TextBox x:Name="tbSurname"
+                          Text="{Binding Surname}"
                      Style="{StaticResource TextBoxAdd}">
                 </TextBox>
 
@@ -94,6 +97,7 @@
                        Text="Ulice a číslo popisné " />
 
                 <TextBox x:Name="tbAddress"
+                          Text="{Binding Address}"
                      Style="{StaticResource TextBoxAdd}">
                 </TextBox>
 
@@ -101,6 +105,7 @@
                     Text="Město + PSČ "/>
 
                 <TextBox Style="{StaticResource TextBoxAdd}"
+                          Text="{Binding City}"
                      x:Name="tbCity">
                 </TextBox>
 
@@ -108,6 +113,7 @@
                         Text="Telefonní číslo"  />
 
                 <TextBox Style="{StaticResource TextBoxAdd}"
+                          Text="{Binding PhoneNumber}"
                      x:Name="tbPhoneNumber">
                 </TextBox>
 
@@ -115,16 +121,17 @@
                         Text="E-mailová adresa"/>
 
                 <TextBox Style="{StaticResource TextBoxAdd}"
+                          Text="{Binding Email}"
                     x:Name="tbEmail">
                 </TextBox>
 
                 <Button Style="{StaticResource BtnAddEditDelete}"
-                        Content="Přidat"
+                        Content="{Binding BtnText}"
                         Name="btnAdd"
                         BorderThickness="0"
                         Margin="70,10,70,0"
                         VerticalAlignment="Top"
-                        Click="BtnAdd_Click">
+                        Command="{Binding AddEditCustomerCom}">
                 </Button>
             </StackPanel>
         </Grid>

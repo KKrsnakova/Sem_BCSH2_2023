@@ -19,10 +19,7 @@ namespace Sem_BCSH2_2023.Model
         private long _phone;
         private string _email;
 
-        public string NameSur
-        {
-            get => $"{_name} {_surname}";
-        }
+       
 
         public int Id
         {
@@ -69,6 +66,11 @@ namespace Sem_BCSH2_2023.Model
             City = city;
             PhoneNumber = phoneNumber;
             Email = email;
+        }
+
+        public string NameSur
+        {
+            get => $"{_name} {_surname}";
         }
 
         public override string? ToString()

@@ -25,116 +25,15 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class RegistrationView : Window
     {
-        private ObservableCollection<UserLogins> users;
-        private UsersLoginMng UserLoginMng { get; set; }
+        private readonly RegistrationViewModel registrationVM;
+
 
         public RegistrationView()
         {
             InitializeComponent();
-            users = new ObservableCollection<UserLogins>();
+            registrationVM = new();
+            DataContext = registrationVM;
 
-        }
-
-
-        private void BtnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckInputs())
-            {
-                try
-                {
-                    using (var repoLogin = new RepoLogin())
-                    {
-                        UserLoginMng = new UsersLoginMng(repoLogin);
-                        users.Clear();
-                        users = UserLoginMng.GetAllUserLogins();
-
-                        string name = tbFullName.Text;
-                        string username = tbLogin.Text;
-                        string email = tbEmail.Text;
-                        string password = tbPasswordFirst.Password;
-
-                        UserLogins newUser = RegistrationViewModel.RegisterUser(users.Count, username, password, name, email);
-                        users.Add(newUser);
-
-
-                        UserLoginMng.RemoveAllUserLogins();
-                        UserLoginMng.AddAllUserLogins(users);
-
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Chyba při registraci: {ex.Message}");
-                }
-            }
-        }
-
-        private bool CheckInputs()
-        {
-            string name = tbFullName.Text;
-            string username = tbLogin.Text;
-            string email = tbEmail.Text;
-            string password = tbPasswordFirst.Password;
-            string passwordChecked = tbPasswordCheck.Password;
-
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) ||
-                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordChecked))
-            {
-                MessageBox.Show("Všechna pole musí být vyplněna.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-
-            if (password != passwordChecked)
-            {
-                MessageBox.Show("Hesla se neshodují.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-
-            string emailform = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
-            if (!System.Text.RegularExpressions.Regex.IsMatch(email, emailform))
-            {
-                MessageBox.Show("Nesprávný formát e-mailu.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-
-            return true;
-        }
-
-
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Normal)
-            {
-                this.WindowState = WindowState.Maximized;
-            }
-            else this.WindowState = WindowState.Normal;
-        }
-
-
-        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                DragMove();
-            }
-        }
-
-
-
-        private void NavBar_MouseEnter(object sender, MouseEventArgs e)
-        {
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
     }

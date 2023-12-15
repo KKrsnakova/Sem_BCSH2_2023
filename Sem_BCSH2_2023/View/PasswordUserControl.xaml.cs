@@ -22,17 +22,25 @@ namespace Sem_BCSH2_2023.View
     {
 
 
+          public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("Password", typeof(string), typeof(PasswordUserControl), new PropertyMetadata(string.Empty));
+
+        public static readonly DependencyProperty Password2Property =
+           DependencyProperty.Register("Password2", typeof(string), typeof(PasswordUserControl), new PropertyMetadata(string.Empty));
+
+
+
         public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.Register("Password", typeof(string), typeof(PasswordUserControl), new PropertyMetadata(string.Empty));
-
-
+        public string Password2
+        {
+            get { return (string)GetValue(Password2Property); }
+            set { SetValue(Password2Property, value); }
+        }
 
         public PasswordUserControl()
         {
@@ -43,6 +51,11 @@ namespace Sem_BCSH2_2023.View
         private void TbPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
             Password = tbPassword.Password;
+        }
+
+        private void TbPassword2_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            Password2 = tbPassword.Password;
         }
     }
 }

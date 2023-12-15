@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -14,6 +15,10 @@ namespace Sem_BCSH2_2023.ViewModel
     {
         public static ObservableCollection<UserLogins> Users { get; set; } = new ObservableCollection<UserLogins>();
         public UsersLoginMng UserLoginMng { get; set; }
+
+        public ICommand CloseCommand { get; private set; }
+        public ICommand MaximizeCommand { get; private set; }
+        public ICommand MinimizeCommand { get; private set; }
 
 
 
@@ -32,10 +37,11 @@ namespace Sem_BCSH2_2023.ViewModel
         public LoginViewModel()
         {
 
-            //Users.Add(new UserLogins("admin", "admin", "add add", "admin@admin.cz"));
-            //Users.Add(new UserLogins("pepa", "12", "Pepa Pepaaa", "pepa@admin.cz"));
+            LoginCommand = new CommandViewModel(_ => OnLogin());
 
-            LoginCommand = new RelayCommand(OnLogin);
+            CloseCommand = new CommandViewModel(_ => Close());
+            MaximizeCommand = new CommandViewModel(_ => Maximize());
+            MinimizeCommand = new CommandViewModel(_ => Minimize());
         }
 
         private string _username;
@@ -54,7 +60,7 @@ namespace Sem_BCSH2_2023.ViewModel
             set => SetProperty(ref _password, value, nameof(Password));
         }
 
-        public RelayCommand LoginCommand { get; }
+        public ICommand LoginCommand { get; }
 
         public UserLogins LoggedInUser { get; set; }
 
@@ -93,6 +99,39 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
+
+        private void Close()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+            window?.Close();
+        }
+
+        private static void Maximize()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (window != null)
+            {
+                if (window.WindowState == WindowState.Normal)
+                {
+                    window.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+            }
+        }
+
+        private static void Minimize()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (window != null)
+            {
+                window.WindowState = WindowState.Minimized;
+            }
+        }
 
     }
 }

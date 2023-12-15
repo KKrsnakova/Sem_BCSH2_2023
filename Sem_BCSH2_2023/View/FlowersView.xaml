@@ -36,7 +36,7 @@
                     Name="btnAdd"
                     Content="Přidat"
                     Style="{StaticResource BtnAddEditDelete}"
-                   Command="{Binding AddFlower}">
+                    Command="{Binding AddFlowerCom}">
 
             </Button>
 
@@ -44,7 +44,7 @@
                     Name="btnDeleteAll"
                     Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                   Command="{Binding DeleteAllFlower}">
+                   Command="{Binding DeleteAllFlowerCom}">
 
             </Button>
         </Grid>
@@ -81,9 +81,9 @@
 
                         <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}"  />
                         <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                        <GridViewColumn Width="200" Header="Druh rostliny" DisplayMemberBinding="{Binding FlowerSpecies, Mode=TwoWay}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, StringFormat={}{0:N2} Kč}" />
-                    
-                            <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
+                        <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

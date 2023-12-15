@@ -13,14 +13,18 @@ namespace Sem_BCSH2_2023.View
 {
     public partial class FlowersView : UserControl
     {
-        public static Flower? flower;
+        private readonly FlowerViewModel flowerVM;
+
+        public  Flower? flower;
         SortData sortData;
         public FlowersView()
         {
             InitializeComponent();
-
+            flowerVM = new FlowerViewModel();
+            DataContext = flowerVM;
             lvFlowers.ItemsSource = ((CollectionViewSource)Resources["FilteredFlowers"]).View;
             sortData = new SortData();
+
         }
 
         private void FlowerFilter(object sender, FilterEventArgs e)
@@ -58,7 +62,7 @@ namespace Sem_BCSH2_2023.View
             {
                 flower = item;
                 int selectedId = flower.Id;
-                AddGoods windowEditGoods = new(selectedId, true);
+                AddEditGoods windowEditGoods = new(selectedId, true);
                 windowEditGoods.ShowDialog();
 
             }
@@ -82,5 +86,7 @@ namespace Sem_BCSH2_2023.View
                 sortData.SortDataMethod("Price", lvFlowers);
             }
         }
+
+     
     }
 }

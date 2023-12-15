@@ -66,19 +66,19 @@
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
-                                Click="BtnClose_Click">
+                               Command="{Binding CloseCommand}" >
                             <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnMaximal"
-                                 Style="{StaticResource navBtn}"
-                                 Click="BtnMaximal_Click">
+                            Style="{StaticResource navBtn}"
+                             Command="{Binding MaximizeCommand}">
                             <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnMinimal"
                                 Style="{StaticResource navBtn}"
-                                Click="BtnMinimal_Click">
+                               Command="{Binding MinimizeCommand}">         
                             <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
@@ -123,7 +123,8 @@
                     <local:PasswordUserControl x:Name="tbPassword"
                                                Password="{Binding Password, 
                                                UpdateSourceTrigger=PropertyChanged, 
-                                               Mode=TwoWay}"/>
+                                               Mode=TwoWay}"
+                                               />
 
 
                     <Button x:Name="btnLogin"

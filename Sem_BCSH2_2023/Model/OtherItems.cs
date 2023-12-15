@@ -9,23 +9,23 @@ namespace Sem_BCSH2_2023.Model
     public class OtherItems : Good
     {
         private string _usage;
-        private int _count;
+        private string _packageType;
 
         public string Usage
         {
             get => _usage;
             set => SetProperty(ref _usage, value, nameof(Usage));
         }
-        public int CountInPackage
+        public string PackageType
         {
-            get => _count;
-            set => SetProperty(ref _count, value, nameof(CountInPackage));
+            get => _packageType;
+            set => SetProperty(ref _packageType, value, nameof(PackageType));
         }
 
-        public OtherItems(int id, string name, double price, string usage, int count) : base(id, name, price)
+        public OtherItems(int id, string name, double price, string usage, string packageType) : base(id, name, price)
         {
             Usage = usage;
-            CountInPackage = count;
+            PackageType = packageType;
         }
     }
 }

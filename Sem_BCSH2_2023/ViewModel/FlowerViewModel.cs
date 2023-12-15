@@ -14,16 +14,16 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class FlowerViewModel : BaseViewModel
     {
-        public ICommand AddFlower { get; }
-        public ICommand DeleteAllFlower { get; }
+        public ICommand AddFlowerCom { get; }
+        public ICommand DeleteAllFlowerCom { get; }
 
         public FlowerViewModel()
         {
-            AddFlower = new CommandViewModel(AddCom);
-            DeleteAllFlower = new CommandViewModel(DeleteAllCom);
+            AddFlowerCom = new CommandViewModel(AddFlower);
+            DeleteAllFlowerCom = new CommandViewModel(DeleteAllFlower);
         }
 
-        private void DeleteAllCom(object obj)
+        private void DeleteAllFlower(object obj)
         {
             MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -33,9 +33,9 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
-        private void AddCom(object obj)
+        private void AddFlower(object obj)
         {
-                AddGoods windowAddGoods = new AddGoods(null, true);
+                AddEditGoods windowAddGoods = new (null, true);
                 windowAddGoods.Show();
         }
     }

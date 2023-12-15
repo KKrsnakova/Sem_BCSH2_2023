@@ -21,37 +21,21 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class LoginView : Window
     {
+        private readonly LoginViewModel loginVM;
         public LoginView()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
+            loginVM = new();
+            DataContext = loginVM;
         }
+
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton==MouseButtonState.Pressed) { DragMove(); }
         }
 
-        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Normal)
-            {
-                this.WindowState = WindowState.Maximized;
-            }
-            else this.WindowState = WindowState.Normal;
-        }
-
-
+        
 
         private void TbRegisterHere_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -62,5 +46,7 @@ namespace Sem_BCSH2_2023.View
             });
             threadOpen.Start();
         }
+
+       
     }
 }

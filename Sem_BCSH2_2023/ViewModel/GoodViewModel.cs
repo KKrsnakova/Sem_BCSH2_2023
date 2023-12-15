@@ -55,7 +55,7 @@ namespace Sem_BCSH2_2023.ViewModel
         //Other goods
 
 
-        public static void AddOtherItems(string nameAdd, double priceAdd, int countAdd, string usageAdd)
+        public static void AddOtherItems(string nameAdd, double priceAdd, string countAdd, string usageAdd)
         {
             GoodsList.Add(new OtherItems(IdGenerator(), nameAdd, priceAdd, usageAdd, countAdd));
         }

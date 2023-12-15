@@ -1,20 +1,8 @@
 ﻿using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Sem_BCSH2_2023.View
 {
@@ -25,9 +13,14 @@ namespace Sem_BCSH2_2023.View
     {
         public OtherItems? otherItem;
         private SortData sortData;
+
+        private readonly OtherItemsViewModel OtherItemsVM;
         public OtherItemsView()
         {
             InitializeComponent();
+            OtherItemsVM = new OtherItemsViewModel();
+            DataContext = OtherItemsVM;
+
             lvOtherItems.ItemsSource = ((CollectionViewSource)Resources["FilteredGoods"]).View;
             sortData = new SortData();
         }
@@ -52,7 +45,7 @@ namespace Sem_BCSH2_2023.View
             {
                 otherItem = item;
                 int selectedId = otherItem.Id;
-                AddGoods windowEditGoods = new(selectedId, false);
+                AddEditGoods windowEditGoods = new(selectedId, false);
                 windowEditGoods.ShowDialog();
             }
         }

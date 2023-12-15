@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RegistrationViewModel}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        Title="Registration" Height="550" Width="500">
+        Title="Registration" Height="550" Width="480">
 
     <Border CornerRadius="10" BorderThickness="2">
 
@@ -37,25 +37,23 @@
                     Orientation="Horizontal"
                     FlowDirection="RightToLeft"
                     Background="Transparent"
-                    Margin="0,0,5,0"
-                    MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
-                    MouseEnter="NavBar_MouseEnter" >
+                    Margin="0,0,5,0">
 
                 <Button x:Name="btnClose"
                     Style="{StaticResource navBtn}"
-                    Click="BtnClose_Click" >
+                   Command="{Binding CloseCommand}" >
                     <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
                 <Button x:Name="btnMaximal"
                     Style="{StaticResource navBtn}"
-                    Click="BtnMaximal_Click">
+                     Command="{Binding MaximizeCommand}">
                     <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
                 <Button x:Name="btnMinimal"
                     Style="{StaticResource navBtn}"
-                    Click="BtnMinimal_Click">
+                   Command="{Binding MinimizeCommand}">
                     <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
@@ -79,6 +77,7 @@
                     Text="Jméno a Přijmení"/>
 
                 <TextBox  x:Name="tbFullName"
+                          Text="{Binding FullName}"
                   Style="{StaticResource TextBoxAdd}">
                 </TextBox>
 
@@ -86,15 +85,15 @@
                              Text="E-mailová adresa"/>
 
                 <TextBox Style="{StaticResource TextBoxAdd}"
+                         Text="{Binding Email}"
                          x:Name="tbEmail">
                 </TextBox>
-
-               
-
+                
                 <TextBlock Style="{StaticResource TextBlockAdd}"
                            Text="Přihlašovací jméno" />
 
                 <TextBox x:Name="tbLogin"
+                         Text="{Binding Username}"
                          Style="{StaticResource TextBoxAdd}">
                 </TextBox>
 
@@ -102,17 +101,16 @@
                 Text="Heslo"/>
 
 
-                <local:PasswordUserControl x:Name="tbPasswordFirst"
-                   /> 
+                <local:PasswordUserControl x:Name="tbPasswordFirst" 
+                                           Password="{Binding Password, Mode=TwoWay}"/> 
 
                 <TextBlock  Style="{StaticResource TextBlockAdd}"
+                            
                     Text="Heslo znovu"  />
 
 
-                <local:PasswordUserControl x:Name="tbPasswordCheck"
-                       />
-
-
+                <local:PasswordUserControl x:Name="tbPasswordCheck" 
+                                             Password="{Binding Password2, Mode=TwoWay}"/>
 
                 <Button Style="{StaticResource BtnAddEditDelete}"
                     Content="Zaregistorvat se"
@@ -120,7 +118,7 @@
                     BorderThickness="0"
                     Margin="70,10,70,0"
                     VerticalAlignment="Top"
-                    Click="BtnRegister_Click">
+                    Command="{Binding RegistrationDoneCommand}">
                 </Button>
             </StackPanel>
         </Grid>

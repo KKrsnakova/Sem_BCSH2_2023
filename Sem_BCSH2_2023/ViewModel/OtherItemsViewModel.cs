@@ -37,7 +37,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private void AddOtherItemCom(object obj)
         {
 
-            AddGoods windowAddGoods = new AddGoods(null, false);
+            AddEditGoods windowAddGoods = new AddEditGoods(null, false);
             windowAddGoods.Show();
 
         }

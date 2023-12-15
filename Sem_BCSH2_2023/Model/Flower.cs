@@ -12,9 +12,17 @@ namespace Sem_BCSH2_2023.Model
         private string _description;
         private string _flowerSpecies;
 
-        public string Description { get => _description; set => SetProperty(ref _description, value, nameof(Description)); }
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value, nameof(Description));
+        }
 
-        public string FlowerSpecies { get => _flowerSpecies; set=> SetProperty(ref _flowerSpecies, value, nameof(FlowerSpecies)); }
+        public string FlowerSpecies
+        {
+            get => _flowerSpecies;
+            set => SetProperty(ref _flowerSpecies, value, nameof(FlowerSpecies));
+        }
 
         public Flower(int id, string name, double price, string description, string flowerSpecies) : base(id, name, price)
         {
