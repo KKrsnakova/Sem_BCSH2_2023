@@ -73,9 +73,14 @@ namespace Sem_BCSH2_2023.Model
             get => $"{_name} {_surname}";
         }
 
+        //public override string? ToString()
+        //{
+        //    return Id + " , " + Name;
+        //} 
+        
         public override string? ToString()
         {
-            return Id + " , " + Name;
+            return NameSur + " " + Address;
         }
     }
 }

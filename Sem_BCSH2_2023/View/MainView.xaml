@@ -170,19 +170,19 @@
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
-                                Command="{Binding Close}" >
+                                Command="{Binding CloseCommand}" >
                             <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnMaximal"
                                 Style="{StaticResource navBtn}"
-                                 Click="BtnMaximal_Click">
+                                 Command="{Binding MaximalCommand}">
                             <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnLof"
                                 Style="{StaticResource navBtn}"
-                                Click="BtnMinimal_Click">
+                                Command="{Binding MinimalCommand}">
                             <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                         </Button>
                     </StackPanel>
@@ -218,7 +218,7 @@
 
                             <Button x:Name="btnLogOut"
                                     Style="{StaticResource btnLogOut}"
-                                    Command="{Binding LogOut}"
+                                    Command="{Binding LogOutCommand}"
                                     >
                                 <fa:IconImage Icon="SignOut"
                                               Foreground="{StaticResource textColor1}"
@@ -230,7 +230,7 @@
 
                             <Button x:Name="btnSaveData"
                                       Style="{StaticResource btnLogOut}"
-                                   Command="{Binding SaveData}"
+                                   Command="{Binding SaveDataCommand}"
                                     >
                                 <fa:IconImage 
                                     Icon="Save"

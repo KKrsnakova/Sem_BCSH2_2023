@@ -27,57 +27,20 @@ namespace Sem_BCSH2_2023.View
         private Order order;
         private bool edit;
 
+        private readonly NewOrderViewModel newOrderVM;
 
         public NewOrderView(Order ord, int? customerID)
         {
-            selectedCustomer = CustomerViewModel.CustomersList.First();
+
+            order = ord;
             InitializeComponent();
+            newOrderVM = new NewOrderViewModel(ord, customerID);
+            DataContext = newOrderVM;
 
-            cbCustomer.ItemsSource = CustomerViewModel.CustomersList;
-            cbCustomer.SelectedIndex = 0;
 
-            if (customerID != null && ord != null)
-            {
-                btnAdd.Content = "Editovat";
-                tbWindowName.Text = "Editace položek objednávky";
-                tbCustomer.Visibility = Visibility.Visible;
-               
-                cbCustomer.Visibility = Visibility.Collapsed;
-                edit = true;
-                order = ord;
-                selectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
-                tbCustomer.Text = selectedCustomer.ToString();
-                cbCustomer.SelectedItem = selectedCustomer;
-                lvOrder.ItemsSource = ord.ListOfGoods;
-                cbCustomer.IsEditable = false;
-            }
-            else
-            {
-                tbCustomer.Visibility = Visibility.Collapsed;
-                cbCustomer.Visibility = Visibility.Visible;
-                cbCustomer.SelectedIndex = 0;
-                edit = false;
-                order = OrderViewModel.NewOrder();
-            }
 
         }
 
-        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedCustomer = (Customer)cbCustomer.SelectedItem;
-
-        }
-
-
-        //Add or Delete Goods from order list
-        private void BtnAddGood_Click(object sender, RoutedEventArgs e)
-        {
-            AllGoodsView windowAllGoods = new(order);
-            windowAllGoods.ShowDialog();
-            lvOrder.ItemsSource = order.ListOfGoods;
-
-
-        }
 
         private void BtnDeleteGood_Click(object sender, RoutedEventArgs e)
         {
@@ -97,64 +60,6 @@ namespace Sem_BCSH2_2023.View
 
 
 
-
-        //Confirm / Close Order
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {  
-            if (edit)
-            {//Edit
-                
-                order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-                //order.CustomerId = selectedCustomer.Id;
-                this.Close();
-
-            } else
-            { //Add
-                order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
-               
-                    order.CustomerId = selectedCustomer.Id;
-                    Customer customer = CustomerViewModel.GetCustomerById(selectedCustomer.Id);
-                    order.FullName = OrderViewModel.GetCustomerNameById(customer.Id);
-
-                    OrderViewModel.AddOrder(order);
-               
-               
-            }
-
-            this.Close();
-        }
-
-        
-
-
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-
-
-
-
-        //Window operations
-
-        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Normal)
-            {
-                this.WindowState = WindowState.Maximized;
-            }
-            else this.WindowState = WindowState.Normal;
-        }
-
-
-
-
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -165,9 +70,5 @@ namespace Sem_BCSH2_2023.View
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-        private void lvOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

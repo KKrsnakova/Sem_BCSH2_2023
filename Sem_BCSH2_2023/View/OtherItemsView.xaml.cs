@@ -68,9 +68,6 @@ namespace Sem_BCSH2_2023.View
                 case "Cena":
                     sortData.SortDataMethod("Price", lvOtherItems);
                     break;
-                case "Počet v balení":
-                    sortData.SortDataMethod("CountInPackage", lvOtherItems);
-                    break;
             }
         }
 

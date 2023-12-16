@@ -1,9 +1,13 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using Sem_BCSH2_2023.Model;
+using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -11,21 +15,50 @@ namespace Sem_BCSH2_2023.ViewModel
     {
 
         public static ObservableCollection<Order> OrderList = new();
-        public static ObservableCollection<User> UserList = new();
+        public  static ObservableCollection<User> UserList = new();
 
 
+        private ObservableCollection<Customer> _customerListShow;
+        private ObservableCollection<Order> _orderListShow;
+
+        public ICommand AddNewCommand { get; private set; }
+        public ICommand DeleteAllCommand { get; private set; }
+
+        public OrderViewModel()
+        {
+            CustomerListShow = CustomerViewModel.CustomersList;
+            OrderListShow = OrderList;
+
+            AddNewCommand = new CommandViewModel(_ => AddNewOrder());
+            DeleteAllCommand = new CommandViewModel(_ => DeleteAllOrders());
+        }
+
+        private void DeleteAllOrders()
+        {
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                OrderViewModel.RemoveAllOrder();
+            }
+        }
+
+        private void AddNewOrder()
+        {
+                NewOrderView windowNewOrder = new NewOrderView(null, null);
+                windowNewOrder.Show();
+            
+        }
 
         public static Order NewOrder()
         {
-            Order order = new(IdGenerator(), 1, "test", "test", DateTime.Now);
+            Order order = new(IdGenerator(), 1, "", "", DateTime.Now);
             return order;
         }
 
         public static void AddOrder(Order order)
         {
             OrderList.Add(order);
-
-            // OrderList.Add(new Order(IdGenerator(), customerAdd.Id, customerAdd.Name, customerAdd.Surname, DateTime.Now));
         }
 
 
@@ -39,11 +72,15 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderList.Clear();
         }
 
-        public static void OrderDone(Order selectedOrder)
+        public  void OrderDone(Order selectedOrder)
         {
 
             selectedOrder.Done = !selectedOrder.Done;
 
+        }
+        public  void OrderDateCompletion(Order selectedOrder)
+        {
+            selectedOrder.DateCompletion = DateTime.Now;
         }
 
 
@@ -81,6 +118,19 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
 
+        }
+
+
+        public ObservableCollection<Customer> CustomerListShow
+        {
+            get => _customerListShow;
+            set => SetProperty(ref _customerListShow, value, nameof(CustomerListShow));
+        }
+        
+        public ObservableCollection<Order> OrderListShow
+        {
+            get => _orderListShow;
+            set => SetProperty(ref _orderListShow, value, nameof(OrderListShow));
         }
 
 

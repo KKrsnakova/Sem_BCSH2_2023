@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:NewOrderViewModel}"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -51,33 +51,20 @@
                                 MouseEnter="NavBar_MouseEnter">
 
                 <Button x:Name="btnClose"
-                                Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="12"
-                            Cursor="Hand"
-                            Click="BtnClose_Click"
-                                >
+                        Style="{StaticResource navBtn}"
+                        Command="{Binding CloseCommand}" >
                     <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
                 <Button x:Name="btnMaximal"
-                                Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMaximal_Click">
+                        Style="{StaticResource navBtn}"
+                        Command="{Binding MaximizeCommand}">
                     <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
                 <Button x:Name="btnMinimal"
-                                Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMinimal_Click">
+                         Style="{StaticResource navBtn}"
+                         Command="{Binding MinimizeCommand}">   
                     <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                 </Button>
             </StackPanel>
@@ -94,7 +81,7 @@
 
                 <TextBlock  x:Name="tbWindowName"
                      Foreground="{StaticResource textColor1}"
-                     Text="Nová objednávka"
+                     Text="{Binding TBWindowText}"
                      FontSize="25"
                      FontWeight="Medium"
                      HorizontalAlignment="Center">
@@ -107,18 +94,21 @@
                 
                 <TextBlock  x:Name="tbCustomer"
                             HorizontalAlignment="Center"
+                            Visibility="{Binding TBVisibility}"
                             Style="{StaticResource TextBlockAdd}"
-                            Text="Zákazník"/>
+                            
+                            Text="{Binding TBCustomerText}"/>
                 
 
                 <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
-                          
+                          Visibility="{Binding CbVisibility}"
                            VerticalAlignment="Top"
                            Width="650" Margin="10"
                            DisplayMemberPath="Surname" 
                            SelectedValuePath="Id"
+                           ItemsSource="{Binding CustomerListShow }"
                            SelectedItem="{Binding SelectedCustomer}" 
-                           SelectionChanged="CbCustomer_SelectionChanged"/>
+                          />
 
             </StackPanel>
 
@@ -133,18 +123,18 @@
                 <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="Objednávka"/>
 
-                <Button Content="Přidat položku"
-                        Style="{StaticResource Add_DeleteButtonStyle}"
+                <Button Style="{StaticResource Add_DeleteButtonStyle}"
                         MaxWidth="150"
                         Name="btnAddGood"
-                        Click="BtnAddGood_Click">
+                        Content="{Binding BtnAddEditConeText}"
+                        Command="{Binding AddGoodCommand}">
 
                 </Button>
 
                 <Border Grid.Row="3"
                         Style="{StaticResource ListViewsBorder}"
                         Height="350">
-                    <ListView Name="lvOrder" SelectionChanged="lvOrder_SelectionChanged">
+                    <ListView Name="lvOrder" ItemsSource="{Binding GoodsListShow}" >
 
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -175,11 +165,13 @@
                 </Border>
 
 
-                <Button Content="Přidat"
+                <Button Content="Dokončit"
                     Name="btnAdd"
                     Style="{StaticResource Add_DeleteButtonStyle}"
                     MaxWidth="150"
-                    VerticalAlignment="Top" Click="BtnAdd_Click">
+                    VerticalAlignment="Top" 
+                        
+                        Command="{Binding AddNewOrderCommand}">
 
                 </Button>
 

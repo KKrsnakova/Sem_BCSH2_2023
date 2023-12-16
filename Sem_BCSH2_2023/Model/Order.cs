@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.Model
 {
@@ -19,7 +20,7 @@ namespace Sem_BCSH2_2023.Model
         private ObservableCollection<Good> _listOfGoods;
         private string _fullname;
 
-
+      
 
         public int Id
         {

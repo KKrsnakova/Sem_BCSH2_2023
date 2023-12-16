@@ -4,6 +4,7 @@ using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.Repository;
 using Sem_BCSH2_2023.View;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -82,10 +83,13 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand ShowOtherItemsViewCommand { get; }
         public ICommand ShowCustomersViewCommand { get; }
         public ICommand ShowOrdersViewCommand { get; }
-        public ICommand LogOut { get; }
-        public ICommand SaveData { get; }
 
-        public ICommand Close { get; }
+        public ICommand LogOutCommand { get; }
+        public ICommand SaveDataCommand { get; }
+
+        public ICommand CloseCommand { get; }
+        public ICommand MaximalCommand { get; }
+        public ICommand MinimalCommand { get; }
 
         public MainViewModel( )
         {
@@ -98,10 +102,12 @@ namespace Sem_BCSH2_2023.ViewModel
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
 
 
-            LogOut = new CommandViewModel(LogOutCom);
-            SaveData = new CommandViewModel(SaveDataCom);
+            LogOutCommand = new CommandViewModel(LogOutCom);
+            SaveDataCommand = new CommandViewModel(_=>SaveDataCom());
 
-            Close = new CommandViewModel(CloseWindowCom);
+            CloseCommand = new CommandViewModel(CloseWindowCom);
+            MaximalCommand = new CommandViewModel(MaximalWindowCom);
+            MinimalCommand = new CommandViewModel(MinimalWindowCom);
 
             loggedUser = ActualUser;
             NewRepo();
@@ -109,10 +115,57 @@ namespace Sem_BCSH2_2023.ViewModel
 
         }
 
+        private void MinimalWindowCom(object obj)
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (window != null)
+            {
+                window.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void MaximalWindowCom(object obj)
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (window != null)
+            {
+                if (window.WindowState == WindowState.Normal)
+                {
+                    window.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+            }
+        }
+
         private void CloseWindowCom(object obj)
         {
-            Application.Current.Shutdown();
+
+            MessageBoxResult result = MessageBox.Show("Chcete uložit data před ukončením?", "Uložit data?", MessageBoxButton.YesNoCancel);
+
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    SaveDataCom();
+                    Application.Current.Shutdown();
+                    break;
+
+                case MessageBoxResult.No:
+                    
+                    Application.Current.Shutdown();
+                    break;
+
+                case MessageBoxResult.Cancel:
+                    
+                    break;
+            }
         }
+
+
 
         private void NewRepo()
         {
@@ -127,7 +180,7 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderViewModel.OrderList = OrderMng.GetAllOrder();
         }
 
-        private void SaveDataCom(object obj)
+        private void SaveDataCom()
         {
             GoodsMng.RemoveAllGoods();
             GoodsMng.AddAllGoods(GoodViewModel.GoodsList);

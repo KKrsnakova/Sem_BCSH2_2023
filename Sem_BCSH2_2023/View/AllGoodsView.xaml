@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AllGoodsViewModel}"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="AllGoodsView" Height="450" Width="800">
+        Title="AllGoodsView" Height="470" Width="800">
     <Border CornerRadius="10" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -50,35 +50,23 @@
                                 MouseEnter="NavBar_MouseEnter">
 
                 <Button x:Name="btnClose"
-                                Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="12"
-                            Cursor="Hand"
-                            Click="BtnClose_Click"
-                                >
+                         Style="{StaticResource navBtn}"
+                        Command="{Binding CloseCommand}" >          
                     <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
                 <Button x:Name="btnMaximal"
-                                Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMaximal_Click">
+                        Style="{StaticResource navBtn}"
+                        Command="{Binding MaximizeCommand}">
                     <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                 </Button>
 
                 <Button x:Name="btnMinimal"
-                                Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMinimal_Click">
+                         Style="{StaticResource navBtn}"
+                         Command="{Binding MinimizeCommand}">
                     <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                 </Button>
+
             </StackPanel>
 
             <!--Main block-->
@@ -102,20 +90,38 @@
 
                 <Border Grid.Row="1"
                         Style="{StaticResource ListViewsBorder}"
-                        Height="300">
-                    
-                    <ListView Name="lvItemsForOrder" SelectionChanged="LvItemsForOrder_SelectionChanged">
+                        Height="270">
+
+                    <ListView Name="lvItemsForOrder" ItemsSource="{Binding GoodsListShow}" >
                         <ListView.View>
                             <GridView >
                                 <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
                                 <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
                                 <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
+                                <GridViewColumn Header="Přidat do objednávky">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button HorizontalAlignment="Center" Command="{Binding DataContext.BtnAddRowCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding Id}"  Style="{StaticResource BtnAddEditDelete}">
+                                                    <fa:IconImage Icon="PlusCircle" Style="{StaticResource listViewIcon}"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Border>
 
 
+                <Button Content="Přidat"
+                         Name="btnAdd"
+                         Style="{StaticResource Add_DeleteButtonStyle}"
+                         MaxWidth="150"
+                         VerticalAlignment="Top"
+                         Command="{Binding DoneAddGoodsToOrderComm}">      
+
+                </Button>
 
 
 

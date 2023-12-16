@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
-             xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+             xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:OrderViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid >
@@ -31,7 +31,7 @@
                     Content="Přidat"
                     VerticalAlignment="Center"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnAdd_Click">
+                    Command="{Binding AddNewCommand}">
 
             </Button>
 
@@ -41,7 +41,7 @@
                     VerticalAlignment="Center"
                     Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Click="BtnDeleteAll_Click">
+                    Command="{Binding DeleteAllCommand}">
 
             </Button>
 
@@ -60,13 +60,14 @@
            Width="650" 
            DisplayMemberPath="NameSur" 
            SelectedValuePath="Id"
+                  ItemsSource="{Binding CustomerListShow}"
            SelectionChanged="CbCustomer_SelectionChanged"
     />
 
 
         <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}">
-            <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
+            <ListView Name="lvOrders" ItemsSource="{Binding OrderListShow}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>

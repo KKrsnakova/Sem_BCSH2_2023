@@ -22,40 +22,24 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class AllGoodsView : Window
     {
-        Order actualOrder;
+        
+
+
+        private readonly AllGoodsViewModel allGoodsVM;
+
         public AllGoodsView(Order ord)
         {
-            actualOrder = ord;
+            
             InitializeComponent();
-            lvItemsForOrder.ItemsSource = GoodViewModel.GoodsList;
-           
-           
+            allGoodsVM = new AllGoodsViewModel(ord);
+            DataContext = allGoodsVM;
 
         }
 
-        private void LvItemsForOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lvItemsForOrder.SelectedItems.Count > 0) 
-            {
-                Good selectedGood = (Good)lvItemsForOrder.SelectedItem;
-                int selectedID = selectedGood.Id;
-                MessageBox.Show("int selectedID = selectedGood.Id;" + selectedID , "Uloženo do DB", MessageBoxButton.OK);
-
-                Good? good = GoodViewModel.GoodsList.FirstOrDefault(objekt => objekt.Id == selectedID);
-
-                MessageBox.Show(good.ToString() , "Uloženo do DB", MessageBoxButton.OK);
+       
 
 
 
-
-                GoodViewModel.GoodsList.Remove(selectedGood);
-                actualOrder.SellGoods(good);
-
-
-                Close();
-
-            }
-        }
 
 
 
@@ -63,11 +47,7 @@ namespace Sem_BCSH2_2023.View
 
 
         //Window operations
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
+       
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -78,18 +58,5 @@ namespace Sem_BCSH2_2023.View
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-        private void BtnMinimal_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void BtnMaximal_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Normal)
-            {
-                this.WindowState = WindowState.Maximized;
-            }
-            else this.WindowState = WindowState.Normal;
-        }
     }
 }
