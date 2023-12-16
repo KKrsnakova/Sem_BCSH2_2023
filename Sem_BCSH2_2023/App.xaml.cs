@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sem_BCSH2_2023.View;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace Sem_BCSH2_2023
     /// </summary>
     public partial class App : Application
     {
+      
     }
 }

@@ -1,60 +1,44 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Sem_BCSH2_2023.Manager;
-using Sem_BCSH2_2023.Model;
+﻿using Sem_BCSH2_2023.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Xml.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
-
     public class FlowerViewModel : BaseViewModel
     {
+        public ICommand AddFlowerCom { get; }
+        public ICommand DeleteAllFlowerCom { get; }
 
-        public static ObservableCollection<Flower> FlowersList = new();
-
-        //public FlowerViewModel()
-        //{
-        //    FlowersList.Add(new Flower(id: IdGenerator(),
-        //                                name: "asdsdasd",
-        //                                price: 20,
-        //    description: "asdasd))", image: new BitmapImage(new Uri("pack://application:,,,/Resources/bg1.png"))));
-        //}
-
-        public static void AddFlower(string nameAdd, double priceAdd, string descAdd, string spec)
+        public FlowerViewModel()
         {
-        FlowersList.Add(new Flower(id: IdGenerator(),
-                                    name: nameAdd,
-                                    price: priceAdd,
-                                    description: descAdd,
-                                    flowerSpecies: spec  ));
-    }
-
-        public static void RemoveFlower(Flower selectedFlower)
-        {
-            FlowersList.Remove(selectedFlower);
+            AddFlowerCom = new CommandViewModel(AddFlower);
+            DeleteAllFlowerCom = new CommandViewModel(DeleteAllFlower);
         }
 
-        private static int IdGenerator()
+        private void DeleteAllFlower(object obj)
         {
-            int pocet;
-            if (FlowersList.Count == 0)
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                pocet = 1;
+                GoodViewModel.RemoveAllFlower();
             }
-            else
-            {
-                pocet = FlowersList.Last().Id;
-                pocet++;
-            }
-            return pocet;
         }
 
-
+        private void AddFlower(object obj)
+        {
+                AddEditGoods windowAddGoods = new (null, true);
+                windowAddGoods.Show();
+        }
     }
+
+
 }

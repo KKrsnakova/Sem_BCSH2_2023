@@ -4,79 +4,103 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
-             xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+             xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=local:FlowerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="FilteredFlowers" Source="{Binding Source={x:Static local:GoodViewModel.GoodsList}}" Filter="FlowerFilter" />
+    </UserControl.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                
-                <ColumnDefinition Width="110"/>
+        <Grid Grid.Row="0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>  
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-           
-           
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        Grid.Column="0">
+
+            </StackPanel>
+
             <Button Grid.Column="0"  
                     Name="btnAdd"
                     Content="Přidat"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnAdd_Click">
-               
-            </Button>
-
-            <Button Grid.Column="2"  
-                    Name="btnEdit"
-                    Content="Edit"
-                    Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    
-                    VerticalAlignment="Top" Click="btnEdit_Click">
+                    Command="{Binding AddFlowerCom}">
 
             </Button>
-            
+
             <Button Grid.Column="1"  
-                    Name="btnDelete"
-                    Content="Odebrat"
+                    Name="btnDeleteAll"
+                    Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnDelete_Click">
+                   Command="{Binding DeleteAllFlowerCom}">
 
             </Button>
         </Grid>
-        <Border Grid.Row="1"
-                Background="#200F53"
-                CornerRadius="10" 
-                Padding="10">
-            <ListView Name="lvFlowers" SelectionChanged="LvFlowers_SelectionChanged">
+
+        <TextBlock  Style="{StaticResource TextBlockHint}"
+             Grid.Row="1"
+             VerticalAlignment="Center"
+             Text="Lze filtrovat dle ID, Názvu a Ceny"/>
+
+
+        <Border Grid.Row="2"
+                 Style="{StaticResource ListViewsBorder}">
+            <ListView Name="lvFlowers" ItemsSource="{Binding Source={StaticResource FilteredFlowers}}" 
+                     >
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.View>
-                    <GridView >
-                        <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
+                    <GridView>
+                        <GridViewColumn Width="60" Header="Editace">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}"  />
                         <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
-                        <GridViewColumn Width="100" Header="Druh rostliny" DisplayMemberBinding="{Binding FlowerSpecies , Mode=TwoWay}" />
+                        <GridViewColumn Width="200" Header="Druh rostliny" DisplayMemberBinding="{Binding FlowerSpecies, Mode=TwoWay}" />
+                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, StringFormat={}{0:N2} Kč}" />
                         <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
-                       
+                        <GridViewColumn Header="Odebrat">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDeleteRow_Click" CommandParameter="{Binding Id}"
+                                            Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <EventSetter Event="Click" Handler="GridViewColumnHeader_Click" />
+                    </Style>
+                </ListView.Resources>
             </ListView>
         </Border>
     </Grid>

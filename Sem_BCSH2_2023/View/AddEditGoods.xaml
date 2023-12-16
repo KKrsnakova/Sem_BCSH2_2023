@@ -1,0 +1,130 @@
+﻿
+    <Window x:Class="Sem_BCSH2_2023.ViewModel.AddEditGoods"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=local:AddEditGoodViewModel}"
+        mc:Ignorable="d"
+        Title="AddGoods" Height="500" Width="400"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Border CornerRadius="10" BorderThickness="2">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+
+        <Grid>
+            <!--Nav-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+
+            <!--Header buttonst-->
+            <StackPanel x:Name="navBar"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft"
+                        Background="Transparent"
+                        Margin="0,0,5,0"
+                        MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+                        MouseEnter="NavBar_MouseEnter">
+
+
+                <Button x:Name="btnClose"
+                             Style="{StaticResource navBtn}"
+                            Command="{Binding CloseCommand}" >
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+
+                <Button x:Name="btnMaximal"
+                            Style="{StaticResource navBtn}"
+                            Command="{Binding MaximizeCommand}">
+                    <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+
+                <Button x:Name="btnMinimal"
+                             Style="{StaticResource navBtn}"
+                             Command="{Binding MinimizeCommand}">
+                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+
+            </StackPanel>
+
+
+            <StackPanel 
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Vertical"
+                    Margin="60,35,60,0">
+                <TextBlock  
+                    x:Name="windowName"
+                    Text="{Binding WindowName}"
+                    Foreground="{StaticResource textColor1}"
+                    FontSize="25"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center">
+
+                </TextBlock>
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                        Text="Název"
+                        Margin="0,35,0,0"/>
+
+                <TextBox x:Name="tbName"
+                     Style="{StaticResource TextBoxAdd}" 
+                         Text="{Binding Name}">
+                </TextBox>
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                    Text="Cena"/>
+
+                <TextBox Name="tbPrice"
+                     Style="{StaticResource TextBoxAdd}"
+                         Text="{Binding Price}">
+                    
+                </TextBox>
+
+                <TextBlock  Name="text3"
+                Style="{StaticResource TextBlockAdd}"
+                    Text="{Binding TBDescOrUsage}" />
+
+                <TextBox x:Name="tbDesc_tbCount"
+                  Style="{StaticResource TextBoxAdd}"
+                         Text="{Binding Desc_Usage}"
+                         >
+
+                </TextBox>
+
+                <TextBlock  x:Name="text4"
+                    Style="{StaticResource TextBlockAdd}"
+                    Text="{Binding TBSpecOrPackage}"/>
+
+                <TextBox x:Name="tbSpec_tbUsage"
+                  Style="{StaticResource TextBoxAdd}"
+                         Text="{Binding FlwSpecies_PackageType}">
+                </TextBox>
+
+                <Button Style="{StaticResource BtnAddEditDelete}"
+                        Content="{Binding BtnAddEdit}"
+                        Name="btnAdd"
+                        Margin="40,10,40,0"
+                        VerticalAlignment="Top"
+                        Command="{Binding AddEditGoodCom}">
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</Window>

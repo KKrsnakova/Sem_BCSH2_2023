@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -21,17 +22,39 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class AllGoodsView : Window
     {
-        public AllGoodsView()
+        Order actualOrder;
+        public AllGoodsView(Order ord)
         {
+            actualOrder = ord;
             InitializeComponent();
-            lvItemsForOrder.ItemsSource = FlowerViewModel.FlowersList.Cast<Flower>().Concat(OtherItemsViewModel.OtherItemsList.Cast<Flower>());
-
+            lvItemsForOrder.ItemsSource = GoodViewModel.GoodsList;
+           
+           
 
         }
 
         private void LvItemsForOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lvItemsForOrder.SelectedItems.Count > 0) 
+            {
+                Good selectedGood = (Good)lvItemsForOrder.SelectedItem;
+                int selectedID = selectedGood.Id;
+                MessageBox.Show("int selectedID = selectedGood.Id;" + selectedID , "Uloženo do DB", MessageBoxButton.OK);
 
+                Good? good = GoodViewModel.GoodsList.FirstOrDefault(objekt => objekt.Id == selectedID);
+
+                MessageBox.Show(good.ToString() , "Uloženo do DB", MessageBoxButton.OK);
+
+
+
+
+                GoodViewModel.GoodsList.Remove(selectedGood);
+                actualOrder.SellGoods(good);
+
+
+                Close();
+
+            }
         }
 
 

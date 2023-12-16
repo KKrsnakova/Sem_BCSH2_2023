@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Sem_BCSH2_2023.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,29 +21,32 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class LoginView : Window
     {
+        private readonly LoginViewModel loginVM;
         public LoginView()
         {
             InitializeComponent();
+            loginVM = new();
+            DataContext = loginVM;
         }
+
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton==MouseButtonState.Pressed) { DragMove(); }
         }
 
-        private void btnMinimal_Click(object sender, RoutedEventArgs e)
+        
+
+        private void TbRegisterHere_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            Thread threadOpen = new(() =>
+            {
+                RegistrationView newRefistrationWindow = Dispatcher.Invoke(() => new RegistrationView());
+                Dispatcher.Invoke(() => newRefistrationWindow.Show());
+            });
+            threadOpen.Start();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }

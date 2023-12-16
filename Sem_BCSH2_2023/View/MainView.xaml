@@ -5,27 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
         xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel"
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="MainView" Height="600" Width="1300"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
+        Icon="/Resources/cactus.ico"
         >
 
-    <Window.DataContext>
-        <viewmodel:MainViewModel/>
-    </Window.DataContext>
 
     <Window.Resources>
 
         <DataTemplate DataType="{x:Type viewmodel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
+
         <DataTemplate DataType="{x:Type viewmodel:FlowerViewModel}">
             <local:FlowersView/>
         </DataTemplate>
+        
         <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
             <local:CustomersView/>
         </DataTemplate>
@@ -40,6 +40,7 @@
 
     <Border CornerRadius="10"
             BorderThickness="1">
+
 
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -60,7 +61,7 @@
             <Border CornerRadius="10,0,0,10"
                     Grid.Column="0" Margin="-2,0,2,0"
                      Background="#200F53">
-                
+
 
                 <StackPanel>
                     <!--logo-->
@@ -94,7 +95,7 @@
 
                     <RadioButton Style="{StaticResource btnMenu}"
                                  Tag="{StaticResource color3}"
-                                 Command="{Binding ShowGoodsViewCommand}" 
+                                 Command="{Binding ShowOtherItemsViewCommand}" 
                                  >
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tree" Style="{StaticResource menuIcons}"/>
@@ -128,13 +129,24 @@
 
             <!--Main Window-->
             <Border CornerRadius="0,10,10,0"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    Opacity="1"
+                    >
+
+
                 <Border.Background>
+                    <ImageBrush ImageSource="/Resources/bg2.png"
+                 Stretch="Fill" Opacity="1"/>
+                </Border.Background>
+
+                <Border.BorderBrush>
                     <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
                         <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
                         <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
                     </LinearGradientBrush>
-                </Border.Background>
+                </Border.BorderBrush>
+
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -158,32 +170,19 @@
 
                         <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="12"
-                            Cursor="Hand"
-                            Click="BtnClose_Click"
-                                >
+                                Command="{Binding Close}" >
                             <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnMaximal"
                                 Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMaximal_Click">
+                                 Click="BtnMaximal_Click">
                             <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
                         </Button>
 
                         <Button x:Name="btnLof"
                                 Style="{StaticResource navBtn}"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="16"
-                            Cursor="Hand"
-                            Click="BtnMinimal_Click">
+                                Click="BtnMinimal_Click">
                             <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                         </Button>
                     </StackPanel>
@@ -199,8 +198,8 @@
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
                             <fa:IconImage Icon="{Binding Icon}"
-                                          Height="20"
-                                          Width="20"
+                                          Height="26"
+                                          Width="26"
                                           Foreground="{StaticResource textColor1}"
                                           Margin="35,0,10,0"/>
                             <TextBlock Text="{Binding Description}"
@@ -219,34 +218,25 @@
 
                             <Button x:Name="btnLogOut"
                                     Style="{StaticResource btnLogOut}"
-                                    BorderThickness="0"
-                                    Foreground="White"
-                                    Cursor="Hand"
-                                    Click="BtnLogOut_Click">
-                                    <fa:IconImage Icon="SignOut"
+                                    Command="{Binding LogOut}"
+                                    >
+                                <fa:IconImage Icon="SignOut"
                                               Foreground="{StaticResource textColor1}"
                                     />
                             </Button>
 
-                            <TextBlock Text="Uživatelské jméno"
-                                       Foreground="{StaticResource textColor1}"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       VerticalAlignment="Center">
-                            </TextBlock>
+                           
 
-                            
-                               <Button x:Name="btnSaveData"
+
+                            <Button x:Name="btnSaveData"
                                       Style="{StaticResource btnLogOut}"
-                                      BorderThickness="0"
-                                      Foreground="White"
-                                      Cursor="Hand"
-                                      Click="BtnSaveData_Click"
+                                   Command="{Binding SaveData}"
                                     >
-                                <fa:IconImage Icon="Save"
-                                              Foreground="{StaticResource textColor1}"/>
-                            </Button> 
-                            
+                                <fa:IconImage 
+                                    Icon="Save"
+                                     Foreground="{StaticResource textColor1}"/>
+                            </Button>
+
 
                         </StackPanel>
                     </Grid>

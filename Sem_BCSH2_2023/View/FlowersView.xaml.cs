@@ -2,62 +2,91 @@
 using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.ViewModel;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Sem_BCSH2_2023.View
 {
-    /// <summary>
-    /// Interaction logic for FlowersView.xaml
-    /// </summary>
     public partial class FlowersView : UserControl
     {
-        public static Flower? flower;
+        private readonly FlowerViewModel flowerVM;
 
+        public  Flower? flower;
+        SortData sortData;
         public FlowersView()
         {
-            
             InitializeComponent();
-            btnEdit.Visibility = Visibility.Hidden;
-            lvFlowers.ItemsSource = FlowerViewModel.FlowersList;
+            flowerVM = new FlowerViewModel();
+            DataContext = flowerVM;
+            lvFlowers.ItemsSource = ((CollectionViewSource)Resources["FilteredFlowers"]).View;
+            sortData = new SortData();
+
         }
 
-       
-        private void BtnAdd_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void FlowerFilter(object sender, FilterEventArgs e)
         {
-            Thread threadOpen = new(() =>
+            if (e.Item is Flower)
             {
-                AddGoods windowAddGoods = Dispatcher.Invoke(() => new AddGoods(null, true));
-                Dispatcher.Invoke(() => windowAddGoods.Show());
-            });
-            threadOpen.Start();
-            
-        }
-
-        private void BtnDelete_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //FlowerViewModel.FlowersList.Remove((Flower)lvFlowers.SelectedItem);
-            FlowerViewModel.RemoveFlower((Flower)lvFlowers.SelectedItem);
-        }
-
-        private void LvFlowers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnEdit.Visibility = Visibility.Visible;
-        }
-
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
-        {
-            if (lvFlowers.SelectedItem != null)
+                e.Accepted = true;
+            }
+            else
             {
-                flower = (Flower)lvFlowers.SelectedItem;
-                int selectedId = flower.Id;
-                AddGoods windowEditGoods = new(selectedId, true);
-                windowEditGoods.ShowDialog();
-                lvFlowers.ItemsSource = FlowerViewModel.FlowersList;
-                lvFlowers.Items.Refresh();
+                e.Accepted = false;
             }
         }
+
+
+        private void BtnDeleteRow_Click(object sender, RoutedEventArgs e)
+        {
+
+            Button button = (Button)sender;
+            if (button.DataContext is Flower item)
+            {
+                GoodViewModel.RemoveFlower(item);
+            }
+
+        }
+
+
+
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+            Button button = (Button)sender;
+            if (button.DataContext is Flower item)
+            {
+                flower = item;
+                int selectedId = flower.Id;
+                AddEditGoods windowEditGoods = new(selectedId, true);
+                windowEditGoods.ShowDialog();
+
+            }
+        }
+
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader column = (GridViewColumnHeader)e.OriginalSource;
+            string header = (string)column.Content;
+
+            if (header == "ID")
+            {
+                sortData.SortDataMethod("Id", lvFlowers);
+            }
+            else if (header == "Název")
+            {
+                sortData.SortDataMethod("Name", lvFlowers);
+            }
+            else if (header == "Cena")
+            {
+                sortData.SortDataMethod("Price", lvFlowers);
+            }
+        }
+
+     
     }
 }

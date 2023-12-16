@@ -3,10 +3,131 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
+             xmlns:local="clr-namespace:Sem_BCSH2_2023.View" 
+             xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <Grid>
-        <Image Source="/Resources/bg1.png" Opacity="0.7"/>
+        <Grid>
+            <!-- Nav -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="1" Grid.Column="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                        <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" />
+                    <Image x:Name="personInfo" Source="/Resources/personinfo.png" Margin="0,50,0,50"/>
+
+                    <Border Grid.Column="1" Opacity="0.9">
+                        <Grid Margin="80,35,60,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="38*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="45"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Style="{StaticResource TextBlockUserOverV}"
+                                       Grid.Row="0"
+                                       x:Name="windowName"
+                                       Text="Vítejte"
+                                       FontSize="25"
+                                       HorizontalAlignment="Left" Margin="10,3,0,7" Grid.Column="1" 
+                                       />
+
+                            <!--TextBoxes-->
+                            <TextBlock Grid.Row="1" 
+                                       Style="{StaticResource TextBlockUserOverV}"
+                                       Text="Jméno a Přijmení" Grid.ColumnSpan="2"/>
+
+                            <TextBox Grid.Row="1"  
+                                     x:Name="tbFullName"
+                                     Style="{StaticResource TextBoxUserOverV}" 
+                                     Text="{Binding FullName, Mode=TwoWay}"
+                                     Grid.Column="1" Margin="75,6,110,11" >
+                            </TextBox>
+
+                            <TextBlock Grid.Row="2" 
+                                       Style="{StaticResource TextBlockUserOverV}"
+                                       Text="Uživatelské jméno" Grid.ColumnSpan="2" />
+
+                            <TextBox Grid.Row="2" 
+                                     x:Name="tbUserLogin"
+                                     Style="{StaticResource TextBoxUserOverV}" 
+                                     
+                                     Text="{Binding Username, Mode=TwoWay}"
+                                     Grid.Column="1" Margin="75,6,110,11">
+                            </TextBox>
+
+                            <TextBlock Grid.Row="3" 
+                                       Style="{StaticResource TextBlockUserOverV}"
+                                       Text="Heslo" Grid.ColumnSpan="2" />
+
+                            <TextBox Grid.Row="3" 
+                                     x:Name="tbPassword"
+                                     Style="{StaticResource TextBoxUserOverV}" 
+                                     Text="{Binding Password, Mode=TwoWay}"
+                                     Grid.Column="1" Margin="75,6,110,11">
+
+
+                            </TextBox>
+
+                            <!--<local:PasswordUserControl x:Name="tbPassword"
+                                                       Grid.Column="1" Margin="75,1,110,1" Grid.Row="3"/>-->
+
+                            <TextBlock Grid.Row="4"  
+                                       Style="{StaticResource TextBlockUserOverV}"
+                                       Text="E-mailová adresa" Grid.ColumnSpan="2"/>
+
+                            <TextBox  Grid.Row="4" 
+                                      Style="{StaticResource TextBoxUserOverV}"
+                                      x:Name="tbEmail" Grid.Column="1" 
+                                      Text="{Binding Email, Mode=TwoWay}"
+                                      Margin="75,6,110,11">
+                            </TextBox>
+
+                            <Button Grid.Row="5" 
+                                    Style="{StaticResource BtnAddEditDelete}"
+                                    Content="Uložit úpravy"
+                                    Name="btnEdit"
+                                    Width="200"
+                                    Command="{Binding EditCommand}"
+                                    BorderThickness="0"
+                                    Margin="95,10,140,0" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

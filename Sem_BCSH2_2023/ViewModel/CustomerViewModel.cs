@@ -1,19 +1,42 @@
 ﻿using Sem_BCSH2_2023.Model;
-using System;
+using Sem_BCSH2_2023.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
     public class CustomerViewModel : BaseViewModel
     {
+        public ICommand AddCustomers { get; }
+        public ICommand DeleteAllCustomer { get; }
+
         public static ObservableCollection<Customer> CustomersList = new ObservableCollection<Customer>();
 
         public CustomerViewModel()
         {
+            AddCustomers = new CommandViewModel(AddCustomerCom);
+            DeleteAllCustomer = new CommandViewModel(DeleteAllCustomerCom);
+        }
+
+        private void DeleteAllCustomerCom(object obj)
+        {
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky? \n Spolu se Zákazniky budou odstraněny i všenchy objednávky",
+                                                      "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                CustomersList.Clear();
+                OrderViewModel.RemoveAllOrder();
+            }
+        }
+
+        private void AddCustomerCom(object obj)
+        {
+            AddEditCustomer windowAddCustomer = new AddEditCustomer(null);
+            windowAddCustomer.Show();
         }
 
         public static void AddCustomer(string nameAdd, string surnameAdd,
@@ -27,7 +50,35 @@ namespace Sem_BCSH2_2023.ViewModel
         public static void RemoveCustomer(Customer selectedCustomer)
         {
             CustomersList.Remove(selectedCustomer);
+
+            // Odstranění všech objednávek spojených s odstraněným zákazníkem
+            List<Order> ordersToRemove = OrderViewModel.OrderList.Where(order => order.CustomerId == selectedCustomer.Id).ToList();
+
+            foreach (Order order in ordersToRemove)
+            {
+                OrderViewModel.OrderList.Remove(order);
+            }
+
         }
+
+
+
+        public static Customer GetCustomerById(int customerId)
+        {
+            Customer selectedCustomer = CustomersList.FirstOrDefault(customer => customer.Id == customerId);
+            if (selectedCustomer != null)
+            {
+                return selectedCustomer;
+            }
+            else
+            {
+                MessageBox.Show("Chyba, zakázník není v seznamu  " + selectedCustomer.ToString(), "Chyba", MessageBoxButton.OK);
+                return null;
+            }
+
+        }
+
+
 
         private static int IdGenerator()
         {

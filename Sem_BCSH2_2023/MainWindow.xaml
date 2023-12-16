@@ -5,56 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sem_BCSH2_2023"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1250">
-    <Window.Resources>
-        <Style x:Key="WithMargin" TargetType="FrameworkElement">
-            <Setter Property="Margin" Value="3" />
-        </Style>
-        <Style x:Key="ButtonWithMargin" TargetType="Button" BasedOn="{StaticResource ResourceKey=WithMargin}">
-            <Setter Property="Padding" Value="8,0,8,0" />
-        </Style>
-        <Style x:Key="IconsMenu" TargetType="Image">
-            <Setter Property="Width" Value="30" />
-            <Setter Property="Height" Value="30" />
-        </Style>
-        <Style x:Key="Logo" TargetType="Image">
-            <Setter Property="Height" Value="60" />
-        </Style>
+        Title="MainWindow" Height="500" Width="1250"
+         Icon="Resources/cactus.ico">
+    
 
-
-    </Window.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions >
-            <RowDefinition Height="60" />
-        </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left">
-
-            <StackPanel Orientation="Horizontal">
-                <Image Style="{StaticResource Logo}" Source="Resources/ic.png"   />
-            </StackPanel>
-
-        </StackPanel>
-        <StackPanel  Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal" >
-            <Button Style="{StaticResource ResourceKey=ButtonWithMargin}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Style="{StaticResource IconsMenu}" Source="Resources/person.png"   />
-                </StackPanel>
-            </Button>
-
-            <Button Style="{StaticResource ResourceKey=ButtonWithMargin}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="Resources/save.png" Style="{StaticResource IconsMenu}" />
-                </StackPanel>
-            </Button>
-
-            <Button Style="{StaticResource ResourceKey=ButtonWithMargin}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="Resources/logout.png" Style="{StaticResource IconsMenu}" />
-                </StackPanel>
-            </Button>
-
-        </StackPanel>
-        </Grid>
+    
     
 </Window>

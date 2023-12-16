@@ -1,44 +1,49 @@
-﻿using Sem_BCSH2_2023.Model;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using Sem_BCSH2_2023.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
-    public class OrderViewModel: BaseViewModel
+    public class OrderViewModel : BaseViewModel
     {
 
-        public static ObservableCollection<Order> OrderList= new();
+        public static ObservableCollection<Order> OrderList = new();
+        public static ObservableCollection<User> UserList = new();
 
-        //public OrderViewModel()
-        //{
-        //    OrderList.Add(new Order(10, 1, DateTime.Now));
-        //    OrderList.Add(new Order(120, 2, DateTime.Now));
-        //}
 
-        public static void AddOrder(int customerIdAdd)
+
+        public static Order NewOrder()
         {
-           OrderList.Add(new Order(IdGenerator(), customerIdAdd, DateTime.Now));
-        }
-
-        public static Order NewOrder(int customerIdAdd)
-        {
-            Order order = new Order(IdGenerator(), customerIdAdd, DateTime.Now);
+            Order order = new(IdGenerator(), 1, "test", "test", DateTime.Now);
             return order;
         }
 
         public static void AddOrder(Order order)
         {
-            OrderList.Add(order);   
+            OrderList.Add(order);
+
+            // OrderList.Add(new Order(IdGenerator(), customerAdd.Id, customerAdd.Name, customerAdd.Surname, DateTime.Now));
         }
 
 
         public static void RemoveOrder(Order selectedOrder)
         {
             OrderList.Remove(selectedOrder);
+        }
+
+        public static void RemoveAllOrder()
+        {
+            OrderList.Clear();
+        }
+
+        public static void OrderDone(Order selectedOrder)
+        {
+
+            selectedOrder.Done = !selectedOrder.Done;
+
         }
 
 
@@ -57,5 +62,27 @@ namespace Sem_BCSH2_2023.ViewModel
             }
             return pocet;
         }
+
+        public static double OrderPrice(Order order)
+        {
+            double price = 0;
+            foreach (var item in order.ListOfGoods)
+            {
+                price += item.Price;
+            }
+            return price;
+        }
+
+
+        public static string GetCustomerNameById(int customerId)
+        {
+            var customer = CustomerViewModel.CustomersList.FirstOrDefault(c => c.Id == customerId);
+            return customer != null ? $"{customer.Name} {customer.Surname}" : $"Customer {customerId} Not Found";
+
+
+
+        }
+
+
     }
 }

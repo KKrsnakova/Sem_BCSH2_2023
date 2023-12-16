@@ -1,0 +1,127 @@
+﻿<Window x:Class="Sem_BCSH2_2023.View.RegistrationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:Sem_BCSH2_2023.View" xmlns:viewmodel="clr-namespace:Sem_BCSH2_2023.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RegistrationViewModel}"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Title="Registration" Height="550" Width="480">
+
+    <Border CornerRadius="10" BorderThickness="2">
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource bgColor2}" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <!--Nav-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <!--Header buttonst-->
+
+            <StackPanel Grid.Row="0"
+                    Grid.Column="2"
+                    Orientation="Horizontal"
+                    FlowDirection="RightToLeft"
+                    Background="Transparent"
+                    Margin="0,0,5,0">
+
+                <Button x:Name="btnClose"
+                    Style="{StaticResource navBtn}"
+                   Command="{Binding CloseCommand}" >
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+
+                <Button x:Name="btnMaximal"
+                    Style="{StaticResource navBtn}"
+                     Command="{Binding MaximizeCommand}">
+                    <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+
+                <Button x:Name="btnMinimal"
+                    Style="{StaticResource navBtn}"
+                   Command="{Binding MinimizeCommand}">
+                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Vertical"
+                    Margin="70,35,70,0">
+                <TextBlock  
+                    x:Name="windowName"
+                    Text="Registrace do systému"
+                    Foreground="{StaticResource textColor1}"
+                    FontSize="25"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center">
+                </TextBlock>
+
+                <!--TextBoxes-->
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                    Text="Jméno a Přijmení"/>
+
+                <TextBox  x:Name="tbFullName"
+                          Text="{Binding FullName}"
+                  Style="{StaticResource TextBoxAdd}">
+                </TextBox>
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                             Text="E-mailová adresa"/>
+
+                <TextBox Style="{StaticResource TextBoxAdd}"
+                         Text="{Binding Email}"
+                         x:Name="tbEmail">
+                </TextBox>
+                
+                <TextBlock Style="{StaticResource TextBlockAdd}"
+                           Text="Přihlašovací jméno" />
+
+                <TextBox x:Name="tbLogin"
+                         Text="{Binding Username}"
+                         Style="{StaticResource TextBoxAdd}">
+                </TextBox>
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                Text="Heslo"/>
+
+
+                <local:PasswordUserControl x:Name="tbPasswordFirst" 
+                                           Password="{Binding Password, Mode=TwoWay}"/> 
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                            
+                    Text="Heslo znovu"  />
+
+
+                <local:PasswordUserControl x:Name="tbPasswordCheck" 
+                                             Password="{Binding Password2, Mode=TwoWay}"/>
+
+                <Button Style="{StaticResource BtnAddEditDelete}"
+                    Content="Zaregistorvat se"
+                    Name="btnRegister"
+                    BorderThickness="0"
+                    Margin="70,10,70,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding RegistrationDoneCommand}">
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
+

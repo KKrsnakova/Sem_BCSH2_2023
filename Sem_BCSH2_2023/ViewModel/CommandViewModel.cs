@@ -12,7 +12,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
         //Fields
         private readonly Action<object> executeAction;
-        private readonly Predicate<object> canExecuteAction;
+        private readonly Predicate<object>? canExecuteAction;
         //Constructors
         public CommandViewModel(Action<object> executeAction)
         {
@@ -24,6 +24,7 @@ namespace Sem_BCSH2_2023.ViewModel
             this.executeAction = executeAction;
             this.canExecuteAction = canExecuteAction;
         }
+
         //Events
         public event EventHandler CanExecuteChanged
         {
@@ -33,7 +34,7 @@ namespace Sem_BCSH2_2023.ViewModel
         //Methods
         public bool CanExecute(object parameter)
         {
-            return canExecuteAction == null ? true : canExecuteAction(parameter);
+            return canExecuteAction == null || canExecuteAction(parameter);
         }
         public void Execute(object parameter)
         {

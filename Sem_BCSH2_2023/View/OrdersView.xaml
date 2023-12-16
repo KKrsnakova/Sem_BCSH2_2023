@@ -3,94 +3,127 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              xmlns:local="clr-namespace:Sem_BCSH2_2023.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="110"/>
-                <ColumnDefinition Width="110"/>
-                <ColumnDefinition Width="110"/>
-                
+                <ColumnDefinition Width="100"/>
+
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
 
             </StackPanel>
-            <!--TextBoxes-->
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Grid.Column="0"
-                        Text="Zákazník: "/>
 
 
-            <!--<ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
-                      Grid.Column="1"
-                      VerticalAlignment="Top"
-                      Width="650" Margin="10" 
-                     DisplayMemberPath="Name" 
-                      SelectedValuePath="Id"
-                   SelectedValue="{Binding SelectedCustomerId, Mode=TwoWay}" SelectionChanged="cbCustomer_SelectionChanged_1"
-                      />-->
-            <Button Grid.Column="2"  
+            <Button Grid.Column="0"  
                     Name="btnAdd"
                     Content="Přidat"
+                    VerticalAlignment="Center"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnAdd_Click">
+                    Click="BtnAdd_Click">
 
             </Button>
 
 
-            <Button Grid.Column="3"  
-                    Name="btnDelete"
-                    Content="Odebrat"
+            <Button Grid.Column="1"  
+                    Name="btnDeleteAll"
+                    VerticalAlignment="Center"
+                    Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    VerticalAlignment="Top" Click="BtnDelete_Click">
+                    Click="BtnDeleteAll_Click">
 
             </Button>
 
-            <Button Grid.Column="4"  
-                    Name="btnEdit"
-                    Content="Edit"
-                    Style="{StaticResource BtnAddEditDelete}"
-                    FontSize="13"
-                    Cursor="Hand"
-                    BorderThickness="0"
-                    Foreground="White"
-                    
-                    VerticalAlignment="Top" Click="BtnEdit_Click">
 
-            </Button>
 
         </Grid>
-        <Border Grid.Row="1"
-                Background="#200F53"
-                CornerRadius="10" 
-                Padding="10">
+        <TextBlock  Style="{StaticResource TextBlockAdd}"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Text="Zákazník: "/>
+
+        <ComboBox x:Name="cbCustomer" 
+           HorizontalAlignment="Center" 
+           Grid.Row="1"
+           VerticalAlignment="Center"
+           Width="650" 
+           DisplayMemberPath="NameSur" 
+           SelectedValuePath="Id"
+           SelectionChanged="CbCustomer_SelectionChanged"
+    />
+
+
+        <Border Grid.Row="2"
+                 Style="{StaticResource ListViewsBorder}">
             <ListView Name="lvOrders" SelectionChanged="LvOrders_SelectionChanged">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Style.Triggers>
+                            <!-- Trigger pro nastavení IsEnabled a IsHitTestVisible na false, pokud Done je True -->
+                            <DataTrigger Binding="{Binding Done}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                            </DataTrigger>
+
+
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.View>
                     <GridView >
+                        <GridViewColumn Width="60" Header="Editace">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                    Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Width="110" Header="ID Zákazník" DisplayMemberBinding="{Binding CustomerId}" />
-                        <GridViewColumn Width="110" Header="Cena" DisplayMemberBinding="{Binding OrderPrice}" />
-                        <GridViewColumn Width="110" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
+                        <GridViewColumn Width="110" Header="Zákazník" DisplayMemberBinding="{Binding FullName}" />
+                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding OrderPrice, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
+                        <GridViewColumn Width="140" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
                         <GridViewColumn Width="110" Header="Splněno" DisplayMemberBinding="{Binding Done}" />
-                        <GridViewColumn Width="110" Header="Datum dokončení" DisplayMemberBinding="{Binding DateCompletion}" />
+
+                        <GridViewColumn Width="140" Header="Datum dokončení" DisplayMemberBinding="{Binding DateCompletion}" />
+                        <GridViewColumn Header="Odebrat">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                    Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Splnit">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="BtnDone_Click" CommandParameter="{Binding Done}"
+                                    Style="{StaticResource BtnAddEditDelete}">
+                                        <fa:IconImage Icon="Question" Style="{StaticResource listViewIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                     </GridView>
                 </ListView.View>
             </ListView>

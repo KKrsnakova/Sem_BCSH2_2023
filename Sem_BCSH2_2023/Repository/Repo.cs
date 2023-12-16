@@ -9,25 +9,86 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Repository
 {
-    public class Repo
+    public class Repo : IDisposable
     {
         public LiteDatabase Databaze
         {
-            get; set;
+            get; private set;
         }
 
-        public Repo()
+        public Repo( )
         {
             string _BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Db\MyDb.db")));
+            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Sem_BCSH2_2023\Db\MyDb.db")));
+        }
+
+
+
+        public LiteDatabase GetInstance()
+        {
+            return Databaze;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Uvolnění prostředků ovládaných
+                Databaze?.Dispose();
+            }
+        }
+    }
+
+    //_______Repo Login______________
+
+    public class RepoLogin : IDisposable
+    {
+        public LiteDatabase Databaze { get; private set; }
+
+        public RepoLogin()
+        {
+            string _BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            Databaze = new LiteDatabase(Path.GetFullPath(Path.Combine(_BaseDirectory, @"..\..\..\..\Sem_BCSH2_2023\Db\LoginDb.db")));
         }
 
         public LiteDatabase GetInstance()
         {
             return Databaze;
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void CloseConnection()
+        {
+            Databaze?.Dispose();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Uvolnění prostředků ovládaných
+                Databaze?.Dispose();
+            }
+        }
     }
+
+
+    //_______End Repo Login______________
+
+
+
 
     public class Repo2<T>
     {
@@ -50,7 +111,7 @@ namespace Sem_BCSH2_2023.Repository
             try
             {
                 IEnumerable<T> ienu = Collection.FindAll();
-                ObservableCollection<T> collection = new ObservableCollection<T>();
+                ObservableCollection<T> collection = new();
                 foreach (var item in ienu)
                 {
                     collection.Add(item);

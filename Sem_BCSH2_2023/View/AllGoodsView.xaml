@@ -11,24 +11,35 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="AllGoodsView" Height="450" Width="800">
-    <Grid Background="{StaticResource bgAddColor}">
-        <Grid.RowDefinitions>
-            <!--Nav-->
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="*"/>
+    <Border CornerRadius="10" BorderThickness="2">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource bgColor2}" Offset="0.25"/>
+                <GradientStop Color="{StaticResource bgColor2}" Offset="0.70"/>
+                <GradientStop Color="{StaticResource bgColor1}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
-        </Grid.RowDefinitions>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <!--Nav-->
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
 
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="70"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
 
-        </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>
 
-        <!--Header buttonst-->
-        <StackPanel x:Name="navBar"
+            <!--Header buttonst-->
+            <StackPanel x:Name="navBar"
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 Orientation="Horizontal"
@@ -38,7 +49,7 @@
                                 MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
                                 MouseEnter="NavBar_MouseEnter">
 
-            <Button x:Name="btnClose"
+                <Button x:Name="btnClose"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
@@ -46,79 +57,73 @@
                             Cursor="Hand"
                             Click="BtnClose_Click"
                                 >
-                <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
-            </Button>
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource navBtnIcon}"/>
+                </Button>
 
-            <Button x:Name="btnMaximal"
+                <Button x:Name="btnMaximal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
                             Click="BtnMaximal_Click">
-                <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
-            </Button>
+                    <fa:IconImage Icon="Square" Style="{StaticResource navBtnIcon}"/>
+                </Button>
 
-            <Button x:Name="btnMinimal"
+                <Button x:Name="btnMinimal"
                                 Style="{StaticResource navBtn}"
                             BorderThickness="0"
                             Foreground="White"
                             FontSize="16"
                             Cursor="Hand"
                             Click="BtnMinimal_Click">
-                <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
-            </Button>
-        </StackPanel>
+                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
+                </Button>
+            </StackPanel>
 
-        <!--Main block-->
+            <!--Main block-->
 
-        <StackPanel Grid.Column="1"
+            <StackPanel Grid.Column="1"
                     Grid.Row="1"
                     Orientation="Vertical"
                     Margin="0,35,0,0">
-            <TextBlock  x:Name="windowName"
+                <TextBlock  x:Name="windowName"
                         Text="Nová objednávka"
                         Foreground="{StaticResource textColor1}"
                         FontSize="25"
                         FontWeight="Medium"
                         HorizontalAlignment="Center">
 
-            </TextBlock>
+                </TextBlock>
 
-
-
-           
-
-           
-            <!--Order-->
-            <TextBlock  Style="{StaticResource TextBlockAdd}"
+                <!--Order-->
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
                         Text="Poklikem přidejte zboží do objednávky"/>
 
-            <Border Grid.Row="1"
-                    Margin="0,10,0,10"
-                Background="#200F53"
-                CornerRadius="10" 
-                    Height="300"
-                Padding="10">
-                <ListView Name="lvItemsForOrder" SelectionChanged="LvItemsForOrder_SelectionChanged">
-                    <ListView.View>
-                        <GridView >
-                            <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
-                            <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                            <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay}" />
+                <Border Grid.Row="1"
+                        Style="{StaticResource ListViewsBorder}"
+                        Height="300">
+                    
+                    <ListView Name="lvItemsForOrder" SelectionChanged="LvItemsForOrder_SelectionChanged">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
+                                <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                                <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
                             </GridView>
-                    </ListView.View>
-                </ListView>
-            </Border>
-
-
-           
-          
+                        </ListView.View>
+                    </ListView>
+                </Border>
 
 
 
 
 
-        </StackPanel>
-    </Grid>
+
+
+
+
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

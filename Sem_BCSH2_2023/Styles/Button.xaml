@@ -12,7 +12,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
-                    <Border Background="{TemplateBinding Background}"
+                    <Border Name="Border"
+                            Background="{TemplateBinding Background}"
                             BorderThickness="4,0,0,0"
                             BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Left"
@@ -64,11 +65,14 @@
 
     <!--Button nav-->
     <Style x:Key="navBtn" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource btnCloseColor1}"/>
+        <Setter Property="Background" Value="{StaticResource btnMinimalColor2}"/>
+        <Setter Property="Foreground" Value="{StaticResource textColor1}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Width="20" Height="20"
+                    <Border Name="border" Width="20" Height="20"
                         Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center"
                                       HorizontalAlignment="Center"/>
@@ -78,7 +82,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource btnCloseColor2}"/>
+                <Setter Property="Background" Value="{StaticResource btnCloseColor1}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -86,8 +90,8 @@
     <!--NavBtn icon-->
     <Style x:Key="navBtnIcon" TargetType="fa:IconImage">
         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
-        <Setter Property="Width" Value="9"/>
-        <Setter Property="Height" Value="9"/>
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="Height" Value="10"/>
     </Style>
 
     <Style x:Key="btnLogOut" TargetType="Button">
@@ -113,7 +117,19 @@
 
     <!--Button Add Edit Delete-->
     <Style x:Key="BtnAddEditDelete" TargetType="Button">
-        <Setter Property="Background" Value="#773DFF"/>
+        <Setter Property="Background" Value="#3677e0"/>
+        <!--<Setter Property="Background" Value="#773DFF"/>-->
+        
+        
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="10"/>
+        <Setter Property="BorderBrush" Value="#36c1e0"/>
+        <Setter Property="Foreground" Value="{StaticResource textColor1}"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -158,5 +174,46 @@
         </Style.Triggers>
     </Style>
 
+
+
+    <!--Button listView icons-->
+    <Style x:Key="listViewIcon" TargetType="fa:IconImage">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Margin" Value="10,0,10,0"/>
+    </Style>
+
+    
+    <!--LogIn button-->
+
+    <Style TargetType="Button" x:Key="loginButton">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Content" Value="Přihlásit se"/>
+        <Setter Property="Background" Value="#773DFF"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Grid.Column" Value="2"/>
+        <Setter Property="Margin" Value="0,35,0,0"/>
+
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Triggers změna barvy pozadí při najetí myší -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource btnCloseColor2}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sem_BCSH2_2023.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,19 +8,66 @@ using System.Threading.Tasks;
 
 namespace Sem_BCSH2_2023.Model
 {
-    public class Order
+    public class Order : BaseViewModel
     {
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public float OrderPrice { get; set; }
-        public DateTime DateOfCreation { get; set; }
-        public ObservableCollection<Good> ListOfGoods { get; set; }
-        public bool Done { get; set; }
-        public DateTime? DateCompletion { get; set; }
+        private int _id;
+        private int _customerId;
+        private double _orderPrice;
+        private DateTime _orderDate;
+        private bool _done;
+        private DateTime? _doneDate;
+        private ObservableCollection<Good> _listOfGoods;
+        private string _fullname;
 
-        public Order(int id, int customerId, DateTime dateOfCreation)
+
+
+        public int Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value, nameof(Id));
+        }
+        public int CustomerId
+        {
+            get => _customerId;
+            set => SetProperty(ref _customerId, value, nameof(CustomerId));
+        }
+        public double OrderPrice
+        {
+            get => _orderPrice;
+            set => SetProperty(ref _orderPrice, value, nameof(OrderPrice));
+        }
+        public DateTime DateOfCreation
+        {
+            get => _orderDate;
+            set => SetProperty(ref _orderDate, value, nameof(DateOfCreation));
+        }
+        public ObservableCollection<Good> ListOfGoods
+        {
+            get => _listOfGoods;
+            set => SetProperty(ref _listOfGoods, value, nameof(ListOfGoods));
+        }
+        public bool Done
+        {
+            get => _done;
+            set => SetProperty(ref _done, value, nameof(Done));
+        }
+        public DateTime? DateCompletion
+        {
+            get => _doneDate;
+            set => SetProperty(ref _doneDate, value, nameof(DateCompletion));
+        }
+
+        public string FullName
+        {
+            get => _fullname;
+            set => SetProperty(ref _fullname, value, nameof(FullName));
+        }
+
+
+        public Order(int id, int customerId, string name, string surname, DateTime dateOfCreation)
         {
             Id = id;
+            FullName = name + " " + surname;
             CustomerId = customerId;
             OrderPrice = 0;
             DateOfCreation = dateOfCreation;
