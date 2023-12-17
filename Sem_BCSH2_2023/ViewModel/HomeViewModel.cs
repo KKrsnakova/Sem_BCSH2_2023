@@ -96,7 +96,6 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             User = user;
 
-            // Přiřazení hodnot z User do vlastností pro binding
             FullName = User.FullName;
             Username = User.Username;
             Password = User.Password;

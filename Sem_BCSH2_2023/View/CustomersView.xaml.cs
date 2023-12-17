@@ -26,43 +26,20 @@ namespace Sem_BCSH2_2023.View
         public static Customer? customer;
         private SortData sortData;
 
+
+        private readonly CustomerViewModel CustomerVM;
+
         public CustomersView()
         {
             InitializeComponent();
-            lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
+            CustomerVM = new CustomerViewModel();
+            DataContext = CustomerVM;
+
             sortData = new SortData();
         }
 
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            if (button.DataContext is Customer item)
-            {
-                CustomerViewModel.RemoveCustomer(item);
-            }
-        }
-
-
-        private async void BtnEdit_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            if (button.DataContext is Customer item)
-            {
-                customer = item;
-                int selectedId = customer.Id;
-
-                await Task.Run(() =>
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        AddEditCustomer windowEditCustomer = new(selectedId);
-                        windowEditCustomer.ShowDialog();
-                        lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
-                    });
-                });
-            }
-        }
+       
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {

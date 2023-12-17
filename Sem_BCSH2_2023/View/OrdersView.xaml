@@ -88,8 +88,8 @@
                         <GridViewColumn Width="60" Header="Editace">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
-                                    Style="{StaticResource BtnAddEditDelete}">
+                                    <Button Command="{Binding DataContext.EditOrderCom, ElementName=lvOrders}" CommandParameter="{Binding}"
+                                            Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
                                     </Button>
                                 </DataTemplate>
@@ -106,7 +106,7 @@
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                    <Button Command="{Binding DataContext.DeleteOrderCom, ElementName=lvOrders}" CommandParameter="{Binding}"
                                     Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
                                     </Button>
@@ -117,7 +117,7 @@
                         <GridViewColumn Header="Splnit">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnDone_Click" CommandParameter="{Binding Done}"
+                                    <Button Command="{Binding DataContext.MakeOrderDoneCom, ElementName=lvOrders}" CommandParameter="{Binding}"
                                     Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Question" Style="{StaticResource listViewIcon}"/>
                                     </Button>

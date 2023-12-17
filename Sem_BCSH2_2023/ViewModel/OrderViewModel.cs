@@ -4,6 +4,7 @@ using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,9 +14,10 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class OrderViewModel : BaseViewModel
     {
+        public OtherItems? otherItem;
 
         public static ObservableCollection<Order> OrderList = new();
-        public  static ObservableCollection<User> UserList = new();
+        public static ObservableCollection<User> UserList = new();
 
 
         private ObservableCollection<Customer> _customerListShow;
@@ -24,6 +26,11 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand AddNewCommand { get; private set; }
         public ICommand DeleteAllCommand { get; private set; }
 
+
+        public ICommand DeleteOrderCom { get; }
+        public ICommand EditOrderCom { get; }
+        public ICommand MakeOrderDoneCom { get; }
+
         public OrderViewModel()
         {
             CustomerListShow = CustomerViewModel.CustomersList;
@@ -31,6 +38,46 @@ namespace Sem_BCSH2_2023.ViewModel
 
             AddNewCommand = new CommandViewModel(_ => AddNewOrder());
             DeleteAllCommand = new CommandViewModel(_ => DeleteAllOrders());
+
+            DeleteOrderCom = new CommandViewModel(DeleteOrder);
+            EditOrderCom = new CommandViewModel(EditOrder);
+            MakeOrderDoneCom = new CommandViewModel(MakeOrderDone);
+        }
+
+        private void MakeOrderDone(object obj)
+        {
+            if (obj is Order order)
+            {
+                OrderDone(order);
+                OrderDateCompletion(order);
+            }
+        }
+
+        private void EditOrder(object obj)
+        {
+
+            if (obj is Order order)
+            {
+
+                if (CustomerViewModel.CustomersList.Any(customer => customer.Id == order.CustomerId))
+                {
+                    NewOrderView windowEditGoods = new(order, order.CustomerId);
+                    windowEditGoods.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Zákazník byl smazán");
+                }
+            }
+        }
+
+        private void DeleteOrder(object obj)
+        {
+
+            if (obj is Order order)
+            {
+                RemoveOrder(order);
+            }
         }
 
         private void DeleteAllOrders()
@@ -45,9 +92,9 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private void AddNewOrder()
         {
-                NewOrderView windowNewOrder = new NewOrderView(null, null);
-                windowNewOrder.Show();
-            
+            NewOrderView windowNewOrder = new NewOrderView(null, null);
+            windowNewOrder.Show();
+
         }
 
         public static Order NewOrder()
@@ -72,13 +119,13 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderList.Clear();
         }
 
-        public  void OrderDone(Order selectedOrder)
+        public void OrderDone(Order selectedOrder)
         {
 
             selectedOrder.Done = !selectedOrder.Done;
 
         }
-        public  void OrderDateCompletion(Order selectedOrder)
+        public void OrderDateCompletion(Order selectedOrder)
         {
             selectedOrder.DateCompletion = DateTime.Now;
         }
@@ -126,7 +173,7 @@ namespace Sem_BCSH2_2023.ViewModel
             get => _customerListShow;
             set => SetProperty(ref _customerListShow, value, nameof(CustomerListShow));
         }
-        
+
         public ObservableCollection<Order> OrderListShow
         {
             get => _orderListShow;

@@ -40,33 +40,7 @@ namespace Sem_BCSH2_2023.View
         }
 
 
-        private void BtnDeleteRow_Click(object sender, RoutedEventArgs e)
-        {
 
-            Button button = (Button)sender;
-            if (button.DataContext is Flower item)
-            {
-                GoodViewModel.RemoveFlower(item);
-            }
-
-        }
-
-
-
-
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
-        {
-
-            Button button = (Button)sender;
-            if (button.DataContext is Flower item)
-            {
-                flower = item;
-                int selectedId = flower.Id;
-                AddEditGoods windowEditGoods = new(selectedId, true);
-                windowEditGoods.ShowDialog();
-
-            }
-        }
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {

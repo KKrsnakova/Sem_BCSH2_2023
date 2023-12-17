@@ -14,14 +14,42 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class OtherItemsViewModel : BaseViewModel
     {
+        public OtherItems? otherItem;
+
         public ICommand AddOtherItem { get; }
         public ICommand DeleteAllOtherItem { get; }
+
+        public ICommand DeleteOtherItemCom { get; }
+        public ICommand EditOtherItemCom { get; }
 
         public OtherItemsViewModel()
         {
             AddOtherItem = new CommandViewModel(AddOtherItemCom);
             DeleteAllOtherItem = new CommandViewModel(DeleteAllOtherItemCom);
 
+            DeleteOtherItemCom = new CommandViewModel(DeleteOtherItem);
+            EditOtherItemCom = new CommandViewModel(EditOtherItem);
+
+        }
+
+        private void EditOtherItem(object obj)
+        {
+
+            if (obj is OtherItems item)
+            {
+                otherItem = item;
+                int selectedId = otherItem.Id;
+                AddEditGoods windowEditGoods = new(selectedId, false);
+                windowEditGoods.ShowDialog();
+            }
+        }
+
+        private void DeleteOtherItem(object obj)
+        {
+            if (obj is OtherItems item)
+            {
+                GoodViewModel.RemoveOtherItem(item);
+            }
         }
 
         private void DeleteAllOtherItemCom(object obj)

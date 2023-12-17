@@ -67,7 +67,7 @@
                         <GridViewColumn Width="60" Header="Editace">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                    <Button Command="{Binding DataContext.EditOtherItemCom, ElementName=lvOtherItems}" CommandParameter="{Binding}"
                                             Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
                                     </Button>
@@ -84,7 +84,7 @@
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnDeleteRow_Click" CommandParameter="{Binding Id}"
+                                    <Button Command="{Binding DataContext.DeleteOtherItemCom, ElementName=lvOtherItems}" CommandParameter="{Binding}"
                                             Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
                                     </Button>

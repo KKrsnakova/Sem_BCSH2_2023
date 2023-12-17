@@ -11,7 +11,7 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class OtherItemsView : UserControl
     {
-        public OtherItems? otherItem;
+        //public OtherItems? otherItem;
         private SortData sortData;
 
         private readonly OtherItemsViewModel OtherItemsVM;
@@ -38,19 +38,6 @@ namespace Sem_BCSH2_2023.View
         }
 
       
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            if (button.DataContext is OtherItems item)
-            {
-                otherItem = item;
-                int selectedId = otherItem.Id;
-                AddEditGoods windowEditGoods = new(selectedId, false);
-                windowEditGoods.ShowDialog();
-            }
-        }
-
-      
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {
@@ -71,13 +58,6 @@ namespace Sem_BCSH2_2023.View
             }
         }
 
-        private void BtnDeleteRow_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            if (button.DataContext is OtherItems item)
-            {
-                GoodViewModel.RemoveOtherItem(item);
-            }
-        }
+       
     }
 }

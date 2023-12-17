@@ -151,7 +151,7 @@
                                 <GridViewColumn Header="Odebrat">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Click="BtnDeleteGood_Click" CommandParameter="{Binding Id}"
+                                            <Button Command="{Binding DataContext.DeleteGoodButtonCommand, ElementName=lvOrder}" CommandParameter="{Binding}"
                                                 Style="{StaticResource BtnAddEditDelete}">
                                                 <fa:IconImage Icon="Multiply" Style="{StaticResource listViewIcon}"/>
                                             </Button>

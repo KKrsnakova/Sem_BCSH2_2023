@@ -16,11 +16,30 @@ namespace Sem_BCSH2_2023.ViewModel
     {
         public ICommand AddFlowerCom { get; }
         public ICommand DeleteAllFlowerCom { get; }
+        public ICommand DeleteFlowerCom { get; }
+        public ICommand EditFlowerCom{ get; }
+
+        public ICommand OrderDoneCom { get; }
 
         public FlowerViewModel()
         {
             AddFlowerCom = new CommandViewModel(AddFlower);
             DeleteAllFlowerCom = new CommandViewModel(DeleteAllFlower);
+            DeleteFlowerCom = new CommandViewModel(DeleteFlower);
+            EditFlowerCom = new CommandViewModel(EditFlower);
+
+        }
+
+        private void EditFlower(object obj)
+        {
+
+            MessageBox.Show("asdasd" + obj.ToString());
+            if (obj is Flower flower)
+            {
+                int selectedId = flower.Id;
+                AddEditGoods windowEditGoods = new(selectedId, true);
+                windowEditGoods.ShowDialog();
+            }
         }
 
         private void DeleteAllFlower(object obj)
@@ -37,6 +56,15 @@ namespace Sem_BCSH2_2023.ViewModel
         {
                 AddEditGoods windowAddGoods = new (null, true);
                 windowAddGoods.Show();
+        }
+
+        private void DeleteFlower(object obj)
+        {
+            
+            if (obj is Flower flower)
+            {
+                GoodViewModel.RemoveFlower(flower);
+            }
         }
     }
 

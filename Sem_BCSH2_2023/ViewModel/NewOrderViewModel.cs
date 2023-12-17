@@ -36,11 +36,12 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private ObservableCollection<Good> _goodsListShow;
         private ObservableCollection<Customer> _customerListShow;
-        //  private ObservableCollection<> _customerOrderListShow;
 
         public ICommand LvItemsForOrder_SelectionChangedCommand { get; private set; }
         public ICommand AddGoodCommand { get; private set; }
         public ICommand AddNewOrderCommand { get; private set; }
+        public ICommand DeleteGoodButtonCommand { get; private set; }
+
 
 
         public ICommand CloseCommand { get; private set; }
@@ -93,6 +94,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
             AddGoodCommand = new CommandViewModel(_ => AddGood());
             AddNewOrderCommand = new CommandViewModel(_ => AddOrder());
+            DeleteGoodButtonCommand = new CommandViewModel(DeleteGoodButton);
 
 
             CloseCommand = new CommandViewModel(_ => Close());
@@ -103,6 +105,21 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
 
+
+        }
+
+        private void DeleteGoodButton(object obj)
+        {
+            if (obj is Flower flw)
+            {
+                order.ListOfGoods.Remove(flw);
+                GoodViewModel.AddFlower(flw);
+            }
+            else if (obj is OtherItems otitem)
+            {
+                order.ListOfGoods.Remove(otitem);
+                GoodViewModel.AddOtherItems(otitem);
+            }
 
         }
 

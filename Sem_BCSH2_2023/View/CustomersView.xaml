@@ -49,7 +49,7 @@
         <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}"
                >
-            <ListView Name="lvCustomers">
+            <ListView Name="lvCustomers" ItemsSource="{Binding CustomerListShow}">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -62,7 +62,7 @@
                         <GridViewColumn Width="60" Header="Editace">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnEdit_Click" CommandParameter="{Binding Id}"
+                                    <Button Command="{Binding DataContext.EditCustomerCom, ElementName=lvCustomers}" CommandParameter="{Binding}"
                                             Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Pencil" Style="{StaticResource listViewIcon}"/>
                                     </Button>
@@ -80,7 +80,7 @@
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="BtnDelete_Click" CommandParameter="{Binding Id}"
+                                    <Button Command="{Binding DataContext.DeleteCustomerCom, ElementName=lvCustomers}" CommandParameter="{Binding}"
                                             Style="{StaticResource BtnAddEditDelete}">
                                         <fa:IconImage Icon="Trash" Style="{StaticResource listViewIcon}"/>
                                     </Button>

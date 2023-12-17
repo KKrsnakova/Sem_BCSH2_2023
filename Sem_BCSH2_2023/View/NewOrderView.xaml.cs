@@ -23,16 +23,13 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class NewOrderView : Window
     {
-        Customer selectedCustomer;
-        private Order order;
-        private bool edit;
+       
 
         private readonly NewOrderViewModel newOrderVM;
 
         public NewOrderView(Order ord, int? customerID)
         {
-
-            order = ord;
+                      
             InitializeComponent();
             newOrderVM = new NewOrderViewModel(ord, customerID);
             DataContext = newOrderVM;
@@ -41,21 +38,6 @@ namespace Sem_BCSH2_2023.View
 
         }
 
-
-        private void BtnDeleteGood_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            if (button.DataContext is Flower flw)
-            {
-                order.ListOfGoods.Remove(flw);
-                GoodViewModel.AddFlower(flw);
-            }
-            else if (button.DataContext is OtherItems otitem)
-            {
-                order.ListOfGoods.Remove(otitem);
-                GoodViewModel.AddOtherItems(otitem);
-            }
-        }
 
 
 

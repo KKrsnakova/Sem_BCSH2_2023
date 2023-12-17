@@ -1,5 +1,6 @@
 ﻿using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,15 +11,56 @@ namespace Sem_BCSH2_2023.ViewModel
 {
     public class CustomerViewModel : BaseViewModel
     {
+
+        public static Customer? customer;
+        private ObservableCollection<Customer> _customerListShow;
+
         public ICommand AddCustomers { get; }
         public ICommand DeleteAllCustomer { get; }
+
+
+        public ICommand DeleteCustomerCom { get; }
+        public ICommand EditCustomerCom { get; }
+
+
 
         public static ObservableCollection<Customer> CustomersList = new ObservableCollection<Customer>();
 
         public CustomerViewModel()
         {
+            CustomerListShow = CustomersList;
+
             AddCustomers = new CommandViewModel(AddCustomerCom);
             DeleteAllCustomer = new CommandViewModel(DeleteAllCustomerCom);
+
+
+            DeleteCustomerCom = new CommandViewModel(DeleteCustomer);
+            EditCustomerCom = new CommandViewModel(EditCustomer);
+        }
+
+        private void EditCustomer(object obj)
+        {
+           
+            if (obj is Customer item)
+            {
+                customer = item;
+                int selectedId = customer.Id;
+
+
+                AddEditCustomer windowEditCustomer = new(selectedId);
+                windowEditCustomer.ShowDialog();
+                //lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
+
+            }
+        }
+
+        private void DeleteCustomer(object obj)
+        {
+           
+            if (obj is Customer item)
+            {
+                RemoveCustomer(item);
+            }
         }
 
         private void DeleteAllCustomerCom(object obj)
@@ -83,7 +125,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private static int IdGenerator()
         {
             int pocet;
-            if (CustomersList.Count() == 0)
+            if (CustomersList.Count == 0)
             {
                 pocet = 1;
             }
@@ -93,6 +135,12 @@ namespace Sem_BCSH2_2023.ViewModel
                 pocet++;
             }
             return pocet;
+        }
+
+        public ObservableCollection<Customer> CustomerListShow
+        {
+            get => _customerListShow;
+            set => SetProperty(ref _customerListShow, value, nameof(CustomerListShow));
         }
 
     }

@@ -13,12 +13,20 @@ namespace Sem_BCSH2_2023.ViewModel
         //Fields
         private readonly Action<object> executeAction;
         private readonly Predicate<object>? canExecuteAction;
+        private Action deleteGoodButton;
+
         //Constructors
         public CommandViewModel(Action<object> executeAction)
         {
             this.executeAction = executeAction;
             canExecuteAction = null;
         }
+
+        public CommandViewModel(Action deleteGoodButton)
+        {
+            this.deleteGoodButton = deleteGoodButton;
+        }
+
         public CommandViewModel(Action<object> executeAction, Predicate<object> canExecuteAction)
         {
             this.executeAction = executeAction;
