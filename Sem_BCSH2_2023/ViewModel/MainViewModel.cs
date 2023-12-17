@@ -17,7 +17,10 @@ namespace Sem_BCSH2_2023.ViewModel
         public GoodsMng GoodsMng { get; set; }
         public CustomerMng CustomerMng { get; set; }
         public OrderMng OrderMng { get; set; }
+        public UsersLoginMng UserLoginMng { get; set; }
+
         public Repo Repo { get; set; }
+        public RepoLogin RepoUsers { get; set; }
 
 
 
@@ -25,6 +28,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private string description;
         private IconChar icon;
         private UserLogins actualUser;
+        private Visibility _visibilityProp;
 
         public BaseViewModel CurrentChildView
         {
@@ -75,6 +79,12 @@ namespace Sem_BCSH2_2023.ViewModel
                 OnPropertyChanged(nameof(ActualUser));
             }
         }
+        public Visibility VisibilityProp
+        {
+            get => _visibilityProp;
+
+            set => SetProperty(ref _visibilityProp, value, nameof(VisibilityProp));
+        }
 
 
         //--> Commands
@@ -83,6 +93,7 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand ShowOtherItemsViewCommand { get; }
         public ICommand ShowCustomersViewCommand { get; }
         public ICommand ShowOrdersViewCommand { get; }
+        public ICommand ShowUsersViewCommand { get; }
 
         public ICommand LogOutCommand { get; }
         public ICommand SaveDataCommand { get; }
@@ -91,29 +102,40 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand MaximalCommand { get; }
         public ICommand MinimalCommand { get; }
 
-        public MainViewModel( )
+        public MainViewModel(UserLogins userLogged)
         {
-            
+
             //Initialize commands
             ShowHomeViewCommand = new CommandViewModel(ExecuteShowHomeViewCommand);
             ShowFlowerViewCommand = new CommandViewModel(ExecuteShowFlowerViewCommand);
             ShowOtherItemsViewCommand = new CommandViewModel(ExecuteShowOtherItemsViewCommand);
             ShowCustomersViewCommand = new CommandViewModel(ExecuteShowCustomersViewCommand);
             ShowOrdersViewCommand = new CommandViewModel(ExecuteShowOrdersViewCommand);
+            ShowUsersViewCommand = new CommandViewModel(ExecuteShowUsersViewCommand);
 
 
             LogOutCommand = new CommandViewModel(LogOutCom);
-            SaveDataCommand = new CommandViewModel(_=>SaveDataCom());
+            SaveDataCommand = new CommandViewModel(_ => SaveDataCom());
 
             CloseCommand = new CommandViewModel(CloseWindowCom);
             MaximalCommand = new CommandViewModel(MaximalWindowCom);
             MinimalCommand = new CommandViewModel(MinimalWindowCom);
 
-            loggedUser = ActualUser;
             NewRepo();
+            NewRepoUsers();
+            loggedUser = ActualUser;
+
+
+
+
+            if (userLogged.IsAdmin == false)
+            {
+                VisibilityProp = Visibility.Collapsed;
+            }
 
 
         }
+
 
         private void MinimalWindowCom(object obj)
         {
@@ -155,12 +177,12 @@ namespace Sem_BCSH2_2023.ViewModel
                     break;
 
                 case MessageBoxResult.No:
-                    
+
                     Application.Current.Shutdown();
                     break;
 
                 case MessageBoxResult.Cancel:
-                    
+
                     break;
             }
         }
@@ -180,6 +202,24 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderViewModel.OrderList = OrderMng.GetAllOrder();
         }
 
+        private void NewRepoUsers()
+        {
+            try
+            {
+                RepoUsers = new();
+                UserLoginMng = new UsersLoginMng(RepoUsers);
+
+                UsersViewModel.UsersList = UserLoginMng.GetAllUserLogins();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba pri tvoření nového Repo {ex.Message}");
+            }
+
+        }
+
+
+
         private void SaveDataCom()
         {
             GoodsMng.RemoveAllGoods();
@@ -191,6 +231,16 @@ namespace Sem_BCSH2_2023.ViewModel
             OrderMng.RemoveAllOrder();
             OrderMng.AddAllOrder(OrderViewModel.OrderList);
 
+            try
+            {
+                UserLoginMng.RemoveAllUserLogins();
+                UserLoginMng.AddAllUserLogins(UsersViewModel.UsersList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při ukládání userů {ex.Message}");
+            }
+
             MessageBox.Show("Data uložena do databáze", "Uloženo do DB", MessageBoxButton.OK);
 
         }
@@ -201,6 +251,7 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             MessageBox.Show("Odhlášeno");
             Repo.Dispose();
+            RepoUsers.Dispose();
             Window currentWindow = App.Current.Windows[0];
             LoginView loginView = new LoginView();
 
@@ -216,6 +267,7 @@ namespace Sem_BCSH2_2023.ViewModel
             CurrentChildView = new HomeViewModel(ActualUser);
             Description = "Přehled";
             Icon = IconChar.UserGroup;
+
         }
         private void ExecuteShowFlowerViewCommand(object obj)
         {
@@ -235,10 +287,10 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             CurrentChildView = new CustomerViewModel();
             Description = "Zákazníci";
-            Icon = IconChar.UserGroup;
+            Icon = IconChar.C;
         }
-        
-               
+
+
         private void ExecuteShowOrdersViewCommand(object obj)
         {
             CurrentChildView = new OrderViewModel();
@@ -246,7 +298,14 @@ namespace Sem_BCSH2_2023.ViewModel
             Icon = IconChar.ShoppingBasket;
         }
 
-       
+
+        private void ExecuteShowUsersViewCommand(object obj)
+        {
+            CurrentChildView = new UsersViewModel();
+            Description = "Uživatelé";
+            Icon = IconChar.Users;
+        }
+
 
 
     }

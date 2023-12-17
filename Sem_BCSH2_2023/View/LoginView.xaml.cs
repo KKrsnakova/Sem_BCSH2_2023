@@ -39,12 +39,10 @@ namespace Sem_BCSH2_2023.View
 
         private void TbRegisterHere_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Thread threadOpen = new(() =>
-            {
-                RegistrationView newRefistrationWindow = Dispatcher.Invoke(() => new RegistrationView());
-                Dispatcher.Invoke(() => newRefistrationWindow.Show());
-            });
-            threadOpen.Start();
+            
+                RegistrationView newRefistrationWindow = new RegistrationView(null);
+                newRefistrationWindow.Show();
+           
         }
 
        

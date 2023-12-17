@@ -65,7 +65,7 @@
                     Margin="70,35,70,0">
                 <TextBlock  
                     x:Name="windowName"
-                    Text="Registrace do systému"
+                    Text="{Binding TBRegistratinToSystem}"
                     Foreground="{StaticResource textColor1}"
                     FontSize="25"
                     FontWeight="Medium"
@@ -113,7 +113,7 @@
                                              Password="{Binding Password2, Mode=TwoWay}"/>
 
                 <Button Style="{StaticResource BtnAddEditDelete}"
-                    Content="Zaregistorvat se"
+                    Content="{Binding BtnDoneText}"
                     Name="btnRegister"
                     BorderThickness="0"
                     Margin="70,10,70,0"

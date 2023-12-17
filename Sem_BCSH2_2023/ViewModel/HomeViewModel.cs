@@ -18,7 +18,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private int _id;
 
 
-        public ObservableCollection<UserLogins> Users { get; set; } = new ObservableCollection<UserLogins>();
+        public static ObservableCollection<UserLogins> Users { get; set; } = new ObservableCollection<UserLogins>();
         public UsersLoginMng UserLoginMng { get; set; }
 
 
@@ -120,10 +120,9 @@ namespace Sem_BCSH2_2023.ViewModel
 
             try
             {
-                using (var repoLogin = new RepoLogin())
-                {
-                    UserLoginMng = new UsersLoginMng(repoLogin);
-                    Users = UserLoginMng.GetAllUserLogins();
+
+
+                     Users = UsersViewModel.UsersList;
                     UserToEdit = Users.FirstOrDefault(user => user.Id == User.Id);
 
                     UserToEdit.FullName = FullName;
@@ -133,24 +132,19 @@ namespace Sem_BCSH2_2023.ViewModel
 
                     if (UserToEdit != null)
                     {
-                        UserLoginMng.RemoveAllUserLogins();
-                        UserLoginMng.AddAllUserLogins(Users);
-
                         MessageBox.Show("Údaje upraveny","Upraveno");
                     }
                     else
                     {
                         MessageBox.Show("Chyba", "Chyba");
                     }
-                }
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při přihlašování: {ex.Message}");
             }
         }
-
-
 
     }
 }

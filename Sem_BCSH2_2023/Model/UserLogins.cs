@@ -16,6 +16,7 @@ namespace Sem_BCSH2_2023.Model
         private string _password;
         private string _fullname;
         private string _email;
+        private bool _isAdmin;
 
 
         public int Id
@@ -41,7 +42,13 @@ namespace Sem_BCSH2_2023.Model
         public string Email {
             get => _email;
             set => SetProperty(ref _email, value, nameof(Email));
+        } 
+        public bool IsAdmin {
+            get => _isAdmin;
+            set => SetProperty(ref _isAdmin, value, nameof(IsAdmin));
         }
+
+
 
 
         public UserLogins(int id, string username, string password, string fullName, string email)
@@ -51,6 +58,7 @@ namespace Sem_BCSH2_2023.Model
             Password = password;
             FullName = fullName;
             Email = email;
+            IsAdmin = false;
         }
 
         public override string? ToString()

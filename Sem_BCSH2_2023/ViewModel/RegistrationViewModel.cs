@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using FontAwesome.Sharp;
 using Microsoft.VisualBasic.ApplicationServices;
 using Sem_BCSH2_2023.Manager;
 using Sem_BCSH2_2023.Model;
@@ -7,16 +8,18 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
     public class RegistrationViewModel : BaseViewModel
     {
-
+        private UserLogins editedUser;
         private UserLogins newUser;
         private int _id;
         private string _username;
@@ -25,8 +28,13 @@ namespace Sem_BCSH2_2023.ViewModel
         private string _fullname;
         private string _email;
 
+        private string _tbRegistrationToSystem;
+        private string _btnDoneText;
 
-        private ObservableCollection<UserLogins> users;
+        private int? idOfEditedUser;
+
+
+        private static ObservableCollection<UserLogins> users;
         private UsersLoginMng UserLoginMng { get; set; }
 
 
@@ -36,8 +44,13 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand MinimizeCommand { get; private set; }
 
 
-        public RegistrationViewModel()
+        public RegistrationViewModel(int? id)
         {
+            idOfEditedUser = id;
+            editedUser = null;
+            TBRegistratinToSystem = "Registrace do systému";
+            BtnDoneText = "Registrovat se";
+
             if (newUser != null)
             {
                 Id = newUser.Id;
@@ -45,6 +58,16 @@ namespace Sem_BCSH2_2023.ViewModel
                 Password = newUser.Password;
                 FullName = newUser.FullName;
                 Email = newUser.Email;
+            }
+            else if (id != null)
+            {
+                TBRegistratinToSystem = "Editace uživatele";
+                BtnDoneText = "Dokončit úpravy";
+                editedUser = UsersViewModel.UsersList.FirstOrDefault(customer => customer.Id == id);
+                FullName = editedUser.FullName;
+                Username = editedUser.Username;
+                Email = editedUser.Email;
+                Password = editedUser.Password;
             }
 
 
@@ -55,7 +78,7 @@ namespace Sem_BCSH2_2023.ViewModel
             users = new ObservableCollection<UserLogins>();
         }
 
-        
+
 
         public int Id
         {
@@ -86,6 +109,18 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             get => _email;
             set => SetProperty(ref _email, value, nameof(Email));
+        } 
+        
+        public string TBRegistratinToSystem
+        {
+            get => _tbRegistrationToSystem;
+            set => SetProperty(ref _tbRegistrationToSystem, value, nameof(TBRegistratinToSystem));
+        }
+        
+        public string BtnDoneText
+        {
+            get => _btnDoneText;
+            set => SetProperty(ref _btnDoneText, value, nameof(BtnDoneText));
         }
 
         private void Close()
@@ -97,7 +132,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private static void Maximize()
         {
             var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-           
+
             if (window != null)
             {
                 if (window.WindowState == WindowState.Normal)
@@ -124,48 +159,64 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private void RegistrationDone()
         {
-
-            if (CheckInputs())
+            if (idOfEditedUser != null && editedUser != null)
             {
-                try
+                editedUser = UsersViewModel.UsersList.FirstOrDefault(user => user.Id == idOfEditedUser);
+                MessageBox.Show(editedUser.Id + " " + editedUser.FullName + " " + editedUser.Username);
+               
+                editedUser.FullName = FullName;
+                editedUser.Username = Username;
+                editedUser.Email = Email;
+                editedUser.Password = Password;
+
+                var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+                window?.Close();
+            }
+            else
+            {
+
+                if (CheckInputs())
                 {
-                    using (var repoLogin = new RepoLogin())
+                    try
                     {
-                        UserLoginMng = new UsersLoginMng(repoLogin);
-                        users.Clear();
-                        users = UserLoginMng.GetAllUserLogins();
+                        using (var repoLogin = new RepoLogin())
+                        {
+                            UserLoginMng = new UsersLoginMng(repoLogin);
+                            users.Clear();
+                            users = UserLoginMng.GetAllUserLogins();
 
-                        string name = FullName;
-                        string username = Username;
-                        string email = Email;
-                        string password = Password;
+                            string name = FullName;
+                            string username = Username;
+                            string email = Email;
+                            string password = Password;
 
-                        UserLogins newUser = RegisterUser(users.Count, username, password, name, email);
-                        users.Add(newUser);
+                            UserLogins newUser = RegisterUser(IdGenerator(), username, password, name, email);
+                            users.Add(newUser);
+
+                            UserLoginMng.RemoveAllUserLogins();
+                            UserLoginMng.AddAllUserLogins(users);
 
 
-                        UserLoginMng.RemoveAllUserLogins();
-                        UserLoginMng.AddAllUserLogins(users);
+                            MessageBox.Show("Registrováno");
 
-
-                        MessageBox.Show("Registrováno");
-
-                        var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-                        window?.Close();
+                            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+                            window?.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Chyba při registraci: {ex.Message}");
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Chyba při registraci: {ex.Message}");
-                }
+
             }
         }
 
 
         private UserLogins RegisterUser(int countID, string username, string password, string fullname, string email)
         {
-            int count = countID + 1;
-            UserLogins newUser = new UserLogins(count, username, password, fullname, email);
+           
+            UserLogins newUser = new UserLogins(IdGenerator(), username, password, fullname, email);
 
             return newUser;
 
@@ -182,22 +233,26 @@ namespace Sem_BCSH2_2023.ViewModel
 
             if (string.IsNullOrEmpty(name))
             {
-                MessageBox.Show("Všechna pole musí být vyplněna. Chybí jmeno" , "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Všechna pole musí být vyplněna. Chybí jmeno", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            else if (string.IsNullOrEmpty(username)) {
+            else if (string.IsNullOrEmpty(username))
+            {
                 MessageBox.Show("Všechna pole musí být vyplněna. Chybí Username", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            else if (string.IsNullOrEmpty(email)) {
+            else if (string.IsNullOrEmpty(email))
+            {
                 MessageBox.Show("Všechna pole musí být vyplněna. Chybí email", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            else if (string.IsNullOrEmpty(password)) {
+            else if (string.IsNullOrEmpty(password))
+            {
                 MessageBox.Show("Všechna pole musí být vyplněna. Chybí heslo" + Password, "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            else if (string.IsNullOrEmpty(passwordChecked)) {
+            else if (string.IsNullOrEmpty(passwordChecked))
+            {
                 MessageBox.Show("Všechna pole musí být vyplněna. Chybí heslo2", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
@@ -218,5 +273,22 @@ namespace Sem_BCSH2_2023.ViewModel
             return true;
         }
 
+        private static int IdGenerator()
+        {
+            int pocet;
+            if (users.Count == 0)
+            {
+                pocet = 1;
+            }
+            else
+            {
+                pocet = users.Last().Id;
+                pocet++;
+            }
+            return pocet;
+        }
+
     }
+
+
 }

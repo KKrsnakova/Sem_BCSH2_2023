@@ -28,10 +28,10 @@ namespace Sem_BCSH2_2023.View
         private readonly RegistrationViewModel registrationVM;
 
 
-        public RegistrationView()
+        public RegistrationView(int? id)
         {
             InitializeComponent();
-            registrationVM = new();
+            registrationVM = new(id);
             DataContext = registrationVM;
 
         }

@@ -35,7 +35,7 @@ namespace Sem_BCSH2_2023.View
         public HomeView()
         {
             InitializeComponent();
-            users = new ObservableCollection<UserLogins>();
+            //users = new ObservableCollection<UserLogins>();
             tbPassword.IsReadOnly = true;
 
         }

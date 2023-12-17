@@ -46,6 +46,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private string _username;
         private string _password;
+        private bool _isAdmin;
 
 
         public string Username
@@ -58,6 +59,12 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             get => _password;
             set => SetProperty(ref _password, value, nameof(Password));
+        }
+
+        public bool IsAdmin
+        {
+            get => _isAdmin;
+            set => SetProperty(ref _isAdmin, value, nameof(IsAdmin));
         }
 
         public ICommand LoginCommand { get; }
@@ -74,24 +81,25 @@ namespace Sem_BCSH2_2023.ViewModel
                     Users = UserLoginMng.GetAllUserLogins();
                     LoggedInUser = Users.FirstOrDefault(user => user.Username == Username && user.Password == Password);
 
-                    if (LoggedInUser != null)
-                    {
-                        MainViewModel mainViewModel = new MainViewModel();
-                        mainViewModel.ActualUser = LoggedInUser;
-
-                        MainView mainView = new MainView
-                        {
-                            DataContext = mainViewModel
-                        };
-                        mainView.Show();
-                        App.Current.Windows[0].Close();
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Špatné přihlašovací údaje", "Chyba");
-                    }
                 }
+                if (LoggedInUser != null)
+                {
+                    MainViewModel mainViewModel = new MainViewModel(LoggedInUser);
+                    mainViewModel.ActualUser = LoggedInUser;
+
+                    MainView mainView = new MainView
+                    {
+                        DataContext = mainViewModel
+                    };
+                    mainView.Show();
+                    App.Current.Windows[0].Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("Špatné přihlašovací údaje", "Chyba");
+                }
+
             }
             catch (Exception ex)
             {

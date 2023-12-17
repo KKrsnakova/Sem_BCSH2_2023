@@ -35,6 +35,9 @@
         <DataTemplate DataType="{x:Type viewmodel:OrderViewModel}">
             <local:OrdersView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:UsersViewModel}">
+            <local:UsersView/>
+        </DataTemplate>
 
     </Window.Resources>
 
@@ -108,7 +111,7 @@
                                  Tag="{StaticResource color4}"
                                  Command="{Binding ShowCustomersViewCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="PeopleGroup" Style="{StaticResource menuIcons}"/>
+                            <fa:IconImage Icon="C" Style="{StaticResource menuIcons}"/>
                             <TextBlock Text="Zákazníci" Style="{StaticResource menuText}"/>
                         </StackPanel>
 
@@ -120,6 +123,17 @@
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="ShoppingBasket" Style="{StaticResource menuIcons}"/>
                             <TextBlock Text="Objednavky" Style="{StaticResource menuText}"/>
+                        </StackPanel>
+
+                    </RadioButton>
+                    
+                    <RadioButton Style="{StaticResource btnMenu}"
+                                 Tag="{StaticResource color6}"
+                                 Visibility="{Binding VisibilityProp}"
+                                 Command="{Binding ShowUsersViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Users" Style="{StaticResource menuIcons}"/>
+                            <TextBlock Text="Uživatelé" Style="{StaticResource menuText}"/>
                         </StackPanel>
 
                     </RadioButton>
