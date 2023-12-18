@@ -26,17 +26,12 @@ namespace Sem_BCSH2_2023.View
     /// </summary>
     public partial class HomeView : UserControl
     {
-        private UserLogins _loggedInUser;
-        private ObservableCollection<UserLogins> users;
 
-        private UsersLoginMng UserLoginMng { get; set; }
 
 
         public HomeView()
         {
             InitializeComponent();
-            //users = new ObservableCollection<UserLogins>();
-            tbPassword.IsReadOnly = true;
 
         }
        

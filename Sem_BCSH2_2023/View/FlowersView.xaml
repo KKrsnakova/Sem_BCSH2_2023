@@ -52,7 +52,7 @@
         <TextBlock  Style="{StaticResource TextBlockHint}"
              Grid.Row="1"
              VerticalAlignment="Center"
-             Text="Lze filtrovat dle ID, Názvu a Ceny"/>
+             Text="Přehled všech rostlin v databázi. Lze filtrovat dle ID, Názvu a Ceny"/>
 
 
         <Border Grid.Row="2"

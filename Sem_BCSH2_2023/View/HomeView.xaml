@@ -60,7 +60,7 @@
                             <TextBlock Style="{StaticResource TextBlockUserOverV}"
                                        Grid.Row="0"
                                        x:Name="windowName"
-                                       Text="Vítejte"
+                                       Text="Osobní přehled uživatele"
                                        FontSize="25"
                                        HorizontalAlignment="Left" Margin="10,3,0,7" Grid.Column="1" 
                                        />
@@ -89,32 +89,32 @@
                                      Grid.Column="1" Margin="75,6,110,11">
                             </TextBox>
 
-                            <TextBlock Grid.Row="3" 
-                                       Style="{StaticResource TextBlockUserOverV}"
-                                       Text="Heslo" Grid.ColumnSpan="2" />
-
-                            <TextBox Grid.Row="3" 
-                                     x:Name="tbPassword"
-                                     Style="{StaticResource TextBoxUserOverV}" 
-                                     Text="{Binding Password, Mode=TwoWay}"
-                                     Grid.Column="1" Margin="75,6,110,11">
-
-
-                            </TextBox>
-
-                            <!--<local:PasswordUserControl x:Name="tbPassword"
-                                                       Grid.Column="1" Margin="75,1,110,1" Grid.Row="3"/>-->
-
-                            <TextBlock Grid.Row="4"  
+                            
+                           
+                            <TextBlock Grid.Row="3"  
                                        Style="{StaticResource TextBlockUserOverV}"
                                        Text="E-mailová adresa" Grid.ColumnSpan="2"/>
 
-                            <TextBox  Grid.Row="4" 
+                            <TextBox  Grid.Row="3" 
                                       Style="{StaticResource TextBoxUserOverV}"
                                       x:Name="tbEmail" Grid.Column="1" 
                                       Text="{Binding Email, Mode=TwoWay}"
                                       Margin="75,6,110,11">
                             </TextBox>
+
+                            <TextBlock Grid.Row="4" 
+                                       Style="{StaticResource TextBlockUserOverV}"
+                                       Text="Role" Grid.ColumnSpan="2" />
+
+                            <TextBox Grid.Row="4" 
+                                    x:Name="tbRole"
+                                    Style="{StaticResource TextBoxUserOverV}" 
+                                    Text="{Binding Role, Mode=TwoWay}"
+                                    Grid.Column="1" Margin="75,6,110,11">
+
+
+                            </TextBox>
+
 
                             <Button Grid.Row="5" 
                                     Style="{StaticResource BtnAddEditDelete}"

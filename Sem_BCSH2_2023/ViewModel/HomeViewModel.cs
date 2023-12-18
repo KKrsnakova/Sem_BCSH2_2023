@@ -13,9 +13,11 @@ namespace Sem_BCSH2_2023.ViewModel
     {
         private string _fullName;
         private string _username;
-        private string _password;
+        private string _role;
         private string _email;
+        private string _password;
         private int _id;
+        
 
 
         public static ObservableCollection<UserLogins> Users { get; set; } = new ObservableCollection<UserLogins>();
@@ -51,6 +53,7 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
+
         public string Password
         {
             get { return _password; }
@@ -60,6 +63,19 @@ namespace Sem_BCSH2_2023.ViewModel
                 {
                     _password = value;
                     OnPropertyChanged(nameof(Password));
+                }
+            }
+        }
+
+        public string Role
+        {
+            get { return _role; }
+            set
+            {
+                if (_role != value)
+                {
+                    _role = value;
+                    OnPropertyChanged(nameof(Role));
                 }
             }
         }
@@ -98,7 +114,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
             FullName = User.FullName;
             Username = User.Username;
-            Password = User.Password;
+            Role = SetUserRole(user.IsAdmin);
             Email = User.Email;
             Id = User.Id;
 
@@ -109,6 +125,16 @@ namespace Sem_BCSH2_2023.ViewModel
         {
 
             EditUser();
+        }
+
+        private string SetUserRole(bool userRole)
+        {
+            if (userRole) {
+                return "Admin";
+            } else
+            {
+                return "User";
+            }
         }
 
         private void EditUser()

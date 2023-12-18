@@ -4,14 +4,8 @@ using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.IO;
-using QuestPDF.Infrastructure;
-using System.Windows.Documents;
 
 
 
