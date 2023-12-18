@@ -65,8 +65,6 @@ namespace Sem_BCSH2_2023.ViewModel
             TBWindowText = "Nová Objednávka";
 
 
-            // cbCustomer.SelectedIndex = 0;
-
             if (customerID != null && ord != null)
             {
                 BtnAddEditConeText = "Přidat další položku";
@@ -78,15 +76,12 @@ namespace Sem_BCSH2_2023.ViewModel
                 order = ord;
                 SelectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
                 TBCustomerText = SelectedCustomer.ToString();
-                //cbCustomer.SelectedItem = selectedCustomer;
                 GoodsListShow = ord.ListOfGoods;
-                // cbCustomer.IsEditable = false;
             }
             else
             {
                 TBVisibility = Visibility.Collapsed;
                 CbVisibility = Visibility.Visible;
-                // cbCustomer.SelectedIndex = 0;
                 edit = false;
                 order = OrderViewModel.NewOrder();
             }
@@ -129,7 +124,6 @@ namespace Sem_BCSH2_2023.ViewModel
             if (edit)
             {
                 //Edit
-
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
                 window?.Close();
 

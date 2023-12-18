@@ -72,10 +72,10 @@
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
                         <GridViewColumn Width="100" Header="Jméno" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Width="100" Header="Příjmení" DisplayMemberBinding="{Binding Surname}" />
-                        <GridViewColumn Width="200" Header="Adresa" DisplayMemberBinding="{Binding Address}" />
-                        <GridViewColumn Width="100" Header="Město" DisplayMemberBinding="{Binding City}" />
-                        <GridViewColumn Width="100" Header="Telefon" DisplayMemberBinding="{Binding PhoneNumber}" />
-                        <GridViewColumn Width="120" Header="Email" DisplayMemberBinding="{Binding Email}" />
+                        <GridViewColumn Width="Auto" Header="Adresa" DisplayMemberBinding="{Binding Address}" />
+                        <GridViewColumn Width="Auto" Header="Město" DisplayMemberBinding="{Binding City}" />
+                        <GridViewColumn Width="Auto" Header="Telefon" DisplayMemberBinding="{Binding PhoneNumber, StringFormat='+420 ### ### ###'}" />
+                        <GridViewColumn Width="Auto" Header="Email" DisplayMemberBinding="{Binding Email}" />
 
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>

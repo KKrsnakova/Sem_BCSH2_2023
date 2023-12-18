@@ -49,7 +49,6 @@ namespace Sem_BCSH2_2023.ViewModel
 
                 AddEditCustomer windowEditCustomer = new(selectedId);
                 windowEditCustomer.ShowDialog();
-                //lvCustomers.ItemsSource = CustomerViewModel.CustomersList;
 
             }
         }
@@ -93,7 +92,6 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             CustomersList.Remove(selectedCustomer);
 
-            // Odstranění všech objednávek spojených s odstraněným zákazníkem
             List<Order> ordersToRemove = OrderViewModel.OrderList.Where(order => order.CustomerId == selectedCustomer.Id).ToList();
 
             foreach (Order order in ordersToRemove)

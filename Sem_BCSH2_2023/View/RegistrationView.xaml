@@ -11,6 +11,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize"
+        Icon="/Resources/cactus.ico"
         Title="Registration" Height="550" Width="480">
 
     <Border CornerRadius="10" BorderThickness="2">

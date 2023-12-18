@@ -10,6 +10,7 @@
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
+        Icon="/Resources/cactus.ico"
         Title="AllGoodsView" Height="470" Width="800">
     <Border CornerRadius="10" BorderThickness="2">
         <Border.Background>

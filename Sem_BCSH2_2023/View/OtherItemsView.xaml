@@ -76,10 +76,10 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
-                        <GridViewColumn Width="170" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                        <GridViewColumn Width="Auto" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
-                        <GridViewColumn Width="100" Header="Typ balení" DisplayMemberBinding="{Binding PackageType, Mode=TwoWay}" />
-                        <GridViewColumn Width="130" Header="Využití" DisplayMemberBinding="{Binding Usage, Mode=TwoWay}" />
+                        <GridViewColumn Width="150" Header="Typ balení" DisplayMemberBinding="{Binding PackageType, Mode=TwoWay}" />
+                        <GridViewColumn Width="Auto" Header="Využití" DisplayMemberBinding="{Binding Usage, Mode=TwoWay}" />
 
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>

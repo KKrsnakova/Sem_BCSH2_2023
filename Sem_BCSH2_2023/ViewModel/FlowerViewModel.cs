@@ -33,7 +33,6 @@ namespace Sem_BCSH2_2023.ViewModel
         private void EditFlower(object obj)
         {
 
-            MessageBox.Show("asdasd" + obj.ToString());
             if (obj is Flower flower)
             {
                 int selectedId = flower.Id;

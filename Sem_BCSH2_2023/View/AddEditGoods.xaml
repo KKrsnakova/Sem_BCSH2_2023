@@ -11,6 +11,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
+            Icon="/Resources/cactus.ico"
         AllowsTransparency="True">
 
     <Border CornerRadius="10" BorderThickness="2">

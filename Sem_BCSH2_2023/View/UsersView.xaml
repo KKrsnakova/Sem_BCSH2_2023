@@ -58,10 +58,30 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Width="100" Header="Username" DisplayMemberBinding="{Binding Username}" />
-                        <GridViewColumn Width="100" Header="Jméno a Příjmení" DisplayMemberBinding="{Binding FullName}" />
-                        <GridViewColumn Width="120" Header="Email" DisplayMemberBinding="{Binding Email}" />
-                        <GridViewColumn Width="120" Header="Admin" DisplayMemberBinding="{Binding IsAdmin}" />
+                        <GridViewColumn Width="120" Header="Username" DisplayMemberBinding="{Binding Username}" />
+                        <GridViewColumn Width="160" Header="Jméno a Příjmení" DisplayMemberBinding="{Binding FullName}" />
+                        <GridViewColumn Width="Auto" Header="Email" DisplayMemberBinding="{Binding Email}" />
+                        <GridViewColumn Width="120" Header="Admin" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding IsAdmin}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsAdmin}" Value="True">
+                                                        <Setter Property="Text" Value="Ano" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsAdmin}" Value="False">
+                                                        <Setter Property="Text" Value="Ne" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
                         <GridViewColumn Header="Odebrat" Width="80">
                             <GridViewColumn.CellTemplate>
@@ -88,11 +108,6 @@
 
                     </GridView>
                 </ListView.View>
-                <!--<ListView.Resources>
-                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                        <EventSetter Event="Click" Handler="GridViewColumnHeader_Click" />
-                    </Style>
-                </ListView.Resources>-->
             </ListView>
         </Border>
     </Grid>

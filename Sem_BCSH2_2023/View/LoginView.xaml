@@ -12,6 +12,7 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
+        Icon="/Resources/cactus.ico"
         MouseDown="Window_MouseDown"
         >
 

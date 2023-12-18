@@ -9,6 +9,7 @@
          WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
+        Icon="/Resources/cactus.ico"
         AllowsTransparency="True"
         Title="Nová Objednávka" Height="800" Width="1024">
 

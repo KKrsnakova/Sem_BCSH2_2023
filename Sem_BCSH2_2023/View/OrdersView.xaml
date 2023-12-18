@@ -17,6 +17,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
 
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
@@ -45,7 +47,7 @@
 
             </Button>
 
-
+           
 
         </Grid>
         <TextBlock  Style="{StaticResource TextBlockAdd}"
@@ -100,7 +102,27 @@
                         <GridViewColumn Width="110" Header="Zákazník" DisplayMemberBinding="{Binding FullName}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding OrderPrice, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
                         <GridViewColumn Width="140" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
-                        <GridViewColumn Width="110" Header="Splněno" DisplayMemberBinding="{Binding Done}" />
+                        <GridViewColumn Width="110" Header="Splněno" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding Done}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Done}" Value="True">
+                                                        <Setter Property="Text" Value="Ano" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Done}" Value="False">
+                                                        <Setter Property="Text" Value="Ne" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
                         <GridViewColumn Width="140" Header="Datum dokončení" DisplayMemberBinding="{Binding DateCompletion}" />
                         <GridViewColumn Header="Odebrat">

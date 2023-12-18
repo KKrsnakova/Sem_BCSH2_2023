@@ -9,9 +9,15 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.IO;
+using QuestPDF.Infrastructure;
+using System.Windows.Documents;
+
+
 
 namespace Sem_BCSH2_2023.ViewModel
 {
+
     public class OrderViewModel : BaseViewModel
     {
         public OtherItems? otherItem;
@@ -22,6 +28,8 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private ObservableCollection<Customer> _customerListShow;
         private ObservableCollection<Order> _orderListShow;
+        private string _fullNameCustomer ;
+
 
         public ICommand AddNewCommand { get; private set; }
         public ICommand DeleteAllCommand { get; private set; }
@@ -42,6 +50,7 @@ namespace Sem_BCSH2_2023.ViewModel
             DeleteOrderCom = new CommandViewModel(DeleteOrder);
             EditOrderCom = new CommandViewModel(EditOrder);
             MakeOrderDoneCom = new CommandViewModel(MakeOrderDone);
+
         }
 
         private void MakeOrderDone(object obj)
@@ -86,7 +95,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
-                OrderViewModel.RemoveAllOrder();
+                RemoveAllOrder();
             }
         }
 
@@ -179,6 +188,14 @@ namespace Sem_BCSH2_2023.ViewModel
             get => _orderListShow;
             set => SetProperty(ref _orderListShow, value, nameof(OrderListShow));
         }
+        
+        public string FullNameCustomer
+        {
+            get => _fullNameCustomer;
+            set => SetProperty(ref _fullNameCustomer, value, nameof(FullNameCustomer));
+        }
+
+
 
 
     }

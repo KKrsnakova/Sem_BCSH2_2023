@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Sem_BCSH2_2023.Model
 {
@@ -73,11 +72,12 @@ namespace Sem_BCSH2_2023.Model
             get => $"{_name} {_surname}";
         }
 
+
         //public override string? ToString()
         //{
         //    return Id + " , " + Name;
         //} 
-        
+
         public override string? ToString()
         {
             return NameSur + " " + Address;

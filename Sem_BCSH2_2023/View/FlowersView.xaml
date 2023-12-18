@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Sem_BCSH2_2023.ViewModel" 
              d:DataContext="{d:DesignInstance Type=local:FlowerViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1000">
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="FilteredFlowers" Source="{Binding Source={x:Static local:GoodViewModel.GoodsList}}" Filter="FlowerFilter" />
@@ -80,10 +80,10 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="60" Header="ID" DisplayMemberBinding="{Binding Id, Mode=TwoWay}"  />
-                        <GridViewColumn Width="100" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
-                        <GridViewColumn Width="200" Header="Druh rostliny" DisplayMemberBinding="{Binding FlowerSpecies, Mode=TwoWay}" />
+                        <GridViewColumn Width="140" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                        <GridViewColumn Width="180" Header="Druh rostliny" DisplayMemberBinding="{Binding FlowerSpecies, Mode=TwoWay}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, StringFormat={}{0:N2} Kč}" />
-                        <GridViewColumn Width="200" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
+                        <GridViewColumn Width="Auto" Header="Popis" DisplayMemberBinding="{Binding Description, Mode=TwoWay}" />
                         <GridViewColumn Header="Odebrat">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

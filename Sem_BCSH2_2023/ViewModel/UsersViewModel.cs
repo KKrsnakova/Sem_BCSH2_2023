@@ -52,7 +52,6 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             if (obj is UserLogins item)
             {
-
                 userLoginStat = item;
                 int selectedId = userLoginStat.Id;
 
