@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
 using Sem_BCSH2_2023.View;
+using System.Net.Mail;
+using System.Net;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -22,6 +24,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private DateTime? _doneDate;
         private ObservableCollection<Good> _listOfGoods;
         private string _fullname;
+        private string _priceText;
 
         private Customer _selectedCustomer;
 
@@ -41,6 +44,7 @@ namespace Sem_BCSH2_2023.ViewModel
         public ICommand AddGoodCommand { get; private set; }
         public ICommand AddNewOrderCommand { get; private set; }
         public ICommand DeleteGoodButtonCommand { get; private set; }
+        public ICommand SendOrderEmailCommand { get; private set; }
 
 
 
@@ -58,6 +62,8 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             SelectedCustomer = CustomerViewModel.CustomersList.First();
             TBCustomerText = "Zákazník";
+
+            //TBPriceText = "Cena: " + OrderViewModel.OrderPrice(order).ToString() + " Kč,-";
 
             CustomerListShow = CustomerViewModel.CustomersList;
 
@@ -77,6 +83,7 @@ namespace Sem_BCSH2_2023.ViewModel
                 SelectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
                 TBCustomerText = SelectedCustomer.ToString();
                 GoodsListShow = ord.ListOfGoods;
+                PriceText();
             }
             else
             {
@@ -90,6 +97,7 @@ namespace Sem_BCSH2_2023.ViewModel
             AddGoodCommand = new CommandViewModel(_ => AddGood());
             AddNewOrderCommand = new CommandViewModel(_ => AddOrder());
             DeleteGoodButtonCommand = new CommandViewModel(DeleteGoodButton);
+            SendOrderEmailCommand = new CommandViewModel(SendOrderEmail);
 
 
             CloseCommand = new CommandViewModel(_ => Close());
@@ -97,10 +105,51 @@ namespace Sem_BCSH2_2023.ViewModel
             MinimizeCommand = new CommandViewModel(_ => Minimize());
 
 
+        }
+        private async void SendOrderEmail(object obj)
+        {
+            string to, from, pass, messageBody;
+            MailMessage message = new MailMessage();
+            to = SelectedCustomer.Email;
+            from = "kvetinarstvi70@outlook.cz";
+            pass = "kvetina123";
 
 
+            messageBody = $"Dobrý den,<br><br>" +
+                          $"Děkujeme za Vaši objednávku. Zde jsou detaily objednávky:<br><br>" +
+                          $"Zákazník: {SelectedCustomer.Name + " " + SelectedCustomer.Surname}<br>" +
+                          $"Cena objednávky: {OrderViewModel.OrderPrice(order)} Kč<br>" +
+                          $"Přehled objednaných položek:<br>";
 
+            foreach (var good in order.ListOfGoods)
+            {
+                messageBody += $"- {good.Name}: {good.Price} Kč<br>";
+            }
 
+            messageBody += "<br>Děkujeme za Vaši spolupráci.";
+
+            message.To.Add(to);
+            message.From = new MailAddress(from);
+            message.Body = messageBody;
+            message.Subject = "Objednávka z květinářství Květinka";
+            message.IsBodyHtml = true;
+
+            SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
+            smtpClient.EnableSsl = true;
+            smtpClient.Port = 587;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(from, pass);
+
+            try
+            {
+                await Task.Run(() => smtpClient.Send(message));
+                MessageBox.Show("E-mail odeslán");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Chyba při odesílání e-mailu: {ex.Message}");
+            }
         }
 
         private void DeleteGoodButton(object obj)
@@ -115,6 +164,7 @@ namespace Sem_BCSH2_2023.ViewModel
                 order.ListOfGoods.Remove(otitem);
                 GoodViewModel.AddOtherItems(otitem);
             }
+            PriceText();
 
         }
 
@@ -124,6 +174,7 @@ namespace Sem_BCSH2_2023.ViewModel
             if (edit)
             {
                 //Edit
+
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
                 window?.Close();
 
@@ -131,6 +182,7 @@ namespace Sem_BCSH2_2023.ViewModel
             else
             {
                 //Add
+
                 order.OrderPrice = (float)OrderViewModel.OrderPrice(order);
 
                 order.CustomerId = SelectedCustomer.Id;
@@ -150,6 +202,14 @@ namespace Sem_BCSH2_2023.ViewModel
             AllGoodsView windowAllGoods = new(order);
             windowAllGoods.ShowDialog();
             GoodsListShow = order.ListOfGoods;
+            PriceText();
+
+        }
+
+        private void PriceText()
+        {
+            TBPriceText = "Cena: " + OrderViewModel.OrderPrice(order).ToString() + " Kč,-";
+
         }
 
         public ObservableCollection<Good> GoodsListShow
@@ -238,6 +298,11 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             get => _tbCustomerText;
             set => SetProperty(ref _tbCustomerText, value, nameof(TBCustomerText));
+        }
+        public string TBPriceText
+        {
+            get => _priceText;
+            set => SetProperty(ref _priceText, value, nameof(TBPriceText));
         }
 
 

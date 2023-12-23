@@ -11,7 +11,7 @@
         Background="Transparent"
         Icon="/Resources/cactus.ico"
         AllowsTransparency="True"
-        Title="Nová Objednávka" Height="800" Width="1024">
+        Title="Nová Objednávka" Height="725" Width="800">
 
     <Border CornerRadius="10" BorderThickness="2">
 
@@ -27,7 +27,7 @@
             <Grid.RowDefinitions>
                 <!--Nav-->
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="600"/>
 
             </Grid.RowDefinitions>
@@ -165,8 +165,38 @@
                     </ListView>
                 </Border>
 
+                <TextBlock  x:Name="tbPriceName"
+             
+                     Grid.Row="0"
+                     Grid.Column="1"
+             
+                    Foreground="{StaticResource textColor1}"
+                    Text="{Binding TBPriceText}"
+                    FontSize="25"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center">    
+                </TextBlock>
 
-                <Button Content="Dokončit"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                   
+
+
+
+                    <Button Content="Dokončit"
+                        
+                                Grid.Row="1"
+                                Grid.Column="1"
                     Name="btnAdd"
                     Style="{StaticResource Add_DeleteButtonStyle}"
                     MaxWidth="150"
@@ -176,8 +206,19 @@
 
                 </Button>
 
+                <Button Content="Odeslat Mail"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Name="btnSend"
+                        Style="{StaticResource Add_DeleteButtonStyle}"
+                        MaxWidth="150"
+                        VerticalAlignment="Top" 
+                        Command="{Binding SendOrderEmailCommand}">
+
+                </Button>
 
 
+                </Grid>
 
 
             </StackPanel>
