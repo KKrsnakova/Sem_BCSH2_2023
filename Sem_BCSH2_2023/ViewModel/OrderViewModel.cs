@@ -22,7 +22,8 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private ObservableCollection<Customer> _customerListShow;
         private ObservableCollection<Order> _orderListShow;
-        private string _fullNameCustomer ;
+        private string _fullNameCustomer;
+        private bool _showCompletedOrders;
 
 
         public ICommand AddNewCommand { get; private set; }
@@ -95,8 +96,15 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private void AddNewOrder()
         {
-            NewOrderView windowNewOrder = new NewOrderView(null, null);
-            windowNewOrder.Show();
+            if (CustomerViewModel.CustomersList == null || !CustomerViewModel.CustomersList.Any())
+            {
+                MessageBox.Show("Neexistuje žádný zákazník.", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                NewOrderView windowNewOrder = new NewOrderView(null, null);
+                windowNewOrder.Show();
+            }
 
         }
 
@@ -165,9 +173,6 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             var customer = CustomerViewModel.CustomersList.FirstOrDefault(c => c.Id == customerId);
             return customer != null ? $"{customer.Name} {customer.Surname}" : $"Customer {customerId} Not Found";
-
-
-
         }
 
 
@@ -179,14 +184,40 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public ObservableCollection<Order> OrderListShow
         {
-            get => _orderListShow;
+            get
+            {
+                if (ShowCompletedOrders)
+                {
+                    return _orderListShow;
+                }
+                else
+                {
+                    return new ObservableCollection<Order>(_orderListShow.Where(o => !o.Done));
+                }
+            }
             set => SetProperty(ref _orderListShow, value, nameof(OrderListShow));
         }
-        
+
         public string FullNameCustomer
         {
             get => _fullNameCustomer;
             set => SetProperty(ref _fullNameCustomer, value, nameof(FullNameCustomer));
+        }
+
+        public bool ShowCompletedOrders
+        {
+            get => _showCompletedOrders;
+            set
+            {
+                SetProperty(ref _showCompletedOrders, value, nameof(ShowCompletedOrders));
+                ApplyFilters();
+            }
+
+        }
+
+        private void ApplyFilters()
+        {
+            OnPropertyChanged(nameof(OrderListShow));
         }
 
 

@@ -17,7 +17,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="100"/>
 
             </Grid.ColumnDefinitions>
@@ -47,6 +47,10 @@
 
             </Button>
 
+            <CheckBox Grid.Column="2"  Content="Zobrazit splněné objednávky" 
+                      Style="{StaticResource CheckBoxFiltery}"
+                      x:Name="checkBoxDone"
+                      IsChecked="{Binding ShowCompletedOrders}" />
            
 
         </Grid>
@@ -56,15 +60,15 @@
                     Text="Zákazník: "/>
 
         <ComboBox x:Name="cbCustomer" 
-           HorizontalAlignment="Center" 
-           Grid.Row="1"
-           VerticalAlignment="Center"
-           Width="650" 
-           DisplayMemberPath="NameSur" 
-           SelectedValuePath="Id"
-                  ItemsSource="{Binding CustomerListShow}"
-           SelectionChanged="CbCustomer_SelectionChanged"
-    />
+                   HorizontalAlignment="Center" 
+                   Grid.Row="1"
+                   VerticalAlignment="Center"
+                   Width="650" 
+                   DisplayMemberPath="NameSur" 
+                   SelectedValuePath="Id"
+                   ItemsSource="{Binding CustomerListShow}"
+                   SelectionChanged="CbCustomer_SelectionChanged"
+                    />
 
 
         <Border Grid.Row="2"
@@ -74,7 +78,7 @@
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Style.Triggers>
-                            <!-- Trigger pro nastavení IsEnabled a IsHitTestVisible na false, pokud Done je True -->
+                            <!-- Pro nastavení IsEnabled a IsHitTestVisible na false, pokud Done je True -->
                             <DataTrigger Binding="{Binding Done}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                                 <Setter Property="IsHitTestVisible" Value="False"/>
@@ -141,6 +145,7 @@
                                 <DataTemplate>
                                     <Button Command="{Binding DataContext.MakeOrderDoneCom, ElementName=lvOrders}" CommandParameter="{Binding}"
                                     Style="{StaticResource BtnAddEditDelete}">
+                                        
                                         <fa:IconImage Icon="Question" Style="{StaticResource listViewIcon}"/>
                                     </Button>
                                 </DataTemplate>

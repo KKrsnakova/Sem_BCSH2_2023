@@ -230,6 +230,8 @@
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
 
+                           
+
                             <Button x:Name="btnLogOut"
                                     Style="{StaticResource btnLogOut}"
                                     Command="{Binding LogOutCommand}"
@@ -250,6 +252,13 @@
                                     Icon="Save"
                                      Foreground="{StaticResource textColor1}"/>
                             </Button>
+
+                            <TextBlock Text="{Binding ActualUser}"
+                                        Foreground="{StaticResource textColor1}"
+                                        FontSize="16"
+                                        FontWeight="Medium"
+                                        VerticalAlignment="Center"> 
+                            </TextBlock>
 
 
                         </StackPanel>

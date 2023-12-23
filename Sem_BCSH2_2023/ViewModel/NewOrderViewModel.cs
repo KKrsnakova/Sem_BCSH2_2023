@@ -60,10 +60,16 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public NewOrderViewModel(Order ord, int? customerID)
         {
-            SelectedCustomer = CustomerViewModel.CustomersList.First();
-            TBCustomerText = "Zákazník";
+             var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
 
-            //TBPriceText = "Cena: " + OrderViewModel.OrderPrice(order).ToString() + " Kč,-";
+            SelectedCustomer = CustomerViewModel.CustomersList.First();
+            if (SelectedCustomer == null)
+            {
+
+            }
+            
+
+            TBCustomerText = "Zákazník";
 
             CustomerListShow = CustomerViewModel.CustomersList;
 
@@ -71,7 +77,7 @@ namespace Sem_BCSH2_2023.ViewModel
             TBWindowText = "Nová Objednávka";
 
 
-            if (customerID != null && ord != null)
+            if (customerID != null && ord != null )
             {
                 BtnAddEditConeText = "Přidat další položku";
                 TBWindowText = "Editace položek objednávky";

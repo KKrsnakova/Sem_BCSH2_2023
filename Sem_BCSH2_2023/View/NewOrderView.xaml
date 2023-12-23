@@ -104,7 +104,7 @@
                 <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
                           Visibility="{Binding CbVisibility}"
                            VerticalAlignment="Top"
-                           Width="650" Margin="10"
+                           Width="600" Margin="10"
                            DisplayMemberPath="Surname" 
                            SelectedValuePath="Id"
                            ItemsSource="{Binding CustomerListShow }"
