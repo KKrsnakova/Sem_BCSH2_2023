@@ -38,7 +38,10 @@
                     Orientation="Horizontal"
                     FlowDirection="RightToLeft"
                     Background="Transparent"
-                    Margin="0,0,5,0">
+                    Margin="0,0,5,0"
+                    MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+                    MouseEnter="NavBar_MouseEnter"
+                        >
 
                 <Button x:Name="btnClose"
                     Style="{StaticResource navBtn}"
@@ -89,7 +92,7 @@
                          Text="{Binding Email}"
                          x:Name="tbEmail">
                 </TextBox>
-                
+
                 <TextBlock Style="{StaticResource TextBlockAdd}"
                            Text="Přihlašovací jméno" />
 
@@ -103,7 +106,7 @@
 
 
                 <local:PasswordUserControl x:Name="tbPasswordFirst" 
-                                           Password="{Binding Password, Mode=TwoWay}"/> 
+                                           Password="{Binding Password, Mode=TwoWay}"/>
 
                 <TextBlock  Style="{StaticResource TextBlockAdd}"
                             

@@ -36,5 +36,33 @@ namespace Sem_BCSH2_2023.View
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+        private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
+
+
+
+        private void NavBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+        }
+
     }
+
 }

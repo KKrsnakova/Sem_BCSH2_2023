@@ -16,6 +16,7 @@ namespace Sem_BCSH2_2023.Model
         private double _orderPrice;
         private DateTime _orderDate;
         private bool _done;
+        private bool _sendMail;
         private DateTime? _doneDate;
         private ObservableCollection<Good> _listOfGoods;
         private string _fullname;
@@ -52,6 +53,11 @@ namespace Sem_BCSH2_2023.Model
             get => _done;
             set => SetProperty(ref _done, value, nameof(Done));
         }
+        public bool SendMail
+        {
+            get => _sendMail;
+            set => SetProperty(ref _sendMail, value, nameof(SendMail));
+        }
         public DateTime? DateCompletion
         {
             get => _doneDate;
@@ -74,6 +80,7 @@ namespace Sem_BCSH2_2023.Model
             DateOfCreation = dateOfCreation;
             ListOfGoods = new ObservableCollection<Good>();
             Done = false;
+            SendMail = false;
             DateCompletion = null;
         }
 

@@ -2,7 +2,9 @@
 using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
@@ -80,6 +82,49 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             get => _usersListShow;
             set => SetProperty(ref _usersListShow, value, nameof(UsersListShow));
+        }
+
+
+
+
+        private string _searchText;
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    ApplyFilters();
+                }
+            }
+        }
+
+        private void ApplyFilters()
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(UsersList);
+            if (view != null)
+            {
+                view.Filter = UserFilter;
+            }
+        }
+
+        private bool UserFilter(object item)
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                return true;
+            }
+
+            if (item is UserLogins user)
+            {
+                return user.FullName.ToLower().Contains(SearchText.ToLower()) ||
+                       user.Email.ToString().ToLower().Contains(SearchText.ToLower());
+            }
+
+            return false;
         }
 
 

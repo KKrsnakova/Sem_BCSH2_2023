@@ -3,8 +3,11 @@ using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 
@@ -21,13 +24,13 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
         private ObservableCollection<Customer> _customerListShow;
-        private ObservableCollection<Order> _orderListShow;
         private string _fullNameCustomer;
         private bool _showCompletedOrders;
 
 
         public ICommand AddNewCommand { get; private set; }
         public ICommand DeleteAllCommand { get; private set; }
+        public ICommand AddNewCustomerCommand { get; private set; }
 
 
         public ICommand DeleteOrderCom { get; }
@@ -37,15 +40,25 @@ namespace Sem_BCSH2_2023.ViewModel
         public OrderViewModel()
         {
             CustomerListShow = CustomerViewModel.CustomersList;
-            OrderListShow = OrderList;
+         //   OrderListShow = OrderList;
 
             AddNewCommand = new CommandViewModel(_ => AddNewOrder());
             DeleteAllCommand = new CommandViewModel(_ => DeleteAllOrders());
+            AddNewCustomerCommand = new CommandViewModel(_ => AddNewCustomer());
+
 
             DeleteOrderCom = new CommandViewModel(DeleteOrder);
             EditOrderCom = new CommandViewModel(EditOrder);
             MakeOrderDoneCom = new CommandViewModel(MakeOrderDone);
 
+        }
+
+      
+
+        private void AddNewCustomer()
+        {
+            AddEditCustomer windowAddCustomer = new AddEditCustomer(null);
+            windowAddCustomer.Show();
         }
 
         private void MakeOrderDone(object obj)
@@ -66,7 +79,7 @@ namespace Sem_BCSH2_2023.ViewModel
                 if (CustomerViewModel.CustomersList.Any(customer => customer.Id == order.CustomerId))
                 {
                     NewOrderView windowEditGoods = new(order, order.CustomerId);
-                    windowEditGoods.ShowDialog();
+                    windowEditGoods.Show();
                 }
                 else
                 {
@@ -86,7 +99,8 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private void DeleteAllOrders()
         {
-            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Opravdu chcete odstranit všechny položky?", 
+                "Potvrzení odstranění", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -94,7 +108,7 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
-        private void AddNewOrder()
+        private async void AddNewOrder()
         {
             if (CustomerViewModel.CustomersList == null || !CustomerViewModel.CustomersList.Any())
             {
@@ -102,10 +116,15 @@ namespace Sem_BCSH2_2023.ViewModel
             }
             else
             {
-                NewOrderView windowNewOrder = new NewOrderView(null, null);
-                windowNewOrder.Show();
+                await Task.Run(() =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        NewOrderView windowNewOrder = new NewOrderView(null, null);
+                        windowNewOrder.Show();
+                    });
+                });
             }
-
         }
 
         public static Order NewOrder()
@@ -114,10 +133,6 @@ namespace Sem_BCSH2_2023.ViewModel
             return order;
         }
 
-        public static void AddOrder(Order order)
-        {
-            OrderList.Add(order);
-        }
 
 
         public static void RemoveOrder(Order selectedOrder)
@@ -184,18 +199,8 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public ObservableCollection<Order> OrderListShow
         {
-            get
-            {
-                if (ShowCompletedOrders)
-                {
-                    return _orderListShow;
-                }
-                else
-                {
-                    return new ObservableCollection<Order>(_orderListShow.Where(o => !o.Done));
-                }
-            }
-            set => SetProperty(ref _orderListShow, value, nameof(OrderListShow));
+            get => OrderList;
+            set => SetProperty(ref OrderList, value, nameof(OrderList));
         }
 
         public string FullNameCustomer
@@ -215,9 +220,52 @@ namespace Sem_BCSH2_2023.ViewModel
 
         }
 
+        //private void ApplyFilters()
+        //{
+        //    OnPropertyChanged(nameof(OrderListShow));
+        //}
+
+
+
+
+        private string _searchText;
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    ApplyFilters();
+                }
+            }
+        }
+
         private void ApplyFilters()
         {
-            OnPropertyChanged(nameof(OrderListShow));
+            ICollectionView view = CollectionViewSource.GetDefaultView(OrderList);
+            if (view != null)
+            {
+                view.Filter = OrderFilter;
+            }
+        }
+
+        private bool OrderFilter(object item)
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                return true;
+            }
+
+            if (item is Order order)
+            {
+                return order.FullName.ToLower().Contains(SearchText.ToLower()) ||
+                       order.DateOfCreation.ToString().ToLower().Contains(SearchText.ToLower());
+            }
+
+            return false;
         }
 
 

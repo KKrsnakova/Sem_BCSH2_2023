@@ -3,8 +3,10 @@ using Sem_BCSH2_2023.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
@@ -30,7 +32,7 @@ namespace Sem_BCSH2_2023.ViewModel
         {
             CustomerListShow = CustomersList;
 
-            AddCustomers = new CommandViewModel(AddCustomerCom);
+            AddCustomers = new CommandViewModel(AddCustomer);
             DeleteAllCustomer = new CommandViewModel(DeleteAllCustomerCom);
 
 
@@ -74,7 +76,7 @@ namespace Sem_BCSH2_2023.ViewModel
             }
         }
 
-        private void AddCustomerCom(object obj)
+        private void AddCustomer(object obj)
         {
             AddEditCustomer windowAddCustomer = new AddEditCustomer(null);
             windowAddCustomer.Show();
@@ -140,6 +142,55 @@ namespace Sem_BCSH2_2023.ViewModel
             get => _customerListShow;
             set => SetProperty(ref _customerListShow, value, nameof(CustomerListShow));
         }
+
+
+
+
+
+        private string _searchText;
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    ApplyFilters();
+                }
+            }
+        }
+
+        private void ApplyFilters()
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(CustomersList);
+            if (view != null)
+            {
+                view.Filter = CustomerFilter;
+            }
+        }
+
+        private bool CustomerFilter(object item)
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                return true;
+            }
+
+            if (item is Customer customer)
+            {
+                return customer.Name.ToLower().Contains(SearchText.ToLower()) ||
+                         customer.Surname.ToLower().Contains(SearchText.ToLower()) ||
+                         customer.Address.ToLower().Contains(SearchText.ToLower()) ||
+                         customer.City.ToLower().Contains(SearchText.ToLower()) ||
+                         customer.PhoneNumber.ToString().ToLower().Contains(SearchText.ToLower()) ||
+                       customer.Email.ToString().ToLower().Contains(SearchText.ToLower());
+            }
+
+            return false;
+        }
+
 
     }
 }

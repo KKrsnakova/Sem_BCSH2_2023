@@ -11,7 +11,7 @@
         Background="Transparent"
         Icon="/Resources/cactus.ico"
         AllowsTransparency="True"
-        Title="Nová Objednávka" Height="725" Width="800">
+        Title="Nová Objednávka" Height="700" Width="1300">
 
     <Border CornerRadius="10" BorderThickness="2">
 
@@ -28,7 +28,7 @@
                 <!--Nav-->
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="600"/>
+                <RowDefinition Height="*"/>
 
             </Grid.RowDefinitions>
 
@@ -36,20 +36,38 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="70"/>
 
             </Grid.ColumnDefinitions>
 
-            <!--Header buttonst-->
-            <StackPanel x:Name="navBar"
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        Background="Transparent"
+                        MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+                        MouseEnter="NavBar_MouseEnter"
+                        >
+            </StackPanel>
+            <StackPanel Grid.Row="0"
+                        Grid.Column="2"
+                        Background="Transparent"
+                        MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
+                        MouseEnter="NavBar_MouseEnter"
+                        >
+            </StackPanel>
+
+            <Grid/>
+            
+
+            <StackPanel x:Name="navBar2"
                                 Grid.Row="0"
-                                Grid.Column="2"
+                                Grid.Column="3"
+                        
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
                                 Margin="0,0,5,0"
-                                MouseLeftButtonDown="NavBar_MouseLeftButtonDown"
-                                MouseEnter="NavBar_MouseEnter">
+                               >
 
                 <Button x:Name="btnClose"
                         Style="{StaticResource navBtn}"
@@ -65,13 +83,30 @@
 
                 <Button x:Name="btnMinimal"
                          Style="{StaticResource navBtn}"
-                         Command="{Binding MinimizeCommand}">   
+                         Command="{Binding MinimizeCommand}">
                     <fa:IconImage Icon="WindowMinimize" Style="{StaticResource navBtnIcon}"/>
                 </Button>
             </StackPanel>
 
             <!--Main block-->
 
+            <StackPanel Grid.Column="2"
+                Grid.Row="1"
+                Orientation="Vertical"
+                Margin="0,35,0,0">
+
+                <TextBlock  x:Name="windowRightSideName"
+                            Text="Přidat do objednávky"
+                            Foreground="{StaticResource textColor1}"
+                            FontSize="25"
+                            FontWeight="Medium"
+                            HorizontalAlignment="Center">
+                </TextBlock>
+
+                <TextBlock  Style="{StaticResource TextBlockAdd}"
+                            Text="Vyhledat:"
+                            Padding="75,0,0,0"/>
+            </StackPanel>
 
 
 
@@ -91,20 +126,19 @@
 
 
                 <!--TextBoxes-->
-                
-                
+
                 <TextBlock  x:Name="tbCustomer"
                             HorizontalAlignment="Center"
                             Visibility="{Binding TBVisibility}"
                             Style="{StaticResource TextBlockAdd}"
                             
                             Text="{Binding TBCustomerText}"/>
-                
+
 
                 <ComboBox x:Name="cbCustomer" HorizontalAlignment="Center" 
                           Visibility="{Binding CbVisibility}"
                            VerticalAlignment="Top"
-                           Width="600" Margin="10"
+                           Width="450" Margin="10"
                            DisplayMemberPath="Surname" 
                            SelectedValuePath="Id"
                            ItemsSource="{Binding CustomerListShow }"
@@ -115,27 +149,22 @@
 
 
             <StackPanel Grid.Column="1"
-                    Grid.Row="2"
-                    Orientation="Vertical"
-                    Margin="0,35,0,0">
+                        Grid.Row="2"
+                        Orientation="Vertical" 
+                        Margin="0,14,0,0">
 
 
                 <!--Order-->
-                <TextBlock  Style="{StaticResource TextBlockAdd}"
-                        Text="Objednávka"/>
+                <TextBlock Padding="0,20,0,0" Style="{StaticResource TextBlockAdd}"
+                        Text="Objednávka:"/>
 
-                <Button Style="{StaticResource Add_DeleteButtonStyle}"
-                        MaxWidth="150"
-                        Name="btnAddGood"
-                        Content="{Binding BtnAddEditConeText}"
-                        Command="{Binding AddGoodCommand}">
 
-                </Button>
 
                 <Border Grid.Row="3"
                         Style="{StaticResource ListViewsBorder}"
-                        Height="350">
-                    <ListView Name="lvOrder" ItemsSource="{Binding GoodsListShow}" >
+                       
+                        MinHeight="400">
+                    <ListView Name="lvOrder" ItemsSource="{Binding OrderGoodsListShow}" Height="385" >
 
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -174,54 +203,115 @@
                     Text="{Binding TBPriceText}"
                     FontSize="25"
                     FontWeight="Medium"
-                    HorizontalAlignment="Center">    
+                    HorizontalAlignment="Center">
                 </TextBlock>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="277*"/>
+                        <ColumnDefinition Width="204*"/>
+                        <ColumnDefinition Width="73*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-
-                   
-
-
-
                     <Button Content="Dokončit"
-                        
-                                Grid.Row="1"
-                                Grid.Column="1"
-                    Name="btnAdd"
-                    Style="{StaticResource Add_DeleteButtonStyle}"
-                    MaxWidth="150"
-                    VerticalAlignment="Top" 
-                        
-                        Command="{Binding AddNewOrderCommand}">
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Name="btnAdd"
+                            Style="{StaticResource Add_DeleteButtonStyle}"
+                            MaxWidth="150"
+                            VerticalAlignment="Center" 
+                            Command="{Binding AddNewOrderCommand}" Grid.ColumnSpan="2" >
+                    </Button>
 
-                </Button>
-
-                <Button Content="Odeslat Mail"
+                    <Button Content="Odeslat Mail"
                         Grid.Row="1"
                         Grid.Column="0"
                         Name="btnSend"
                         Style="{StaticResource Add_DeleteButtonStyle}"
                         MaxWidth="150"
-                        VerticalAlignment="Top" 
-                        Command="{Binding SendOrderEmailCommand}">
+                        VerticalAlignment="Center" 
+                        Command="{Binding SendOrderEmailCommand}" Grid.ColumnSpan="2" Margin="0,0,203,0">
 
-                </Button>
-
+                    </Button>
 
                 </Grid>
 
-
             </StackPanel>
+
+
+
+            <Border CornerRadius="10" BorderThickness="2" Grid.Column="2"
+                        Grid.Row="2">
+
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <!--Nav-->
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0"/>
+
+                    </Grid.ColumnDefinitions>
+
+              
+
+                    <!--Main block-->
+
+                    <TextBox VerticalAlignment="Center"   Grid.Row="0" Grid.Column="1"
+                             Height="25"
+                            Text="{Binding SearchText, 
+                            UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+
+                    <StackPanel Grid.Column="1"
+                                Grid.Row="1"
+                                Orientation="Vertical" >
+
+
+                        <!--Order-->
+                        <TextBlock  Style="{StaticResource TextBlockAdd}"
+                           Text="Přidejte zboží do objednávky"/>
+
+                        <Border Grid.Row="1"
+                     Style="{StaticResource ListViewsBorder}"
+                     MinHeight="400">
+
+                            <ListView Name="lvItemsForOrder" ItemsSource="{Binding GoodsListShow}" >
+                                <ListView.View>
+                                    <GridView >
+                                        <GridViewColumn Width="60" Header="Id" DisplayMemberBinding="{Binding Id, Mode=TwoWay}" />
+                                        <GridViewColumn Width="200" Header="Název" DisplayMemberBinding="{Binding Name, Mode=TwoWay}" />
+                                        <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Price, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
+                                        <GridViewColumn Header="Přidat do objednávky">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding DataContext.BtnAddRowCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                                 CommandParameter="{Binding Id}"  Style="{StaticResource BtnAddEditDelete}">
+                                                        <fa:IconImage Icon="PlusCircle" Style="{StaticResource listViewIcon}"/>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </Window>

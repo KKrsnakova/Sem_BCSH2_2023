@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="1" Grid.Column="1">
+            <Border Grid.Row="1" Grid.Column="1" CornerRadius="20">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
                         <GradientStop Color="{StaticResource bgColor1}" Offset="0"/>
@@ -41,7 +41,7 @@
                     <Grid Grid.Column="0" />
                     <Image x:Name="personInfo" Source="/Resources/personinfo.png" Margin="0,50,0,50"/>
 
-                    <Border Grid.Column="1" Opacity="0.9">
+                    <Border Grid.Column="1" Opacity="0.9" >
                         <Grid Margin="80,35,60,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="6*"/>
@@ -108,10 +108,10 @@
 
                             <TextBox Grid.Row="4" 
                                     x:Name="tbRole"
+                                    IsReadOnly="True"
                                     Style="{StaticResource TextBoxUserOverV}" 
                                     Text="{Binding Role, Mode=TwoWay}"
                                     Grid.Column="1" Margin="75,6,110,11">
-
 
                             </TextBox>
 

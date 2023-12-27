@@ -10,6 +10,7 @@
     <!--Window Background-->
     <Color x:Key="bgColor1">#16BAFF</Color>
     <Color x:Key="bgColor2">#0E769F</Color>
+    <Color x:Key="bgColor3">#52423D</Color>
     <SolidColorBrush x:Key="bgAddColor" Color="#278BEF"/>
     
     <!--Background windows-->
@@ -35,15 +36,17 @@
     <!--Hover-->
     <SolidColorBrush x:Key="panelColor" Color="#200F53"/>
     <SolidColorBrush x:Key="hoverOverColor" Color="#281269"/>
+    <SolidColorBrush x:Key="hoverOverColor2" Color="#86935B"/>
     <SolidColorBrush x:Key="hoverActiveColor" Color="#2B1372"/>
+    <SolidColorBrush x:Key="hoverActiveColor2" Color="#0E769F"/>
 
     <!--Color Palette Menu-->
-    <SolidColorBrush x:Key="color1" Color="#E285DE"/>
-    <SolidColorBrush x:Key="color2" Color="#784DFD"/>
-    <SolidColorBrush x:Key="color3" Color="#4ADAEC"/>
-    <SolidColorBrush x:Key="color4" Color="#FB539B"/>
-    <SolidColorBrush x:Key="color5" Color="#7E82FC"/>
-    <SolidColorBrush x:Key="color6" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color1" Color="#7CE8A8"/>
+    <SolidColorBrush x:Key="color2" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color3" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color4" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color5" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color6" Color="#07F3C0"/>
     <SolidColorBrush x:Key="color7" Color="#EF6C96"/>
     <SolidColorBrush x:Key="color8" Color="#78A3FC"/>
     <SolidColorBrush x:Key="color9" Color="#07F3C0"/>

@@ -12,6 +12,8 @@
         AllowsTransparency="True"
         Icon="/Resources/cactus.ico"
         Title="AllGoodsView" Height="470" Width="800">
+    
+    
     <Border CornerRadius="10" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">

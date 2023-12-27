@@ -28,12 +28,17 @@
 
 
         </Grid>
+        <TextBlock  Style="{StaticResource TextBlockAdd}"
+             Grid.Row="1"
+            
+             VerticalAlignment="Center"
+             Text="Vyhledat: " Grid.ColumnSpan="2" Margin="0,0,0,0"/>
 
-        <TextBlock  Style="{StaticResource TextBlockHint}"
-                Grid.Row="1"
-                VerticalAlignment="Center"
-                Text="Přehled všech uživatelů zaregistrovaných v aplikci"/>
+        <TextBox VerticalAlignment="Center"  Margin="75,0,400,0" Grid.Row="1" 
+                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
+
+     
         <Border Grid.Row="2"
              Style="{StaticResource ListViewsBorder}"
            >

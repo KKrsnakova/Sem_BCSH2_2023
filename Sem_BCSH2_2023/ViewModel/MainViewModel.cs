@@ -66,7 +66,6 @@ namespace Sem_BCSH2_2023.ViewModel
                 OnPropertyChanged(nameof(Icon));
             }
         }
-        public static UserLogins loggedUser;
         public UserLogins ActualUser
         {
             get
@@ -123,7 +122,6 @@ namespace Sem_BCSH2_2023.ViewModel
 
             NewRepo();
             NewRepoUsers();
-            loggedUser = ActualUser;
 
 
 
@@ -132,7 +130,6 @@ namespace Sem_BCSH2_2023.ViewModel
             {
                 VisibilityProp = Visibility.Collapsed;
             }
-
 
         }
 

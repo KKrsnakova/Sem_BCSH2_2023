@@ -8,12 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid >
-        <Grid.RowDefinitions >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="487*"/>
+            <ColumnDefinition Width="313*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
@@ -21,7 +25,7 @@
                 <ColumnDefinition Width="100"/>
 
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal"
+            <StackPanel  Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
 
@@ -29,50 +33,50 @@
 
 
             <Button Grid.Column="0"  
-                    Name="btnAdd"
+                    x:Name="btnAdd"
                     Content="Přidat"
+                    Margin="5"
                     VerticalAlignment="Center"
                     Style="{StaticResource BtnAddEditDelete}"
-                    Command="{Binding AddNewCommand}">
+                    Command="{Binding AddNewCommand}" >
 
             </Button>
 
 
             <Button Grid.Column="1"  
-                    Name="btnDeleteAll"
+                    x:Name="btnDeleteAll"
+                     Margin="5"
                     VerticalAlignment="Center"
                     Content="Odebrat vše"
                     Style="{StaticResource BtnAddEditDelete}"
                     Command="{Binding DeleteAllCommand}">
 
             </Button>
-
-            <CheckBox Grid.Column="2"  Content="Zobrazit splněné objednávky" 
-                      Style="{StaticResource CheckBoxFiltery}"
-                      x:Name="checkBoxDone"
-                      IsChecked="{Binding ShowCompletedOrders}" />
-           
-
+      
         </Grid>
         <TextBlock  Style="{StaticResource TextBlockAdd}"
                     Grid.Row="1"
+                   
                     VerticalAlignment="Center"
-                    Text="Zákazník: "/>
+                    Text="Zákazník: " Grid.ColumnSpan="2" Margin="0,0,0,0"/>
 
-        <ComboBox x:Name="cbCustomer" 
-                   HorizontalAlignment="Center" 
-                   Grid.Row="1"
-                   VerticalAlignment="Center"
-                   Width="650" 
-                   DisplayMemberPath="NameSur" 
-                   SelectedValuePath="Id"
-                   ItemsSource="{Binding CustomerListShow}"
-                   SelectionChanged="CbCustomer_SelectionChanged"
-                    />
+        <TextBox VerticalAlignment="Center"  Margin="75,0,0,0" Grid.Row="1" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Button Grid.Column="1"   Grid.Row="1"
+                x:Name="btnAddCustomer"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left"
+                Width="120"
+                
+                Content="Přidat zákazníka"
+                Style="{StaticResource BtnAddEditDelete}"
+                Command="{Binding AddNewCustomerCommand}" Margin="193,0,0,0">
+
+        </Button>
 
 
         <Border Grid.Row="2"
-                 Style="{StaticResource ListViewsBorder}">
+                 Style="{StaticResource ListViewsBorder}" Grid.ColumnSpan="2" Margin="0,10,0,10">
             <ListView Name="lvOrders" ItemsSource="{Binding OrderListShow}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -91,6 +95,7 @@
 
                 <ListView.View>
                     <GridView >
+
                         <GridViewColumn Width="60" Header="Editace">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -103,9 +108,9 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Width="110" Header="Zákazník" DisplayMemberBinding="{Binding FullName}" />
+                        <GridViewColumn Width="auto" Header="Zákazník" DisplayMemberBinding="{Binding FullName}" />
                         <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding OrderPrice, Mode=TwoWay, StringFormat={}{0:N2} Kč}" />
-                        <GridViewColumn Width="140" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
+                        <GridViewColumn Width="auto" Header="Datum vytvoření" DisplayMemberBinding="{Binding DateOfCreation}" />
                         <GridViewColumn Width="110" Header="Splněno" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -119,6 +124,28 @@
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Done}" Value="False">
                                                         <Setter Property="Text" Value="Ne" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="110" Header="Email" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding Email}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SendMail}" Value="True">
+                                                        <Setter Property="Text" Value="Odesláno" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SendMail}" Value="False">
+                                                        <Setter Property="Text" Value=" - " />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -145,7 +172,7 @@
                                 <DataTemplate>
                                     <Button Command="{Binding DataContext.MakeOrderDoneCom, ElementName=lvOrders}" CommandParameter="{Binding}"
                                     Style="{StaticResource BtnAddEditDelete}">
-                                        
+
                                         <fa:IconImage Icon="Question" Style="{StaticResource listViewIcon}"/>
                                     </Button>
                                 </DataTemplate>

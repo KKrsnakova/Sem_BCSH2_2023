@@ -25,14 +25,10 @@ namespace Sem_BCSH2_2023.View
         
 
 
-        private readonly AllGoodsViewModel allGoodsVM;
-
         public AllGoodsView(Order ord)
         {
             
             InitializeComponent();
-            allGoodsVM = new AllGoodsViewModel(ord);
-            DataContext = allGoodsVM;
 
         }
 

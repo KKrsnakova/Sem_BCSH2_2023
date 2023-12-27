@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Sem_BCSH2_2023.Manager;
 using Sem_BCSH2_2023.Model;
-using Sem_BCSH2_2023.Repository;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private string _email;
         private string _password;
         private int _id;
-        
+
 
 
         public static ObservableCollection<UserLogins> Users { get; set; } = new ObservableCollection<UserLogins>();
@@ -129,9 +128,11 @@ namespace Sem_BCSH2_2023.ViewModel
 
         private string SetUserRole(bool userRole)
         {
-            if (userRole) {
+            if (userRole)
+            {
                 return "Admin";
-            } else
+            }
+            else
             {
                 return "User";
             }
@@ -148,29 +149,28 @@ namespace Sem_BCSH2_2023.ViewModel
             {
 
 
-                     Users = UsersViewModel.UsersList;
-                    UserToEdit = Users.FirstOrDefault(user => user.Id == User.Id);
+                Users = UsersViewModel.UsersList;
+                UserToEdit = Users.FirstOrDefault(user => user.Id == User.Id);
 
-                    UserToEdit.FullName = FullName;
-                    UserToEdit.Username = Username;
-                    UserToEdit.Password = Password;
-                    UserToEdit.Email = Email;
+                UserToEdit.FullName = FullName;
+                UserToEdit.Username = Username;
+                UserToEdit.Password = Password;
+                UserToEdit.Email = Email;
 
-                    if (UserToEdit != null)
-                    {
-                        MessageBox.Show("Údaje upraveny","Upraveno");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Chyba", "Chyba");
-                    }
-                
+                if (UserToEdit != null)
+                {
+                    MessageBox.Show("Údaje upraveny", "Upraveno");
+                }
+                else
+                {
+                    MessageBox.Show("Chyba", "Chyba");
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Chyba při přihlašování: {ex.Message}");
             }
         }
-
     }
 }

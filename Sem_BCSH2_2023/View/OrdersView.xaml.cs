@@ -25,7 +25,6 @@ namespace Sem_BCSH2_2023.View
     public partial class OrdersView : UserControl
     {
         public static Order? order;
-        Customer selectedCustomer;
         
 
 
@@ -39,17 +38,8 @@ namespace Sem_BCSH2_2023.View
 
 
         }
-        private void CbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedCustomer = (Customer)cbCustomer.SelectedItem;
-            LvRefresh();
-        }
-        private void LvRefresh()
-        {
-            lvOrders.ItemsSource = OrderViewModel.OrderList.Where(order => order.CustomerId == selectedCustomer.Id);
-        }
+      
 
-
-
+       
     }
 }

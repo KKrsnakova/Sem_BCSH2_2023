@@ -41,24 +41,24 @@ namespace Sem_BCSH2_2023.View
 
        
 
-        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
-        {
-            GridViewColumnHeader column = (GridViewColumnHeader)e.OriginalSource;
-            string header = (string)column.Content;
+        //private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        //{
+        //    GridViewColumnHeader column = (GridViewColumnHeader)e.OriginalSource;
+        //    string header = (string)column.Content;
 
-            if (header == "ID")
-            {
-                sortData.SortDataMethod("Id", lvCustomers);
-            }
-            else if (header == "Jméno")
-            {
-                sortData.SortDataMethod("Name", lvCustomers);
-            }
-            else if (header == "Příjmení")
-            {
-                sortData.SortDataMethod("Surname", lvCustomers);
-            }
-        }
+        //    if (header == "ID")
+        //    {
+        //        sortData.SortDataMethod("Id", lvCustomers);
+        //    }
+        //    else if (header == "Jméno")
+        //    {
+        //        sortData.SortDataMethod("Name", lvCustomers);
+        //    }
+        //    else if (header == "Příjmení")
+        //    {
+        //        sortData.SortDataMethod("Surname", lvCustomers);
+        //    }
+        //}
        
     }
 }

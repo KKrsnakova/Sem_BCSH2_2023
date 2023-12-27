@@ -123,40 +123,7 @@ namespace Sem_BCSH2_2023.ViewModel
             set => SetProperty(ref _btnDoneText, value, nameof(BtnDoneText));
         }
 
-        private void Close()
-        {
-            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-            window?.Close();
-        }
-
-        private static void Maximize()
-        {
-            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-
-            if (window != null)
-            {
-                if (window.WindowState == WindowState.Normal)
-                {
-                    window.WindowState = WindowState.Maximized;
-                }
-                else
-                {
-                    window.WindowState = WindowState.Normal;
-                }
-            }
-        }
-
-        private static void Minimize()
-        {
-            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-
-            if (window != null)
-            {
-                window.WindowState = WindowState.Minimized;
-            }
-        }
-
-
+       
         private void RegistrationDone()
         {
             if (idOfEditedUser != null && editedUser != null)
@@ -287,6 +254,41 @@ namespace Sem_BCSH2_2023.ViewModel
             }
             return pocet;
         }
+
+        private void Close()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+            window?.Close();
+        }
+
+        private static void Maximize()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (window != null)
+            {
+                if (window.WindowState == WindowState.Normal)
+                {
+                    window.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+            }
+        }
+
+        private static void Minimize()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (window != null)
+            {
+                window.WindowState = WindowState.Minimized;
+            }
+        }
+
+
 
     }
 

@@ -17,6 +17,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
@@ -38,6 +40,17 @@
                     Style="{StaticResource BtnAddEditDelete}"
                     Command="{Binding DeleteAllCustomer}">
             </Button>
+            
+            <TextBlock  Style="{StaticResource TextBlockHint}"
+                        Grid.Row="0" Grid.Column="2"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Text="Vyhledat:  "/>
+
+
+            <TextBox VerticalAlignment="Center"  
+                     Grid.Row="0" Grid.Column="3" 
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         </Grid>
 
@@ -49,7 +62,7 @@
         <Border Grid.Row="2"
                  Style="{StaticResource ListViewsBorder}"
                >
-            <ListView Name="lvCustomers" ItemsSource="{Binding CustomerListShow}">
+            <ListView x:Name="lvCustomers" ItemsSource="{Binding CustomerListShow}">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -70,14 +83,14 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="40" Header="ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Width="100" Header="Jméno" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn   Width="100" Header="Jméno" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Width="100" Header="Příjmení" DisplayMemberBinding="{Binding Surname}" />
                         <GridViewColumn Width="Auto" Header="Adresa" DisplayMemberBinding="{Binding Address}" />
                         <GridViewColumn Width="Auto" Header="Město" DisplayMemberBinding="{Binding City}" />
                         <GridViewColumn Width="Auto" Header="Telefon" DisplayMemberBinding="{Binding PhoneNumber, StringFormat='+420 ### ### ###'}" />
                         <GridViewColumn Width="Auto" Header="Email" DisplayMemberBinding="{Binding Email}" />
 
-                        <GridViewColumn Header="Odebrat">
+                        <GridViewColumn Header="Odebrat"> 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Command="{Binding DataContext.DeleteCustomerCom, ElementName=lvCustomers}" CommandParameter="{Binding}"
@@ -90,11 +103,7 @@
 
                     </GridView>
                 </ListView.View>
-                <ListView.Resources>
-                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                        <EventSetter Event="Click" Handler="GridViewColumnHeader_Click" />
-                    </Style>
-                </ListView.Resources>
+                
             </ListView>
         </Border>
     </Grid>

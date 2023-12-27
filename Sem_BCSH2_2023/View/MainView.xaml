@@ -63,7 +63,7 @@
             <!--Menu-->
             <Border CornerRadius="10,0,0,10"
                     Grid.Column="0" Margin="-2,0,2,0"
-                     Background="#200F53">
+                     Background="#52423D">
 
 
                 <StackPanel>
@@ -253,12 +253,7 @@
                                      Foreground="{StaticResource textColor1}"/>
                             </Button>
 
-                            <TextBlock Text="{Binding ActualUser}"
-                                        Foreground="{StaticResource textColor1}"
-                                        FontSize="16"
-                                        FontWeight="Medium"
-                                        VerticalAlignment="Center"> 
-                            </TextBlock>
+                           
 
 
                         </StackPanel>

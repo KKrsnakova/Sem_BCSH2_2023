@@ -1,16 +1,16 @@
-﻿using Sem_BCSH2_2023.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows;
-using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.Input;
+using Sem_BCSH2_2023.Model;
 using Sem_BCSH2_2023.View;
-using System.Net.Mail;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -22,7 +22,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private DateTime _orderDate;
         private bool _done;
         private DateTime? _doneDate;
-        private ObservableCollection<Good> _listOfGoods;
+        private ObservableCollection<Good> _orderGoodsListShow;
         private string _fullname;
         private string _priceText;
 
@@ -40,11 +40,18 @@ namespace Sem_BCSH2_2023.ViewModel
         private ObservableCollection<Good> _goodsListShow;
         private ObservableCollection<Customer> _customerListShow;
 
+
         public ICommand LvItemsForOrder_SelectionChangedCommand { get; private set; }
         public ICommand AddGoodCommand { get; private set; }
         public ICommand AddNewOrderCommand { get; private set; }
         public ICommand DeleteGoodButtonCommand { get; private set; }
         public ICommand SendOrderEmailCommand { get; private set; }
+        public ICommand PrintToPdfCommand { get; private set; }
+
+
+        //Right side 
+        public ICommand BtnAddRowCommand { get; private set; }
+        public ICommand DoneAddGoodsToOrderComm { get; private set; }
 
 
 
@@ -60,14 +67,22 @@ namespace Sem_BCSH2_2023.ViewModel
 
         public NewOrderViewModel(Order ord, int? customerID)
         {
-             var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+            BtnAddRowCommand = new RelayCommand<int>(AddRowToOrder);
+            DoneAddGoodsToOrderComm = new CommandViewModel(_ => DoneAdd());
+
+
+            GoodsListShow = GoodViewModel.GoodsList;
+            //OrderGoodsListShow = ord.ListOfGoods;
+
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
 
             SelectedCustomer = CustomerViewModel.CustomersList.First();
-            if (SelectedCustomer == null)
-            {
+            //if (SelectedCustomer == null)
+            //{
 
-            }
-            
+            //}
+
+
 
             TBCustomerText = "Zákazník";
 
@@ -77,7 +92,7 @@ namespace Sem_BCSH2_2023.ViewModel
             TBWindowText = "Nová Objednávka";
 
 
-            if (customerID != null && ord != null )
+            if (customerID != null && ord != null)
             {
                 BtnAddEditConeText = "Přidat další položku";
                 TBWindowText = "Editace položek objednávky";
@@ -88,7 +103,7 @@ namespace Sem_BCSH2_2023.ViewModel
                 order = ord;
                 SelectedCustomer = CustomerViewModel.CustomersList.First(x => x.Id == customerID);
                 TBCustomerText = SelectedCustomer.ToString();
-                GoodsListShow = ord.ListOfGoods;
+                OrderGoodsListShow = ord.ListOfGoods;
                 PriceText();
             }
             else
@@ -97,13 +112,16 @@ namespace Sem_BCSH2_2023.ViewModel
                 CbVisibility = Visibility.Visible;
                 edit = false;
                 order = OrderViewModel.NewOrder();
+                OrderGoodsListShow = order.ListOfGoods;
+                PriceText();
             }
 
 
             AddGoodCommand = new CommandViewModel(_ => AddGood());
             AddNewOrderCommand = new CommandViewModel(_ => AddOrder());
             DeleteGoodButtonCommand = new CommandViewModel(DeleteGoodButton);
-            SendOrderEmailCommand = new CommandViewModel(SendOrderEmail);
+            SendOrderEmailCommand = new CommandViewModel(_ => SendOrderEmail());
+            PrintToPdfCommand = new CommandViewModel(_ => PrintToPdf());
 
 
             CloseCommand = new CommandViewModel(_ => Close());
@@ -112,7 +130,40 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
         }
-        private async void SendOrderEmail(object obj)
+
+        private void PrintToPdf()
+        {
+           
+        }
+
+
+        private void CreatePdf(string filePath)
+        {
+        }
+
+
+
+        private static void DoneAdd()
+        {
+            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+            window?.Close();
+        }
+
+        private void AddRowToOrder(int selectedID)
+        {
+            Good? good = GoodViewModel.GoodsList.FirstOrDefault(objekt => objekt.Id == selectedID);
+
+            if (good != null)
+            {
+                GoodViewModel.GoodsList.Remove(good);
+                order.SellGoods(good);
+                PriceText();
+            }
+        }
+
+
+
+        private async void SendOrderEmail()
         {
             string to, from, pass, messageBody;
             MailMessage message = new MailMessage();
@@ -150,7 +201,9 @@ namespace Sem_BCSH2_2023.ViewModel
             try
             {
                 await Task.Run(() => smtpClient.Send(message));
+                order.SendMail = true;
                 MessageBox.Show("E-mail odeslán");
+
             }
             catch (Exception ex)
             {
@@ -177,6 +230,7 @@ namespace Sem_BCSH2_2023.ViewModel
         private void AddOrder()
         {
             var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
             if (edit)
             {
                 //Edit
@@ -195,11 +249,10 @@ namespace Sem_BCSH2_2023.ViewModel
                 Customer customer = CustomerViewModel.GetCustomerById(SelectedCustomer.Id);
                 order.FullName = OrderViewModel.GetCustomerNameById(customer.Id);
 
-                OrderViewModel.AddOrder(order);
+                OrderViewModel.OrderList.Add(order);
 
 
             }
-
             window?.Close();
         }
 
@@ -260,10 +313,10 @@ namespace Sem_BCSH2_2023.ViewModel
             get => _orderDate;
             set => SetProperty(ref _orderDate, value, nameof(DateOfCreation));
         }
-        public ObservableCollection<Good> ListOfGoods
+        public ObservableCollection<Good> OrderGoodsListShow
         {
-            get => _listOfGoods;
-            set => SetProperty(ref _listOfGoods, value, nameof(ListOfGoods));
+            get => _orderGoodsListShow;
+            set => SetProperty(ref _orderGoodsListShow, value, nameof(OrderGoodsListShow));
         }
         public bool Done
         {
@@ -364,5 +417,54 @@ namespace Sem_BCSH2_2023.ViewModel
         }
 
 
+        private string _searchText;
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    ApplyFilters();
+                }
+            }
+        }
+
+        private void ApplyFilters()
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(GoodsListShow);
+            if (view != null)
+            {
+                view.Filter = GoodsFilter;
+            }
+        }
+
+        private bool GoodsFilter(object item)
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                return true;
+            }
+
+            if (item is Flower good)
+            {
+                return good.Name.ToLower().Contains(SearchText.ToLower()) ||
+                       good.Description.ToString().ToLower().Contains(SearchText.ToLower());
+            }
+
+            if (item is OtherItems good2)
+            {
+                return good2.Name.ToLower().Contains(SearchText.ToLower()) ||
+                       good2.Usage.ToString().ToLower().Contains(SearchText.ToLower());
+            }
+
+            return false;
+        }
+
+
     }
+
+
 }

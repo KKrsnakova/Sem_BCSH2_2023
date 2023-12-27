@@ -42,6 +42,14 @@ namespace Sem_BCSH2_2023.View
 
 
 
+
+
+
+
+
+
+
+
         private void NavBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -52,5 +60,8 @@ namespace Sem_BCSH2_2023.View
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
+       
     }
 }
+
+

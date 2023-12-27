@@ -1,7 +1,10 @@
 ﻿using Sem_BCSH2_2023.Model;
+using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace Sem_BCSH2_2023.ViewModel
 {
@@ -23,6 +26,7 @@ namespace Sem_BCSH2_2023.ViewModel
 
 
         public ICommand AddEditCustomerCom { get; private set; }
+
 
         public ICommand CloseCommand { get; private set; }
         public ICommand MaximizeCommand { get; private set; }
@@ -54,6 +58,9 @@ namespace Sem_BCSH2_2023.ViewModel
             MaximizeCommand = new CommandViewModel(_ => Maximize());
             MinimizeCommand = new CommandViewModel(_ => Minimize());
         }
+
+        
+
 
         private void AddEditCustommer()
         {
@@ -90,8 +97,8 @@ namespace Sem_BCSH2_2023.ViewModel
         private bool CheckInputs()
         {
             if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) ||
-            string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(City) ||
-            string.IsNullOrEmpty(PhoneNumber.ToString()) || string.IsNullOrEmpty(Email))
+                string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(City) ||
+                string.IsNullOrEmpty(PhoneNumber.ToString()) || string.IsNullOrEmpty(Email))
             {
                 MessageBox.Show("Všechna pole musí být vyplněna.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
