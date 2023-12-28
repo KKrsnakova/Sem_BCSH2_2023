@@ -129,7 +129,6 @@ namespace Sem_BCSH2_2023.ViewModel
             if (idOfEditedUser != null && editedUser != null)
             {
                 editedUser = UsersViewModel.UsersList.FirstOrDefault(user => user.Id == idOfEditedUser);
-                MessageBox.Show(editedUser.Id + " " + editedUser.FullName + " " + editedUser.Username);
                
                 editedUser.FullName = FullName;
                 editedUser.Username = Username;
